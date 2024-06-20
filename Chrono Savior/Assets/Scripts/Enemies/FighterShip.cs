@@ -11,6 +11,7 @@ public class FighterShip : EnemyShip
         fireInterval = 0.5f;
         bulletSpeed = 4.0f;
         damage = 10;
+        angle = 90;
     }
 
     protected override void Update()

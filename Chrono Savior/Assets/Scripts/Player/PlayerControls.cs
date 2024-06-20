@@ -54,7 +54,7 @@ public class PlayerControls : MonoBehaviour
             PlayerBullet bulletScript = bulletObject.GetComponent<PlayerBullet>();
             if (bulletScript != null)
             {
-                bulletScript.Initialize(mousePosition,bulletSpeed,damage);
+                bulletScript.Initialize(mousePosition,bulletSpeed,damage,Quaternion.Euler(0, 0,0));
             }
     }
 

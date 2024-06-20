@@ -11,6 +11,7 @@ public class SniperShip : EnemyShip
         fireInterval = 1.5f;
         bulletSpeed = 2.0f;
         damage = 30;
+        angle = 270;
     }
 
     protected override void Update()

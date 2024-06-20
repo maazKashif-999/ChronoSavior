@@ -8,12 +8,13 @@ public class PlayerBullet : MonoBehaviour
     private Vector3 direction; 
     private float speed;
     public int damage;
-    public void Initialize(Vector3 target, float bulletSpeed, int bulletDamage)
+    public void Initialize(Vector3 target, float bulletSpeed, int bulletDamage, Quaternion rotation)
     {
         targetPosition = target;
         speed = bulletSpeed;
         damage = bulletDamage;
         direction = (targetPosition - transform.position).normalized; 
+        transform.rotation = rotation;
     }
 
     void Update()

@@ -12,6 +12,7 @@ public class EnemyShip : MonoBehaviour
     protected int damage;
     private EnemyWaveManager enemyWaveManager;
 
+    protected float angle;
     private PlayerControls player;
     protected float nextFireTime; // Time when the ship can fire next
 
@@ -54,7 +55,8 @@ public class EnemyShip : MonoBehaviour
         PlayerBullet bulletScript = bullet.GetComponent<PlayerBullet>();
         if (bulletScript != null)
         {
-            bulletScript.Initialize(player.transform.position, bulletSpeed, damage);
+            Quaternion rotation = Quaternion.Euler(0, 0, angle);
+            bulletScript.Initialize(player.transform.position, bulletSpeed, damage,rotation);
         }
     }
 

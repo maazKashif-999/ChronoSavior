@@ -4,9 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - PlayerCenter
+  - PlayerBullets
   - Enemy
   - EnemyBullets
-  - PlayerBullets
+  - Background
   layers:
   - Default
   - TransparentFX
@@ -14,12 +16,12 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Bullet
+  - Enemy
+  - Obstacle
+  - Weapon
+  - Powerups
   - 
   - 
   - 
@@ -42,8 +44,23 @@ TagManager:
   - 
   m_SortingLayers:
   - name: Background
-    uniqueID: 2113763163
+    uniqueID: 1671403447
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: TopItems
+    uniqueID: 1059121917
+    locked: 0
+  - name: Collectibles
+    uniqueID: 3880240483
+    locked: 0
+  - name: Enemies
+    uniqueID: 3959002303
+    locked: 0
+  - name: Player
+    uniqueID: 3588879431
+    locked: 0
+  - name: Weapons
+    uniqueID: 2261579529
     locked: 0

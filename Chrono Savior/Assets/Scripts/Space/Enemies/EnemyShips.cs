@@ -6,13 +6,15 @@ public class EnemyShip : MonoBehaviour
     protected float limitXPosition; // X position where the ship stops
     public GameObject bulletPrefab; // Prefab of the bullet
     public GameObject explosion; // Prefab of the explosion
+    public GameObject coinPrefab;  // prefab of the coins
     public float fireInterval; // Interval between consecutive bullet fires
     public float bulletSpeed; // Speed of the fired bullets
     protected int health =10;
     protected int damage;
     private EnemyWaveManager enemyWaveManager;
-
     protected float angle;
+
+    protected float coinDroppingProbability = 1;
     private PlayerControls player;
     protected float nextFireTime; // Time when the ship can fire next
 
@@ -30,22 +32,16 @@ public class EnemyShip : MonoBehaviour
 
     protected virtual void Update()
     {
-        Move();
-
-        if (Time.time > nextFireTime)
+        if (transform.position.x >= limitXPosition)
         {
-            FireBullet();
-            nextFireTime = Time.time + fireInterval;
+            transform.position += Vector3.left * speed * Time.deltaTime;
         }
-    }
-
-    protected virtual void Move()
-    {
-        transform.position += Vector3.left * speed * Time.deltaTime;
-
-        if (transform.position.x <= limitXPosition)
-        {
-            transform.position = new Vector3(limitXPosition, transform.position.y, transform.position.z);
+        else {
+            if (Time.time > nextFireTime)
+                {
+                    FireBullet();
+                    nextFireTime = Time.time + fireInterval;
+                }
         }
     }
 
@@ -93,6 +89,14 @@ public class EnemyShip : MonoBehaviour
     protected void Explode()
     {
         GameObject explosionObject = Instantiate(explosion, transform.position, Quaternion.identity);
-        Destroy(explosionObject, 2f); // Example: Destroy explosion after 2 seconds
+        DropCoin();
     }
+    private void DropCoin()
+    {
+        float randomValue = Random.Range(0f, 1f);
+        if (randomValue <= coinDroppingProbability){
+            Instantiate(coinPrefab, transform.position, Quaternion.identity);
+        }
+    }
+
 }

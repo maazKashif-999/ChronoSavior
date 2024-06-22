@@ -477,7 +477,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  gameManager: {fileID: 0}
   explosion: {fileID: 7903881982904106933, guid: ca6dcf1f1ecb18c4480198f4abe8e1e3, type: 3}
   coinCount: {fileID: 1017130088}
   healthBar: {fileID: 1763468928}
@@ -1249,13 +1248,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1715676785}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1715676787}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: startGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1550,7 +1549,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1540347436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1976,7 +1975,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1715676788}
   - component: {fileID: 1715676787}
-  - component: {fileID: 1715676786}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1984,19 +1982,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1715676786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1715676785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 343e089025aee1645824636a5805630d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameOverScreen: {fileID: 0}
 --- !u!114 &1715676787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2011,6 +1996,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playButton: {fileID: 1174584783}
   player: {fileID: 753992967}
+  enemies: {fileID: 1540347435}
 --- !u!4 &1715676788
 Transform:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    float speed = 1f; // Speed at which the coin moves must be equal to background
+    float speed = 1.5f; // Speed at which the coin moves must be equal to background
 
     private void Update()
     {

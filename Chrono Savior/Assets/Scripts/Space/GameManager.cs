@@ -24,13 +24,16 @@ public class GameManager : MonoBehaviour
         switch(GMState){
             case GameManagerState.opening:
             player.SetActive(false);
+            enemies.SetActive(false);
             break;
             case GameManagerState.playing:
             playButton.SetActive(false);
             player.GetComponent<PlayerControls>().Init();
+            enemies.SetActive(true);
             break;
             case GameManagerState.gameover:
             player.SetActive(false);
+            enemies.SetActive(false);
             break;
         }
     }

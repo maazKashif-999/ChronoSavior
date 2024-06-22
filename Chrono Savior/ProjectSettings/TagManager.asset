@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - EnemyBullets
   - Background
+  - coins
   layers:
   - Default
   - TransparentFX

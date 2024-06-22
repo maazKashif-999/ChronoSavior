@@ -195,5 +195,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 460774859088834133, guid: 3d2eb3ad39b299b44bcf93ae011ca24a, type: 3}
   explosion: {fileID: 7903881982904106933, guid: ca6dcf1f1ecb18c4480198f4abe8e1e3, type: 3}
+  coinPrefab: {fileID: 8308779161561762033, guid: 79a94a20ca069f14a8cccf2be12f4c1a, type: 3}
   fireInterval: 0
   bulletSpeed: 0

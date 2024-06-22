@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ScrollingBackground : MonoBehaviour
 {
-    public float scrollSpeed = 0.1f;
+    float scrollSpeed = 0.3f;
     private Vector2 startPos;
 
     void Start()

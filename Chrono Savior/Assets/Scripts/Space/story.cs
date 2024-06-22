@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic; // Import List
 using UnityEngine;
+using TMPro;
 
 public class EnemyWaveManager : MonoBehaviour
 {
     public GameObject fighterShipPrefab;
     public GameObject bomberShipPrefab;
     public GameObject sniperShipPrefab;
+    public TextMeshProUGUI waveText; 
 
     private int[] fighterShipsPerWave = {3, 2, 0, 2, 0};
     private int[] bomberShipsPerWave = {0, 0, 3, 3, 5};
@@ -33,15 +35,18 @@ public class EnemyWaveManager : MonoBehaviour
         }
         else
         {
+            waveText.text = "All waves cleared!";
             Debug.Log("All waves cleared!");
-            // Handle game completion or restart here
         }
     }
 
     private IEnumerator SpawnWave()
     {
         spawnedPositions.Clear(); // Clear the list of positions for the new wave
-
+        waveText.text = "Wave " + (currentWave + 1) + " starting...";
+        waveText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3.0f);
+        waveText.gameObject.SetActive(false);
         // Spawn fighter ships
         for (int i = 0; i < fighterShipsPerWave[currentWave]; i++)
         {

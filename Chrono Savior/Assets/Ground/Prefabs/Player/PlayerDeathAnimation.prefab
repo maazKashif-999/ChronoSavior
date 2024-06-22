@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1473338024234786116}
   - component: {fileID: 3745847262473401108}
   - component: {fileID: 2316351858293084611}
-  - component: {fileID: 8365028346479083891}
+  - component: {fileID: -8854546820271344588}
   m_Layer: 0
   m_Name: PlayerDeathAnimation
   m_TagString: Untagged
@@ -107,7 +107,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8365028346479083891
+--- !u!114 &-8854546820271344588
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

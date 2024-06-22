@@ -1,14 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public static Player Instance  { get; private set; }
+    public static Player Instance { get; private set; }
     private bool isAlive = true;
     private const float MAX_HEALTH = 100f;
-    private const float MAX_SHIELD = 50f;
+    public const float MAX_SHIELD = 50f;
     private float currentHealth = 100f;
     private float currentShield = 50f;
     private float horizontalInput;
@@ -21,17 +19,31 @@ public class Player : MonoBehaviour
     private bool areEnemiesFrozen = false;
     [SerializeField] GameObject player;
     [SerializeField] Rigidbody2D rb;
-    // Start is called before the first frame update 
     [SerializeField] private GameObject playerDeath;
-    // Update is called once per frame
+
+    private GameOverController gameOverController;
+
     void Awake()
     {
-        if(Instance != null)
+        gameOverController = FindObjectOfType<GameOverController>();
+        if (Instance != null)
         {
             Debug.LogError("Multiple instances of Player found");
         }
         Instance = this;
+        if (gameOverController == null)
+        {
+            Debug.LogError("GameOverController not found in the scene.");
+        }
+        else
+        {
+            Debug.Log("GameOverController found in the scene.");
+        }
+
+        
+       
     }
+
     void Update()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -47,33 +59,34 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(!isAlive) return;
         Vector2 moveDir = new Vector2(horizontalInput, verticalInput).normalized;
         rb.MovePosition(rb.position + (moveDir * MOVE_SPEED * speedMultipler * Time.fixedDeltaTime));
     }
 
     private void Flip()
     {
-        if(horizontalInput > 0)
+        if (horizontalInput > 0)
         {
             player.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-        else if(horizontalInput < 0)
+        else if (horizontalInput < 0)
         {
             player.transform.rotation = Quaternion.Euler(0, -180, 0);
         }
     }
-    
-    public bool IsWalking() 
+
+    public bool IsWalking()
     {
         return isWalking;
     }
 
     public void TakeDamage(float damage)
     {
-        if(currentShield > 0)
+        if (currentShield > 0)
         {
             currentShield -= damage;
-            if(currentShield < 0)
+            if (currentShield < 0)
             {
                 currentShield = 0;
             }
@@ -82,21 +95,25 @@ public class Player : MonoBehaviour
         {
             currentHealth -= damage;
         }
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             currentHealth = 0;
-            Instantiate(playerDeath, new Vector2(transform.position.x,transform.position.y - 0.25f), Quaternion.identity);
+            Instantiate(playerDeath, new Vector2(transform.position.x, transform.position.y - 0.25f), Quaternion.identity);
             StartCoroutine(Die());
         }
     }
+
     IEnumerator Die()
     {
         isAlive = false;
         yield return new WaitForSeconds(0.6f);
-        Time.timeScale = 0;
+        if (gameOverController != null)
+        {
+            gameOverController.ShowGameOverScreen();
+        }
+        areEnemiesFrozen = true;
     }
 
-    
     public bool IsAlive()
     {
         return isAlive;
@@ -107,7 +124,6 @@ public class Player : MonoBehaviour
         currentHealth = MAX_HEALTH;
     }
 
-    //for powerups
     public void FullShieldHeal()
     {
         currentShield = MAX_SHIELD;
@@ -118,7 +134,7 @@ public class Player : MonoBehaviour
         speedMultipler = 1.5f;
         StartCoroutine(ResetBoostCo());
     }
-    
+
     public void ResetSpeed()
     {
         speedMultipler = 1f;
@@ -135,7 +151,7 @@ public class Player : MonoBehaviour
         damageMultipler = 2f;
         StartCoroutine(ResetDamageCo());
     }
-    
+
     public void ResetDamage()
     {
         damageMultipler = 1f;
@@ -161,7 +177,7 @@ public class Player : MonoBehaviour
     IEnumerator FreezeEnemiesCo()
     {
         areEnemiesFrozen = true;
-        canUseAbility = false; 
+        canUseAbility = false;
         yield return new WaitForSeconds(10f);
         areEnemiesFrozen = false;
         yield return new WaitForSeconds(20f);
@@ -176,5 +192,20 @@ public class Player : MonoBehaviour
     public void RemoveCooldown()
     {
         canUseAbility = true;
+    }
+
+    public bool CanUseAbility()
+    {
+        return canUseAbility;
+    }
+
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public float GetCurrentShield()
+    {
+        return currentShield;
     }
 }

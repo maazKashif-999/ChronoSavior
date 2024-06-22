@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+
 public class GunRobot : MonoBehaviour, IEnemy
 {
     public List<OnPowerupInteract> powerUps;
-    private System.Random random;
+
     [SerializeField] private float MAX_HEALTH = 70f;
     [SerializeField] private Animator animator;
     private float currentHealth;
@@ -31,7 +32,7 @@ public class GunRobot : MonoBehaviour, IEnemy
     void Start()
     {
         currentHealth = MAX_HEALTH;
-        random = new System.Random();
+        
         player = GameObject.FindGameObjectWithTag("PlayerCenter");
         InvokeRepeating("UpdatePath",0f,0.5f);
         seeker.StartPath(rb.position, player.transform.position, OnPathComplete);
@@ -139,32 +140,14 @@ public class GunRobot : MonoBehaviour, IEnemy
 
     private void SpawnPowerUp()
     {
-        float totalProbability = 0f;
-        foreach (var powerUp in powerUps)
-        {
-            totalProbability += powerUp.probability;
-        }
-
-        float randomPoint = Random.value * totalProbability;
-
-        foreach (var powerUp in powerUps)
-        {
-            if (randomPoint < powerUp.probability)
-            {
-                Instantiate(powerUp, transform.position, Quaternion.identity);
-                return;
-            }
-            else
-            {
-                randomPoint -= powerUp.probability;
-            }
-        }
+        int index = Random.Range(0, powerUps.Count);
+        Instantiate(powerUps[index], transform.position, Quaternion.identity);
     }
 
     private void Die()
     {
         Destroy(gameObject);
-        int randomInt = random.Next(0, 11);
+        int randomInt = Random.Range(0, 11);
         if(randomInt % 10 == 0)
         {
             SpawnPowerUp();

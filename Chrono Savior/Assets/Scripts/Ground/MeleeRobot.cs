@@ -4,6 +4,7 @@ using UnityEngine;
 using Pathfinding;
 public class MeleeRobot : MonoBehaviour, IEnemy
 {
+    [SerializeField] private List<OnPowerupInteract> powerUps;
     [SerializeField] private float MAX_HEALTH = 30f;
     [SerializeField] private Animator animator;
     [SerializeField] private LayerMask playerLayer;
@@ -108,8 +109,27 @@ public class MeleeRobot : MonoBehaviour, IEnemy
             plyer.GetComponent<Player>().TakeDamage(attackDamage);
         }
     }
+    private void SpawnPowerUp()
+    {
+        int index = Random.Range(0, powerUps.Count);
+        Instantiate(powerUps[index], transform.position, Quaternion.identity);
+    }
     private void Die()
     {
+        if(MAX_HEALTH > 50)
+        {
+            if(Random.Range(0,6) % 5 == 0)
+            {
+                SpawnPowerUp();
+            }
+        }
+        else if(MAX_HEALTH > 30)
+        {
+            if(Random.Range(0,9) % 8 == 0)
+            {
+                SpawnPowerUp();
+            }
+        }
         Destroy(gameObject);
     }
 

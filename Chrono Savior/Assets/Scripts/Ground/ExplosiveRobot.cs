@@ -5,7 +5,6 @@ using Pathfinding;
 public class ExplosiveRobot : MonoBehaviour, IEnemy
 {
     public List<OnPowerupInteract> powerUps;
-    private System.Random random;
     [SerializeField] private float MAX_HEALTH = 30f;
     [SerializeField] private bool isShielded = false;
     [SerializeField] private Animator animator;
@@ -23,7 +22,6 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
 
     void Start()
     {
-        random = new System.Random();
         player = GameObject.FindGameObjectWithTag("PlayerCenter");
         currentHealth = MAX_HEALTH;
         InvokeRepeating("UpdatePath",0f,0.5f);
@@ -98,32 +96,14 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
 
     private void SpawnPowerUp()
     {
-        float totalProbability = 0f;
-        foreach (var powerUp in powerUps)
-        {
-            totalProbability += powerUp.probability;
-        }
-
-        float randomPoint = Random.value * totalProbability;
-
-        foreach (var powerUp in powerUps)
-        {
-            if (randomPoint < powerUp.probability)
-            {
-                Instantiate(powerUp, transform.position, Quaternion.identity);
-                return;
-            }
-            else
-            {
-                randomPoint -= powerUp.probability;
-            }
-        }
+        int index = Random.Range(0, powerUps.Count);
+        Instantiate(powerUps[index], transform.position, Quaternion.identity);
     }
     private void Die()
     {
         Destroy(gameObject);
-        int randomInt = random.Next(0, 6);
-        if(randomInt % 5 == 1)
+        int randomInt = Random.Range(0, 6);
+        if(randomInt % 5 == 0)
         {
             SpawnPowerUp();
         }

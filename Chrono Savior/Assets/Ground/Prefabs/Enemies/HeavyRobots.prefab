@@ -182,9 +182,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff1891374d934419bfccd61fc634cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MAX_HEALTH: 50
-  MAX_SHIELD: 50
-  isShielded: 1
+  powerUps:
+  - {fileID: 976909326161745677, guid: a98594d1409494fccbbb03ec19b7becb, type: 3}
+  - {fileID: 1627308496138372708, guid: 4a1ba7097ec7d4604a797bde24e948d2, type: 3}
+  - {fileID: 7183897437173459608, guid: ef17ddda011ff4e4eae39b71583cf75d, type: 3}
+  - {fileID: 4761433444504320468, guid: e7f8b1e69056d4948b519420023ab762, type: 3}
+  - {fileID: 12969924498879786, guid: 9250e464cc2464467ab5d4d238769901, type: 3}
+  - {fileID: 174020423528988992, guid: 004eff954096f41e88a4677f2038e314, type: 3}
+  - {fileID: 4295490718298145660, guid: 3a15dc2e31dda4c169b6253dab4343de, type: 3}
+  MAX_HEALTH: 60
   animator: {fileID: 7890950004413748547}
   playerLayer:
     serializedVersion: 2

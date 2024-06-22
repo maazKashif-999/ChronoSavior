@@ -7,14 +7,14 @@ public class EnemyShip : MonoBehaviour
     public GameObject bulletPrefab; // Prefab of the bullet
     public GameObject explosion; // Prefab of the explosion
     public GameObject coinPrefab;  // prefab of the coins
+    public GameObject tokenPrefab;
     public float fireInterval; // Interval between consecutive bullet fires
     public float bulletSpeed; // Speed of the fired bullets
     protected int health =10;
     protected int damage;
     private EnemyWaveManager enemyWaveManager;
     protected float angle;
-
-    protected float coinDroppingProbability = 1;
+    protected float coinDroppingProbability;
     private PlayerControls player;
     protected float nextFireTime; // Time when the ship can fire next
 
@@ -97,6 +97,10 @@ public class EnemyShip : MonoBehaviour
         if (randomValue <= coinDroppingProbability){
             Instantiate(coinPrefab, transform.position, Quaternion.identity);
         }
+        else{
+            Instantiate(tokenPrefab, transform.position, Quaternion.identity);
+        }
+        
     }
 
 }

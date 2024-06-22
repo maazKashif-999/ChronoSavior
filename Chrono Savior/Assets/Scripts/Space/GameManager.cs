@@ -7,6 +7,10 @@ public class GameManager : MonoBehaviour
     public GameObject playButton;
     public GameObject player;
     public GameObject enemies;
+    public GameObject gameOverPanel;
+
+    private EnemyWaveManager enemyWaveManager;
+
     public enum GameManagerState{
         opening,
         playing,
@@ -17,6 +21,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GMState = GameManagerState.opening;
+        UpdateGMState();
     }
 
     void UpdateGMState()
@@ -24,21 +29,24 @@ public class GameManager : MonoBehaviour
         switch(GMState){
             case GameManagerState.opening:
             player.SetActive(false);
+            gameOverPanel.SetActive(false);
             enemies.SetActive(false);
             break;
             case GameManagerState.playing:
             playButton.SetActive(false);
             player.GetComponent<PlayerControls>().Init();
             enemies.SetActive(true);
+            enemyWaveManager = FindObjectOfType<EnemyWaveManager>(); 
             break;
             case GameManagerState.gameover:
             player.SetActive(false);
-            enemies.SetActive(false);
+            gameOverPanel.SetActive(true);
+            enemyWaveManager.DestroyAllEnemies();
             break;
         }
     }
 
-    void setGMState(GameManagerState state)
+    public void setGMState(GameManagerState state)
     {
         GMState = state;
         UpdateGMState();
@@ -49,6 +57,27 @@ public class GameManager : MonoBehaviour
     {
         GMState = GameManagerState.playing;
         UpdateGMState();
+    }
+
+    public void endGame()
+    {
+        GMState = GameManagerState.gameover;
+        UpdateGMState();
+    }
+
+    public void RestartGame()
+    {
+        // Reset player position and health if needed
+        player.GetComponent<PlayerControls>().Init();
+
+        // Reset enemy wave manager
+        enemyWaveManager.ResetWaves();
+
+        // Hide game over panel
+        gameOverPanel.SetActive(false);
+
+        // Start the game
+        startGame();
     }
     // Update is called once per frame
     void Update()

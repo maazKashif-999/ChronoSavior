@@ -12,6 +12,7 @@ public class BomberShip : EnemyShip
         bulletSpeed = 2.0f;
         damage = 25;
         angle = 180;
+        coinDroppingProbability = 0.2f;
     }
 
     protected override void Update()

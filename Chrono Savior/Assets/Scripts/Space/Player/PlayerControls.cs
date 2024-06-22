@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using System.Collections; // Required for IEnumerator
+using System.Collections.Generic;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -9,7 +11,7 @@ public class PlayerControls : MonoBehaviour
 
     public GameObject explosion;
     public TextMeshProUGUI coinCount; // Reference to the TextMeshPro text element for displaying coin count
-
+    public TextMeshProUGUI tokenCount;
     float health = 100;
     public HealthBar healthBar;
     int maxHealth = 100;
@@ -17,13 +19,24 @@ public class PlayerControls : MonoBehaviour
 
     int damage = 10;
     public GameObject playerBulletPrefab; // Prefab of the player bullet
+    private GameManager gameManager; // Reference to the GameManager
 
     private int coins = 0; // Variable to keep track of collected coins
+    private int token = 0;
+    private void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>(); // Find the GameManager in the scene
+    }
 
     public void Init()
     {
         gameObject.SetActive(true);
+        health = maxHealth; // Reset health to max
+        coins = 0; // Reset coin count
+        token = 0; 
         UpdateHealth();
+        tokenCount.text = token.ToString();
+        coinCount.text = coins.ToString(); // Update coin count UI
         minY = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).y;
         maxY = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0)).y;
         transform.position = new Vector3(-6, 0, 0);
@@ -35,7 +48,7 @@ public class PlayerControls : MonoBehaviour
         // Fire bullet when user clicks left mouse button or touches screen
         if (Input.GetMouseButtonDown(0))
         {
-           FireBullet();
+            FireBullet();
         }
         Move();
     }
@@ -67,12 +80,9 @@ public class PlayerControls : MonoBehaviour
 
         if (other.CompareTag("EnemyBullets"))
         {
-            Debug.Log("Player got hit!");
             PlayerBullet bullet = other.GetComponent<PlayerBullet>();
-
             if (bullet != null)
             {
-                Debug.Log("Damage taken: " + bullet.damage);
                 TakeDamage(bullet.damage); 
                 Destroy(other.gameObject); 
             }
@@ -82,6 +92,12 @@ public class PlayerControls : MonoBehaviour
             coins++;
             Debug.Log(coins);
             coinCount.text = coins.ToString();
+            Destroy(other.gameObject);
+        }
+        else if (other.CompareTag("token"))
+        {
+            token += 20;
+            tokenCount.text = token.ToString();
             Destroy(other.gameObject);
         }
     }
@@ -94,8 +110,8 @@ public class PlayerControls : MonoBehaviour
         if (health <= 0)
         {
             Explode();
-            Debug.Log("Player Dead");
-            Destroy(gameObject);
+
+            StartCoroutine(WaitAndEndGame(0.4f));
         }
     }
 
@@ -110,5 +126,9 @@ public class PlayerControls : MonoBehaviour
         healthBar.SetHealth(healthAmount);
     }
 
-
+    IEnumerator WaitAndEndGame(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        gameManager.endGame();
+    }
 }

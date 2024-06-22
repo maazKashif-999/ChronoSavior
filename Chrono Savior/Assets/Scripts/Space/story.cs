@@ -8,7 +8,8 @@ public class EnemyWaveManager : MonoBehaviour
     public GameObject fighterShipPrefab;
     public GameObject bomberShipPrefab;
     public GameObject sniperShipPrefab;
-    public TextMeshProUGUI waveText; 
+    public GameObject asteroidPrefab; // Add a reference to the asteroid prefab
+    public TextMeshProUGUI waveText;
 
     private int[] fighterShipsPerWave = {3, 2, 0, 2, 0};
     private int[] bomberShipsPerWave = {0, 0, 3, 3, 5};
@@ -22,6 +23,8 @@ public class EnemyWaveManager : MonoBehaviour
     private List<Vector3> spawnedPositions = new List<Vector3>(); // List to keep track of spawned positions
     private List<GameObject> spawnedEnemies = new List<GameObject>(); // List to keep track of spawned enemies
 
+    private Coroutine asteroidSpawner; // Coroutine for spawning asteroids
+
     private void Start()
     {
         StartNextWave();
@@ -32,6 +35,7 @@ public class EnemyWaveManager : MonoBehaviour
         if (currentWave < fighterShipsPerWave.Length)
         {
             enemiesRemaining = fighterShipsPerWave[currentWave] + bomberShipsPerWave[currentWave] + sniperShipsPerWave[currentWave];
+            asteroidSpawner = StartCoroutine(SpawnAsteroids()); // Start spawning asteroids
             StartCoroutine(SpawnWave());
         }
         else
@@ -84,10 +88,25 @@ public class EnemyWaveManager : MonoBehaviour
             yield return null;
         }
 
+        // Stop spawning asteroids when the wave ends
+        StopCoroutine(asteroidSpawner);
+
         // Move to the next wave
         currentWave++;
         yield return new WaitForSeconds(2.0f); // Delay before starting next wave
         StartNextWave();
+    }
+
+    private IEnumerator SpawnAsteroids()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(3.0f); // Wait for 1 second before spawning the next asteroid
+
+            // Spawn asteroid
+            Vector3 spawnPosition = new Vector3(8.0f, Random.Range(-3f, 3f), 0f);
+            Instantiate(asteroidPrefab, spawnPosition, Quaternion.identity);
+        }
     }
 
     private Vector3 CalculateSpawnPosition()
@@ -134,6 +153,12 @@ public class EnemyWaveManager : MonoBehaviour
         foreach (GameObject bullet in enemyBullets)
         {
             Destroy(bullet);
+        }
+
+        GameObject[] powerUps = GameObject.FindGameObjectsWithTag("PowerUp");
+        foreach (GameObject powerUp in powerUps)
+        {
+            Destroy(powerUp);
         }
     }
 

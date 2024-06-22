@@ -102,9 +102,10 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         health -= damage;
+        health = Mathf.Clamp(health, 0, maxHealth);
         UpdateHealth();
 
         if (health <= 0)

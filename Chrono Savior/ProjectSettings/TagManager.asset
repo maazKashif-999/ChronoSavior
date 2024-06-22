@@ -10,6 +10,8 @@ TagManager:
   - EnemyBullets
   - Background
   - coins
+  - token
+  - PowerUp
   layers:
   - Default
   - TransparentFX

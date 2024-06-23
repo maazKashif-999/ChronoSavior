@@ -9,12 +9,14 @@ public class GameManager : MonoBehaviour
     public GameObject enemies;
     public GameObject gameOverPanel;
 
+
     private EnemyWaveManager enemyWaveManager;
 
     public enum GameManagerState{
         opening,
         playing,
-        gameover
+        gameover,
+        gamewon
     }
     GameManagerState GMState;
     // Start is called before the first frame update
@@ -42,6 +44,8 @@ public class GameManager : MonoBehaviour
             player.SetActive(false);
             gameOverPanel.SetActive(true);
             enemyWaveManager.DestroyAllEnemies();
+            break;
+            case GameManagerState.gamewon:
             break;
         }
     }
@@ -79,9 +83,11 @@ public class GameManager : MonoBehaviour
         // Start the game
         startGame();
     }
-    // Update is called once per frame
-    void Update()
+    
+    public void WinGame()
     {
-        
+        GMState = GameManagerState.gamewon;
+        UpdateGMState();
     }
+    
 }

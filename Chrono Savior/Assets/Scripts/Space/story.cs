@@ -40,6 +40,7 @@ public class EnemyWaveManager : MonoBehaviour
         }
         else
         {
+            waveText.gameObject.SetActive(true);
             waveText.text = "All waves cleared!";
         }
     }

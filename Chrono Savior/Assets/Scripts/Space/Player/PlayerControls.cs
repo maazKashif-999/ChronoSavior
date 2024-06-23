@@ -12,7 +12,7 @@ public class PlayerControls : MonoBehaviour
     public GameObject explosion;
     public TextMeshProUGUI coinCount; // Reference to the TextMeshPro text element for displaying coin count
     public TextMeshProUGUI tokenCount;
-    float health = 100;
+    float health;
     public HealthBar healthBar;
     int maxHealth = 100;
     float bulletSpeed = 6.0f;

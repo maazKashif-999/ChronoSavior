@@ -32,9 +32,15 @@ public class GameOverController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-   public void MainMenu()
+    public void MainMenu()
     {
+        Time.timeScale = 1f; 
         SceneManager.LoadSceneAsync(0);
     }
+    
+    // private void OnDisable()
+    // {
+    //     Time.timeScale = 1f;
+    // }
 }
 

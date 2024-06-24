@@ -15,10 +15,8 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Seeker seeker;
     private float nextWaypointDistance = 0.1f;
-
     private Path path;
     private int currentWayPoint = 0;
-    private bool reachedEndOfPath = false;
 
     void Start()
     {
@@ -64,12 +62,7 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
 
         if(currentWayPoint >= path.vectorPath.Count)
         {
-            reachedEndOfPath = true;
             return;
-        }
-        else
-        {
-            reachedEndOfPath = false;
         }
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;

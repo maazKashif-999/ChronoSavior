@@ -17,11 +17,8 @@ public class GunRobot : MonoBehaviour, IEnemy
     private float nextWaypointDistance = 0.5f;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletPosition;
-
-
     private Path path;
     private int currentWayPoint = 0;
-    private bool reachedEndOfPath = false;
     private float timer = 0;
     private const float TIME_BETWEEN_SHOTS = 0.5f;
     private const float SHOOT_DISTANCE = 5f;
@@ -94,12 +91,7 @@ public class GunRobot : MonoBehaviour, IEnemy
         
         if(currentWayPoint >= path.vectorPath.Count)
         {
-            reachedEndOfPath = true;
             return;
-        }
-        else
-        {
-            reachedEndOfPath = false;
         }
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;

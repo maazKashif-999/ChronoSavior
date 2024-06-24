@@ -4,6 +4,7 @@ using UnityEngine;
 using Pathfinding;
 public class MeleeRobot : MonoBehaviour, IEnemy
 {
+    // This script contains the pathfinding of the robots (similar code is used for other enemies). We have used the A* pathfinding package to implement the pathfinding. However, since we have not studied pathfinding in class yet, nor are we entirely familiar with the code, we have largely referenced Brackeys tutorial for pathfinding. 
     [SerializeField] private List<OnPowerupInteract> powerUps;
     [SerializeField] private float MAX_HEALTH = 30f;
     [SerializeField] private Animator animator;
@@ -16,10 +17,8 @@ public class MeleeRobot : MonoBehaviour, IEnemy
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Seeker seeker;
     private float nextWaypointDistance = 0.1f;
-
     private Path path;
     private int currentWayPoint = 0;
-    private bool reachedEndOfPath = false;
     private float timer = 0;
     private const float TIME_BETWEEN_ATTACK = 0.5f;
 
@@ -70,12 +69,7 @@ public class MeleeRobot : MonoBehaviour, IEnemy
 
         if(currentWayPoint >= path.vectorPath.Count)
         {
-            reachedEndOfPath = true;
             return;
-        }
-        else
-        {
-            reachedEndOfPath = false;
         }
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;

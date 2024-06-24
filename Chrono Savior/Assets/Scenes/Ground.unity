@@ -968,7 +968,7 @@ MonoBehaviour:
   timeBeteenShots: 0.05
   maxCapacity: 30
   reloadTime: 1
-  MAX_AMMO_CAP: 150
+  MAX_AMMO_CAP: 300
 --- !u!1 &618107696
 GameObject:
   m_ObjectHideFlags: 0
@@ -9918,7 +9918,7 @@ MonoBehaviour:
   timeBeteenShots: 0.1
   maxCapacity: 30
   reloadTime: 1.5
-  MAX_AMMO_CAP: 150
+  MAX_AMMO_CAP: 300
 --- !u!1 &1053900739
 GameObject:
   m_ObjectHideFlags: 0

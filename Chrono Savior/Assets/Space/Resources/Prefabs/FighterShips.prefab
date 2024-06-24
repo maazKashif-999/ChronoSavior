@@ -196,6 +196,6 @@ MonoBehaviour:
   bulletPrefab: {fileID: 7742614971424878670, guid: 2506b6221a03ed340b2a3ceb06746b71, type: 3}
   explosion: {fileID: 7903881982904106933, guid: ca6dcf1f1ecb18c4480198f4abe8e1e3, type: 3}
   coinPrefab: {fileID: 8308779161561762033, guid: 79a94a20ca069f14a8cccf2be12f4c1a, type: 3}
-  tokenPrefab: {fileID: 1857256657093782701, guid: d8b950fcdac1fb94c812be104eb78ec4, type: 3}
+  tokenPrefab: {fileID: 7812099448907868456, guid: ba5ffafaec2388749b09e79f5e59b650, type: 3}
   fireInterval: 0
   bulletSpeed: 0

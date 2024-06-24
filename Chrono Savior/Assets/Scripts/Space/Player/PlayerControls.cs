@@ -2,32 +2,27 @@ using UnityEngine;
 using TMPro;
 using System.Collections; // Required for IEnumerator
 using System.Collections.Generic;
-
 public class PlayerControls : MonoBehaviour
 {
     public float speed = 5f; // Speed of the player's movement
     float minY; // Minimum Y position
     float maxY; // Maximum Y position
-
     public GameObject explosion;
     public TextMeshProUGUI coinCount; // Reference to the TextMeshPro text element for displaying coin count
     public TextMeshProUGUI tokenCount;
-    float health = 100;
+    float health;
     public HealthBar healthBar;
     int maxHealth = 100;
     float bulletSpeed = 6.0f;
-
     int damage = 10;
     public GameObject playerBulletPrefab; // Prefab of the player bullet
     private GameManager gameManager; // Reference to the GameManager
-
     private int coins = 0; // Variable to keep track of collected coins
     private int token = 0;
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>(); // Find the GameManager in the scene
     }
-
     public void Init()
     {
         gameObject.SetActive(true);
@@ -42,7 +37,6 @@ public class PlayerControls : MonoBehaviour
         transform.position = new Vector3(-6, 0, 0);
         transform.rotation = Quaternion.Euler(0, 0, 270);
     }
-
     void Update()
     {
         // Fire bullet when user clicks left mouse button or touches screen
@@ -52,7 +46,6 @@ public class PlayerControls : MonoBehaviour
         }
         Move();
     }
-
     void Move()
     {
         float verticalInput = Input.GetAxisRaw("Vertical");
@@ -60,7 +53,6 @@ public class PlayerControls : MonoBehaviour
         newPosition.y = Mathf.Clamp(newPosition.y, minY, maxY);
         transform.position = newPosition;
     }
-
     void FireBullet()
     {
         GameObject bulletObject = Instantiate(playerBulletPrefab, transform.position, Quaternion.identity);
@@ -72,12 +64,10 @@ public class PlayerControls : MonoBehaviour
             bulletScript.Initialize(mousePosition, bulletSpeed, damage, Quaternion.Euler(0, 0, 0));
         }
     }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other == null)
             return;
-
         if (other.CompareTag("EnemyBullets"))
         {
             PlayerBullet bullet = other.GetComponent<PlayerBullet>();
@@ -101,32 +91,26 @@ public class PlayerControls : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
-
     public void TakeDamage(int damage)
     {
         health -= damage;
         health = Mathf.Clamp(health, 0, maxHealth);
         UpdateHealth();
-
         if (health <= 0)
         {
             Explode();
-
             StartCoroutine(WaitAndEndGame(0.4f));
         }
     }
-
     void Explode()
     {
         GameObject explosionObject = Instantiate(explosion, transform.position, Quaternion.identity);
     }
-
     void UpdateHealth()
     {
         float healthAmount = health / maxHealth;
         healthBar.SetHealth(healthAmount);
     }
-
     IEnumerator WaitAndEndGame(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);

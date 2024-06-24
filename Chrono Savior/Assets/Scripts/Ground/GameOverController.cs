@@ -32,3 +32,4 @@ public class GameOverController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
+

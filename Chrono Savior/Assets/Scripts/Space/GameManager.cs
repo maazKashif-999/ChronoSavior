@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class GameManager : MonoBehaviour
 {
     public GameObject playButton;
@@ -9,12 +8,14 @@ public class GameManager : MonoBehaviour
     public GameObject enemies;
     public GameObject gameOverPanel;
 
+
     private EnemyWaveManager enemyWaveManager;
 
     public enum GameManagerState{
         opening,
         playing,
-        gameover
+        gameover,
+        gamewon
     }
     GameManagerState GMState;
     // Start is called before the first frame update
@@ -23,7 +24,6 @@ public class GameManager : MonoBehaviour
         GMState = GameManagerState.opening;
         UpdateGMState();
     }
-
     void UpdateGMState()
     {
         switch(GMState){
@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
             gameOverPanel.SetActive(true);
             enemyWaveManager.DestroyAllEnemies();
             break;
+            case GameManagerState.gamewon:
+            break;
         }
     }
 
@@ -51,37 +53,32 @@ public class GameManager : MonoBehaviour
         GMState = state;
         UpdateGMState();
     }
-
-
     public void startGame()
     {
         GMState = GameManagerState.playing;
         UpdateGMState();
     }
-
     public void endGame()
     {
         GMState = GameManagerState.gameover;
         UpdateGMState();
     }
-
     public void RestartGame()
     {
         // Reset player position and health if needed
         player.GetComponent<PlayerControls>().Init();
-
         // Reset enemy wave manager
         enemyWaveManager.ResetWaves();
-
         // Hide game over panel
         gameOverPanel.SetActive(false);
-
         // Start the game
         startGame();
     }
-    // Update is called once per frame
-    void Update()
+
+    public void WinGame()
     {
-        
+        GMState = GameManagerState.gamewon;
+        UpdateGMState();
     }
+
 }

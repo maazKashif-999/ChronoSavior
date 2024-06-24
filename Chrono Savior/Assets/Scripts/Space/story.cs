@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
 public class EnemyWaveManager : MonoBehaviour
 {
     public GameObject fighterShipPrefab;
@@ -10,26 +9,19 @@ public class EnemyWaveManager : MonoBehaviour
     public GameObject sniperShipPrefab;
     public GameObject asteroidPrefab; // Add a reference to the asteroid prefab
     public TextMeshProUGUI waveText;
-
     private int[] fighterShipsPerWave = {3, 2, 0, 2, 0};
     private int[] bomberShipsPerWave = {0, 0, 3, 3, 5};
     private int[] sniperShipsPerWave = {0, 3, 2, 2, 0};
-
     private int currentWave = 0; // Current wave index
     private int enemiesRemaining; // Number of enemies remaining in the current wave
-
     public float minSpacing = 0.5f; // Minimum spacing between ships
-
     private List<Vector3> spawnedPositions = new List<Vector3>(); // List to keep track of spawned positions
     private List<GameObject> spawnedEnemies = new List<GameObject>(); // List to keep track of spawned enemies
-
     private Coroutine asteroidSpawner; // Coroutine for spawning asteroids
-
     private void Start()
     {
         StartNextWave();
     }
-
     private void StartNextWave()
     {
         if (currentWave < fighterShipsPerWave.Length)
@@ -40,10 +32,10 @@ public class EnemyWaveManager : MonoBehaviour
         }
         else
         {
+            waveText.gameObject.SetActive(true);
             waveText.text = "All waves cleared!";
         }
     }
-
     private IEnumerator SpawnWave()
     {
         spawnedPositions.Clear(); // Clear the list of positions for the new wave
@@ -51,7 +43,6 @@ public class EnemyWaveManager : MonoBehaviour
         waveText.gameObject.SetActive(true);
         yield return new WaitForSeconds(3.0f);
         waveText.gameObject.SetActive(false);
-
         // Spawn fighter ships
         for (int i = 0; i < fighterShipsPerWave[currentWave]; i++)
         {
@@ -61,7 +52,6 @@ public class EnemyWaveManager : MonoBehaviour
             spawnedPositions.Add(spawnPosition); // Add position to the list
             yield return new WaitForSeconds(0.5f); // Adjust spawn rate as needed
         }
-
         // Spawn bomber ships
         for (int i = 0; i < bomberShipsPerWave[currentWave]; i++)
         {
@@ -71,7 +61,6 @@ public class EnemyWaveManager : MonoBehaviour
             spawnedPositions.Add(spawnPosition); // Add position to the list
             yield return new WaitForSeconds(0.5f); // Adjust spawn rate as needed
         }
-
         // Spawn sniper ships
         for (int i = 0; i < sniperShipsPerWave[currentWave]; i++)
         {
@@ -81,46 +70,38 @@ public class EnemyWaveManager : MonoBehaviour
             spawnedPositions.Add(spawnPosition); // Add position to the list
             yield return new WaitForSeconds(0.5f); // Adjust spawn rate as needed
         }
-
         // Wait until all enemies are destroyed
         while (enemiesRemaining > 0)
         {
             yield return null;
         }
-
         // Stop spawning asteroids when the wave ends
         StopCoroutine(asteroidSpawner);
-
         // Move to the next wave
         currentWave++;
         yield return new WaitForSeconds(2.0f); // Delay before starting next wave
         StartNextWave();
     }
-
     private IEnumerator SpawnAsteroids()
     {
         while (true)
         {
             yield return new WaitForSeconds(3.0f); // Wait for 1 second before spawning the next asteroid
-
             // Spawn asteroid
             Vector3 spawnPosition = new Vector3(8.0f, Random.Range(-3f, 3f), 0f);
             Instantiate(asteroidPrefab, spawnPosition, Quaternion.identity);
         }
     }
-
     private Vector3 CalculateSpawnPosition()
     {
         Vector3 spawnPosition;
         bool validPosition;
-
         do
         {
             validPosition = true;
             float spawnX = 8.0f;
             float spawnY = Random.Range(-3f, 3f);
             spawnPosition = new Vector3(spawnX, spawnY, 0f);
-
             // Check if the new spawn position is too close to any existing positions
             foreach (Vector3 pos in spawnedPositions)
             {
@@ -132,15 +113,12 @@ public class EnemyWaveManager : MonoBehaviour
             }
         }
         while (!validPosition);
-
         return spawnPosition;
     }
-
     public void EnemyDestroyed()
     {
         enemiesRemaining--;
     }
-
     public void DestroyAllEnemies()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -148,20 +126,17 @@ public class EnemyWaveManager : MonoBehaviour
         {
             Destroy(enemy);
         }
-
         GameObject[] enemyBullets = GameObject.FindGameObjectsWithTag("EnemyBullets");
         foreach (GameObject bullet in enemyBullets)
         {
             Destroy(bullet);
         }
-
         GameObject[] powerUps = GameObject.FindGameObjectsWithTag("PowerUp");
         foreach (GameObject powerUp in powerUps)
         {
             Destroy(powerUp);
         }
     }
-
     public void ResetWaves()
     {
         currentWave = 0;

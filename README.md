@@ -37,36 +37,6 @@ To play the game or test its features:
 - Use the arrow keys to move and spacebar to shoot.
 
 ## Project Structure
-Here's an overview of the project's structure:
-
-chrono-savior/
-├── Assets/
-│   ├── APIUpdater/
-│   ├── Artifacts/
-│   ├── Assets/
-│   ├── Bee/
-│   ├── BurstCache/
-│   ├── GridBrush/
-│   ├── PackageCache/
-│   ├── PackageManager/
-│   ├── Packages/
-│   ├── ProjectSettings/
-│   ├── ScriptAssemblies/
-│   ├── ShaderCache/
-│   ├── StateCache/
-│   ├── .vscode/
-│   ├── .DS_Store
-│   ├── .gitignore
-│   ├── BuildPlayer.prefs
-│   ├── BuildSettings.asset
-│   ├── EditorInstance.json
-│   ├── EditorOnlyScriptingSettings.json
-│   ├── EditorSnapSettings.asset
-│   ├── EditorUserBuildSettings.asset
-│   ├── ignore.conf
-│   ├── ilpp.pid
-│   └── README.md
-
 
 ## License
 
@@ -74,5 +44,5 @@ chrono-savior/
 For any questions or suggestions, feel free to reach out:
 
 - **Email:** your.email@example.com
-- **GitHub:** [yourusername](https://github.com/yourusername)
+- **GitHub:** [maazKashif-999](https://github.com/maazKashif-999)
 

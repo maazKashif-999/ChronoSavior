@@ -43,6 +43,6 @@ To play the game or test its features:
 ## Contact
 For any questions or suggestions, feel free to reach out:
 
-- **Email:** your.email@example.com
+- **Email:** 26100182@lums.edu.pk
 - **GitHub:** [maazKashif-999](https://github.com/maazKashif-999)
 

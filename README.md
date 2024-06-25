@@ -38,7 +38,7 @@ To play the game or test its features:
 
 ## Controls
 ### Movement:
-- **Keyboard:** In Lunar Skirmish use the W, A, S, D keys to move the player character in the desired direction. And in the Space Shooter use W,A to move the ship in the up and down direction.
+- **Keyboard:** In Ground Combat Simulation use the W, A, S, D keys to move the player character in the desired direction. And in the Space Shooter use W,A to move the ship in the up and down direction.
 
 ### Aiming and Shooting:
 - **Mouse:** Aim with the mouse cursor and left-click to shoot.
@@ -46,54 +46,17 @@ To play the game or test its features:
 ### Special Abilities:
 - **Keyboard:** Use Z to activate special ability.
 
-### Interacting:
-- **Keyboard:** Press E to interact with objects or NPCs.
-
-### Pause Menu:
-- **Keyboard:** Press Esc to open the pause menu.
-
 ### Weapon Swapping:
 - **Keyboard:** 1, 2, 3 to change weapons and also tab to move one slot forward.
 
 ## Menu Flowchart
 **Main Menu:**
 - Start Game
-- Store
-- Options
-- Instructions
-- Exit
 
 **Start Game:**
-- Select Mode: Story Mode / Infinite Freeplay
-  - If Story Mode: Select Session
-    - New Session
-    - Last Session
-  - If Infinite Freeplay: Select Mode
-    - Space Travel
-    - Ground Combat
-
-**Store:**
-- Buy previously unlocked weapons and cosmetics with coins
-- Upgrade damage for already unlocked weapons using coins
-- In-app purchases: Buy coins through real money
-
-**Options:**
-- Audio Settings
-  - Music Volume
-  - Sound Effects Volume
-- Controls
-  - Keyboard Mapping
-
-**Instructions:**
-- Gameplay Basics
-- Controls
-- Objectives and Goals
-- Tips and Tricks
-
-**Pause Menu (In-game):**
-- Resume Game
-- Options
-- Main Menu
+- Select Gameplay: Space Shooter / Ground Combat Simulation
+  - If Space Shooter Selected: Story Mode starts
+  - If Ground Combat Mode Selected: Infinite freeplay starts
 
 **Game Over Screen:**
 - Retry Mission
@@ -105,8 +68,8 @@ To play the game or test its features:
 
 
 ## Contact
-For any questions or suggestions, feel free to reach out:
+For any questions, reach out Team 1:
 
-- **Email:** 26100182@lums.edu.pk
+- **Email:** 26100182@lums.edu.pk, 26100053@lums.edu.pk
 - **GitHub:** [maazKashif-999](https://github.com/maazKashif-999)
 

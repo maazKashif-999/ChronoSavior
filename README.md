@@ -7,7 +7,6 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
-- [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
 
@@ -17,3 +16,62 @@ To run "Chrono Savior" on your local machine, follow these steps:
 1. **Clone the repository:**
    ```sh
    git clone https://github.com/yourusername/chrono-savior.git
+
+   
+2. **Navigate to the project directory:**
+
+
+3. **Open the project in Unity:**
+- Make sure you have Unity LTS v2022.3.30f1 installed.
+- Open Unity Hub, click on "Open," and select the `chrono-savior` directory.
+
+## Usage
+To play the game or test its features:
+
+1. **Open the Unity editor.**
+2. **Load the main scene:**
+- Navigate to the `Assets/Scenes` directory and open the `MainScene.unity` file.
+3. **Play the game:**
+- Press the play button in the Unity editor to start the game.
+- Use the arrow keys to move and spacebar to shoot.
+
+## Project Structure
+Here's an overview of the project's structure:
+
+chrono-savior/
+├── Assets/
+│   ├── APIUpdater/
+│   ├── Artifacts/
+│   ├── Assets/
+│   ├── Bee/
+│   ├── BurstCache/
+│   ├── GridBrush/
+│   ├── PackageCache/
+│   ├── PackageManager/
+│   ├── Packages/
+│   ├── ProjectSettings/
+│   ├── ScriptAssemblies/
+│   ├── ShaderCache/
+│   ├── StateCache/
+│   ├── .vscode/
+│   ├── .DS_Store
+│   ├── .gitignore
+│   ├── BuildPlayer.prefs
+│   ├── BuildSettings.asset
+│   ├── EditorInstance.json
+│   ├── EditorOnlyScriptingSettings.json
+│   ├── EditorSnapSettings.asset
+│   ├── EditorUserBuildSettings.asset
+│   ├── ignore.conf
+│   ├── ilpp.pid
+│   └── README.md
+
+
+## License
+
+## Contact
+For any questions or suggestions, feel free to reach out:
+
+- **Email:** your.email@example.com
+- **GitHub:** [yourusername](https://github.com/yourusername)
+

@@ -62,9 +62,6 @@ To play the game or test its features:
 - Retry Mission
 - Main Menu
 
-**Victory Screen:**
-- Continue
-- Main Menu
 
 
 ## Contact

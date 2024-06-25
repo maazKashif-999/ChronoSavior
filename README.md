@@ -19,7 +19,8 @@ To run "Chrono Savior" on your local machine, follow these steps:
 
    
 2. **Navigate to the project directory:**
-
+   ```sh
+   cd chrono-savior
 
 3. **Open the project in Unity:**
 - Make sure you have Unity LTS v2022.3.30f1 installed.

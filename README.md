@@ -15,16 +15,16 @@ To run "Chrono Savior" on your local machine, follow these steps:
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/yourusername/chrono-savior.git
+   git clone https://github.com/maazKashif-999/ChronoSavior
 
    
 2. **Navigate to the project directory:**
    ```sh
-   cd chrono-savior
+   cd ChronoSavior
 
 3. **Open the project in Unity:**
 - Make sure you have Unity LTS v2022.3.30f1 installed.
-- Open Unity Hub, click on "Open," and select the `chrono-savior` directory.
+- Open Unity Hub, click on "Open," and select the `ChronoSavior` directory.
 
 ## Usage
 To play the game or test its features:

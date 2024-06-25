@@ -10,7 +10,7 @@ public class GameOverController : MonoBehaviour
     {
         if (gameOverCanvas == null)
         {
-            Debug.LogError("GameOverCanvas not assigned in the inspector.");
+            Debug.LogError("GameOverCanvas null.");
         }
         else
         {
@@ -20,7 +20,7 @@ public class GameOverController : MonoBehaviour
 
     public void ShowGameOverScreen()
     {
-        Debug.Log("ShowGameOverScreen called"); 
+        Debug.Log("Game Over Screen called"); 
         gameOverCanvas.SetActive(true); 
         Time.timeScale = 0f; 
     }

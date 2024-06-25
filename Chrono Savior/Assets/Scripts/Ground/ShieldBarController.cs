@@ -25,8 +25,14 @@ public class ShieldBarController : MonoBehaviour
     void UpdateShieldBar(float currentShield)
     {
         int shieldIndex = Mathf.FloorToInt(currentShield / (Player.MAX_SHIELD / 7f));
-        if (shieldIndex < 0) shieldIndex = 0;
-        if (shieldIndex > 6) shieldIndex = 6;
+        if (shieldIndex < 0)
+        {
+            shieldIndex = 0;
+        }
+        if (shieldIndex > 6)
+        {
+            shieldIndex = 6;
+        }
         shieldBarImage.sprite = shieldBarSprites[shieldIndex];
     }
 }

@@ -11,6 +11,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject heavyRobotPrefab;
     [SerializeField] private GameObject securityTurretPrefab;
     [SerializeField] private Transform[] spawnPoints;
+
     private int currentWave = 1;
     private int enemiesToSpawn;
     private float baseWaitTime = 15f;
@@ -28,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
         {
             enemiesToSpawn = CalculateEnemiesToSpawn(currentWave);
             SpawnEnemiesForWave(currentWave);
-            yield return new WaitForSeconds(baseWaitTime + waitTimeIncrement * (currentWave - 1)); // this is currently linearly increasing
+            yield return new WaitForSeconds(baseWaitTime + waitTimeIncrement * (currentWave - 1)); // currently linearly increasing for teting
             currentWave++;
         }
     }
@@ -92,10 +93,13 @@ public class EnemySpawner : MonoBehaviour
             Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
         }
 
-        if (securityTurretPrefab != null && Random.value > 0.5f)
+        if (securityTurretPrefab != null)
         {
-            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-            Instantiate(securityTurretPrefab, spawnPoint.position, spawnPoint.rotation);
+            if(Random.value > 0.5f)
+            {
+                Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+                Instantiate(securityTurretPrefab, spawnPoint.position, spawnPoint.rotation);
+            }
         }
     }
 }

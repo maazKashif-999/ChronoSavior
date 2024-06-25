@@ -15,7 +15,7 @@ public class PowerupUIController : MonoBehaviour
         player = Player.Instance;
         if (player == null)
         {
-            Debug.LogError("Player instance not found.");
+            Debug.LogError("Player not found.");
         }
 
         powerupImage.color = normalColor;

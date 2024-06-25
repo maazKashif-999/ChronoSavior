@@ -25,8 +25,14 @@ public class HealthBarController : MonoBehaviour
     void UpdateHealthBar(float currentHealth)
     {
         int healthIndex = Mathf.FloorToInt(currentHealth / 10f);
-        if (healthIndex < 0) healthIndex = 0;
-        if (healthIndex > 9) healthIndex = 9;
+        if (healthIndex < 0)
+        {
+            healthIndex = 0;
+        }
+        if (healthIndex > 9)
+        {
+            healthIndex = 9;
+        }
         healthBarImage.sprite = healthBarSprites[healthIndex];
     }
 }

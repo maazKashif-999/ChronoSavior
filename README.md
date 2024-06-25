@@ -8,7 +8,6 @@
 - [Usage](#usage)
 - [Controls](#controls)
 - [Project Structure](#project-structure)
-- 
 - [License](#license)
 - [Contact](#contact)
 
@@ -36,17 +35,17 @@ To play the game or test its features:
 - Navigate to the `Assets/Scenes` directory and open the `MainScene.unity` file.
 3. **Play the game:**
 - Press the play button in the Unity editor to start the game.
-- Use the arrow keys to move and spacebar to shoot.
+- All controls are discussed in detail in the next section.
 
 ## Controls
 ### Movement:
-- **Keyboard:** Use the W, A, S, D keys to move the player/ship character in the desired direction.
+- **Keyboard:** Use the W, A, S, D keys to move the player/ship character in the desired direction. (In the space shooter the ship only moves in the up and down direction for now)
 
 ### Aiming and Shooting:
 - **Mouse:** Aim with the mouse cursor and left-click to shoot.
 
 ### Special Abilities:
-- **Keyboard:** Use Z, X, C to activate special abilities.
+- **Keyboard:** Use Z to activate special ability.
 
 ### Interacting:
 - **Keyboard:** Press E to interact with objects or NPCs.

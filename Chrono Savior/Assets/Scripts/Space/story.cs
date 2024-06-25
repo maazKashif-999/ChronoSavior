@@ -18,6 +18,7 @@ public class EnemyWaveManager : MonoBehaviour
     private List<Vector3> spawnedPositions = new List<Vector3>(); // List to keep track of spawned positions
     private List<GameObject> spawnedEnemies = new List<GameObject>(); // List to keep track of spawned enemies
     private Coroutine asteroidSpawner; // Coroutine for spawning asteroids
+    private Coroutine enemiesSpawner;
     private void Start()
     {
         StartNextWave();
@@ -28,7 +29,7 @@ public class EnemyWaveManager : MonoBehaviour
         {
             enemiesRemaining = fighterShipsPerWave[currentWave] + bomberShipsPerWave[currentWave] + sniperShipsPerWave[currentWave];
             asteroidSpawner = StartCoroutine(SpawnAsteroids()); // Start spawning asteroids
-            StartCoroutine(SpawnWave());
+            enemiesSpawner = StartCoroutine(SpawnWave());
         }
         else
         {
@@ -121,6 +122,8 @@ public class EnemyWaveManager : MonoBehaviour
     }
     public void DestroyAllEnemies()
     {
+        StopCoroutine(asteroidSpawner);
+        StopCoroutine(enemiesSpawner);
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)
         {

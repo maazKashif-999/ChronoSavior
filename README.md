@@ -8,8 +8,6 @@
 - [Usage](#usage)
 - [Controls](#controls)
 - [Menu Flowchart](#menu-flowchart)
-- [Project Structure](#project-structure)
-- [License](#license)
 - [Contact](#contact)
 
 ## Installation
@@ -40,7 +38,7 @@ To play the game or test its features:
 
 ## Controls
 ### Movement:
-- **Keyboard:** Use the W, A, S, D keys to move the player/ship character in the desired direction. (In the space shooter the ship only moves in the up and down direction for now)
+- **Keyboard:** In Lunar Skirmish use the W, A, S, D keys to move the player character in the desired direction. And in the Space Shooter use W,A to move the ship in the up and down direction.
 
 ### Aiming and Shooting:
 - **Mouse:** Aim with the mouse cursor and left-click to shoot.
@@ -105,10 +103,6 @@ To play the game or test its features:
 - Continue
 - Main Menu
 
-
-## Project Structure
-
-## License
 
 ## Contact
 For any questions or suggestions, feel free to reach out:

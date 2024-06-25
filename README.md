@@ -6,7 +6,9 @@
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
+- [Controls](#controls)
 - [Project Structure](#project-structure)
+- 
 - [License](#license)
 - [Contact](#contact)
 
@@ -35,6 +37,74 @@ To play the game or test its features:
 3. **Play the game:**
 - Press the play button in the Unity editor to start the game.
 - Use the arrow keys to move and spacebar to shoot.
+
+## Controls
+### Movement:
+- **Keyboard:** Use the W, A, S, D keys to move the player/ship character in the desired direction.
+
+### Aiming and Shooting:
+- **Mouse:** Aim with the mouse cursor and left-click to shoot.
+
+### Special Abilities:
+- **Keyboard:** Use Z, X, C to activate special abilities.
+
+### Interacting:
+- **Keyboard:** Press E to interact with objects or NPCs.
+
+### Pause Menu:
+- **Keyboard:** Press Esc to open the pause menu.
+
+### Weapon Swapping:
+- **Keyboard:** 1, 2, 3 to change weapons and also tab to move one slot forward.
+
+## Menu Flowchart
+**Main Menu:**
+- Start Game
+- Store
+- Options
+- Instructions
+- Exit
+
+**Start Game:**
+- Select Mode: Story Mode / Infinite Freeplay
+  - If Story Mode: Select Session
+    - New Session
+    - Last Session
+  - If Infinite Freeplay: Select Mode
+    - Space Travel
+    - Ground Combat
+
+**Store:**
+- Buy previously unlocked weapons and cosmetics with coins
+- Upgrade damage for already unlocked weapons using coins
+- In-app purchases: Buy coins through real money
+
+**Options:**
+- Audio Settings
+  - Music Volume
+  - Sound Effects Volume
+- Controls
+  - Keyboard Mapping
+
+**Instructions:**
+- Gameplay Basics
+- Controls
+- Objectives and Goals
+- Tips and Tricks
+
+**Pause Menu (In-game):**
+- Resume Game
+- Options
+- Main Menu
+
+**Game Over Screen:**
+- Retry Mission
+- Main Menu
+
+**Victory Screen:**
+- Continue
+- Main Menu
+
 
 ## Project Structure
 

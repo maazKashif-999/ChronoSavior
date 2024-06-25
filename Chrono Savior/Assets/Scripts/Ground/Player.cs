@@ -59,7 +59,12 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(!isAlive) return;
+        if(!isAlive)
+        {
+            rb.velocity = Vector2.zero;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+            return;
+        }
         Vector2 moveDir = new Vector2(horizontalInput, verticalInput).normalized;
         rb.MovePosition(rb.position + (moveDir * MOVE_SPEED * speedMultipler * Time.fixedDeltaTime));
     }

@@ -38,7 +38,7 @@ To play the game or test its features:
 
 ## Controls
 ### Movement:
-- **Keyboard:** In Ground Combat Simulation use the W, A, S, D keys to move the player character in the desired direction. And in the Space Shooter use W,A to move the ship in the up and down direction.
+- **Keyboard:** In Ground Combat Simulation use the W, A, S, D keys to move the player character in the desired direction. And in the Space Shooter use W, S to move the ship in the up and down direction.
 
 ### Aiming and Shooting:
 - **Mouse:** Aim with the mouse cursor and left-click to shoot.
@@ -47,7 +47,7 @@ To play the game or test its features:
 - **Keyboard:** Use Z to activate special ability.
 
 ### Weapon Swapping:
-- **Keyboard:** 1, 2, 3 to change weapons and also tab to move one slot forward.
+- **Keyboard:** 1, 2, 3 to change weapons.
 
 ## Menu Flowchart
 **Main Menu:**

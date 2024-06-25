@@ -7,6 +7,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Controls](#controls)
+- [Menu Flowchart](#menu-flowchart)
 - [Project Structure](#project-structure)
 - [License](#license)
 - [Contact](#contact)

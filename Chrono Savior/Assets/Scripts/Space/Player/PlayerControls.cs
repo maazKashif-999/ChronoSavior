@@ -14,6 +14,9 @@ public class PlayerControls : MonoBehaviour
     float health;
     float shield;
     public HealthBar healthBar;
+    public AudioClip explosionSound; // Explosion sound clip
+    public AudioClip bulletSound;
+    private AudioSource audioSource; // AudioSource component
 
     public ShieldBar shieldBar;
     int maxHealth = 100;
@@ -28,6 +31,7 @@ public class PlayerControls : MonoBehaviour
     private void Start()
     {
         gameManager = FindObjectOfType<SpaceGameManager>(); // Find the GameManager in the scene
+        audioSource = GetComponent<AudioSource>(); // Get the AudioSource component
     }
 
     public void Init()
@@ -99,6 +103,11 @@ public class PlayerControls : MonoBehaviour
                 {
                     bulletScript.Initialize(mousePosition, bulletSpeed, damage, Quaternion.Euler(0, 0, 0));
                 }
+                if (audioSource != null && bulletSound != null)
+                {
+                    audioSource.PlayOneShot(bulletSound);
+                }
+
             }
             else
             {
@@ -175,6 +184,12 @@ public class PlayerControls : MonoBehaviour
         {
             GameObject explosionObject = Instantiate(explosion, transform.position, Quaternion.identity);
         }
+
+        if (audioSource != null && explosionSound != null)
+        {
+            audioSource.PlayOneShot(explosionSound);
+        }
+
         else
         {
             Debug.LogWarning("Explosion prefab is not assigned.");

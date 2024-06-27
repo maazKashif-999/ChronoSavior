@@ -25,17 +25,9 @@ public class PlayerControls : MonoBehaviour
     private int coins = 0; // Variable to keep track of collected coins
     private int token = 0;
 
-    public AudioClip bulletSound; //variable to store bullet sound
-    public AudioClip explodeSound;
-    private AudioSource audioSource;
-
-
-
     private void Start()
     {
         gameManager = FindObjectOfType<SpaceGameManager>(); // Find the GameManager in the scene
-        audioSource = GetComponent<AudioSource>();
-
     }
 
     public void Init()
@@ -79,7 +71,6 @@ public class PlayerControls : MonoBehaviour
         // Fire bullet when user clicks left mouse button or touches screen
         if (Input.GetMouseButtonDown(0))
         {
-
             FireBullet();
         }
         Move();
@@ -101,18 +92,12 @@ public class PlayerControls : MonoBehaviour
             Camera mainCamera = Camera.main;
             if (mainCamera != null)
             {
-                
                 Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
                 mousePosition.z = 0f;
                 PlayerBullet bulletScript = bulletObject.GetComponent<PlayerBullet>();
                 if (bulletScript != null)
                 {
                     bulletScript.Initialize(mousePosition, bulletSpeed, damage, Quaternion.Euler(0, 0, 0));
-                }
-
-                if (bulletSound != null && audioSource != null)
-                {
-                    audioSource.PlayOneShot(bulletSound);
                 }
             }
             else
@@ -190,12 +175,6 @@ public class PlayerControls : MonoBehaviour
         {
             GameObject explosionObject = Instantiate(explosion, transform.position, Quaternion.identity);
         }
-
-        if (explodeSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(explodeSound);
-        }
-
         else
         {
             Debug.LogWarning("Explosion prefab is not assigned.");

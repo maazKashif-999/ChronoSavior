@@ -17,10 +17,11 @@ public class Player : MonoBehaviour
     private bool isWalking;
     private bool canUseAbility = true;
     private bool areEnemiesFrozen = false;
-    [SerializeField] GameObject player;
+    private bool redSkinEquipped = true;
+    [SerializeField] GameObject playerBlue;
+    [SerializeField] GameObject playerRed;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] private GameObject playerDeath;
-
     private GameOverController gameOverController;
 
     void Awake()
@@ -40,7 +41,16 @@ public class Player : MonoBehaviour
             Debug.Log("GameOverController found in the scene.");
         }
 
-        
+        if(redSkinEquipped)
+        {
+            playerBlue.SetActive(false);
+            playerRed.SetActive(true);
+        }
+        else
+        {
+            playerBlue.SetActive(true);
+            playerRed.SetActive(false);
+        }
        
     }
 
@@ -72,11 +82,14 @@ public class Player : MonoBehaviour
     {
         if (horizontalInput > 0)
         {
-            player.transform.rotation = Quaternion.Euler(0, 0, 0);
+            playerBlue.transform.rotation = Quaternion.Euler(0, 0, 0);
+            playerRed.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else if (horizontalInput < 0)
         {
-            player.transform.rotation = Quaternion.Euler(0, -180, 0);
+            playerBlue.transform.rotation = Quaternion.Euler(0, -180, 0);
+            playerRed.transform.rotation = Quaternion.Euler(0, -180, 0);
+            
         }
     }
 

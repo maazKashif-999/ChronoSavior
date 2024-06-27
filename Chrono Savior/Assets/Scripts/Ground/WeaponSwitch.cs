@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shooting : MonoBehaviour
+public class WeaponSwitch : MonoBehaviour
 {
     [SerializeField] private AmmoUIController ammoUIController; 
     private Camera mainCamera;

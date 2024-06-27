@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerDeathScript : MonoBehaviour
 {
     // Start is called before the first frame update
-    public void Start()
+    private void Start()
     {
         Destroy(gameObject, 0.5f);
     }

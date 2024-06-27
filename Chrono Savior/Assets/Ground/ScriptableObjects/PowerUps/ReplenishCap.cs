@@ -5,10 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "PowerUps/ReplenishCap")]
 public class ReplenishCap : PowerUp
 {
-    private Shooting weaponManager;
+    private WeaponSwitch weaponManager;
     public override void UsePowerUp(GameObject player)
     {
-        weaponManager = FindObjectOfType<Shooting>();
+        weaponManager = FindObjectOfType<WeaponSwitch>();
         for (int i = 0; i < weaponManager.transform.childCount; i++)
         {
             weaponManager.transform.GetChild(i).gameObject.GetComponent<GunShoot>().ReplenishAmmo();

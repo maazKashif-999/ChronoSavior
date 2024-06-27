@@ -1,12 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PowerupUIController : MonoBehaviour
+public class AbilityUIController : MonoBehaviour
 {
-    [SerializeField] private Image powerupImage;
+    [SerializeField] private Image abilityImage;
     [SerializeField] private Color normalColor = Color.white;
     [SerializeField] private Color cooldownColor = Color.grey;
-
     private Player player;
 
     // Start is called before the first frame update
@@ -18,7 +17,7 @@ public class PowerupUIController : MonoBehaviour
             Debug.LogError("Player not found.");
         }
 
-        powerupImage.color = normalColor;
+        abilityImage.color = normalColor;
     }
 
     // Update is called once per frame
@@ -28,11 +27,11 @@ public class PowerupUIController : MonoBehaviour
         {
             if (player.CanUseAbility())
             {
-                powerupImage.color = normalColor;
+                abilityImage.color = normalColor;
             }
             else
             {
-                powerupImage.color = cooldownColor;
+                abilityImage.color = cooldownColor;
             }
         }
     }

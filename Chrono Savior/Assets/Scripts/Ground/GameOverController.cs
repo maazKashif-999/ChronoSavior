@@ -38,9 +38,5 @@ public class GameOverController : MonoBehaviour
         SceneManager.LoadSceneAsync(0);
     }
     
-    // private void OnDisable()
-    // {
-    //     Time.timeScale = 1f;
-    // }
 }
 

@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -335964993
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 1635118481, guid: 71d0312ad18d645168a2169e19e40935, type: 3}
   m_Color: {r: 0.08018869, g: 0.3601836, b: 1, a: 1}
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 6309504509073534798}
   - component: {fileID: 7644674680261976602}
   - component: {fileID: 9057236909752284124}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ShieldedRobot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

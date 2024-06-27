@@ -5,18 +5,18 @@ using Pathfinding;
 
 public class GunRobot : MonoBehaviour, IEnemy
 {
-    public List<OnPowerupInteract> powerUps;
-
+    [SerializeField] private List<OnPowerupInteract> powerUps = new List<OnPowerupInteract>();
     [SerializeField] private float MAX_HEALTH = 70f;
     [SerializeField] private Animator animator;
-    private float currentHealth;
-    private GameObject player;
     [SerializeField] private float movementSpeed;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Seeker seeker;
-    private float nextWaypointDistance = 0.5f;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletPosition;
+    private float currentHealth;
+    private GameObject playerCenter;
+    private Player player;
+    private float nextWaypointDistance = 0.5f;
     private Path path;
     private int currentWayPoint = 0;
     private float timer = 0;
@@ -24,22 +24,26 @@ public class GunRobot : MonoBehaviour, IEnemy
     private const float SHOOT_DISTANCE = 5f;
     private const float AWAY_DISTANCE = 2f;
     private bool inRange = false;
+    private const string UPDATE_PATH = "UpdatePath";
+    private const string PLAYER_CENTER = "PlayerCenter";
+    private const string IS_SHOOTING = "IsShooting";
+
 
     
     void Start()
     {
         currentHealth = MAX_HEALTH;
-        
-        player = GameObject.FindGameObjectWithTag("PlayerCenter");
-        InvokeRepeating("UpdatePath",0f,0.5f);
-        seeker.StartPath(rb.position, player.transform.position, OnPathComplete);
+        player = Player.Instance;
+        playerCenter = GameObject.FindGameObjectWithTag(PLAYER_CENTER);
+        InvokeRepeating(UPDATE_PATH,0f,0.5f);
+        seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
     }
 
     void UpdatePath()
     {
         if(seeker.IsDone())
         {
-            seeker.StartPath(rb.position, player.transform.position, OnPathComplete);
+            seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
         }
     }
     private void OnPathComplete(Path p)
@@ -53,15 +57,16 @@ public class GunRobot : MonoBehaviour, IEnemy
     }
     void Update()
     {
-        if (Player.Instance.AreEnemiesFrozen())
+        if (player.AreEnemiesFrozen())
         {
             rb.velocity = Vector2.zero;
             return;
         }
-        float distance = Vector2.Distance(player.transform.position, transform.position);
-        if(distance <= SHOOT_DISTANCE)
+        Vector2 distanceVec = playerCenter.transform.position - transform.position;
+        float distanceSquared = distanceVec.sqrMagnitude;
+        if(distanceSquared <= (SHOOT_DISTANCE * SHOOT_DISTANCE))
         {
-            if(distance <= AWAY_DISTANCE)
+            if(distanceSquared <= (AWAY_DISTANCE * AWAY_DISTANCE)) 
             {
                 inRange = true;
             }
@@ -87,7 +92,7 @@ public class GunRobot : MonoBehaviour, IEnemy
     }
     void FixedUpdate()
     {
-        if(path == null || inRange || Player.Instance.AreEnemiesFrozen()) return;
+        if(path == null || inRange || player.AreEnemiesFrozen()) return;
         
         if(currentWayPoint >= path.vectorPath.Count)
         {
@@ -127,7 +132,7 @@ public class GunRobot : MonoBehaviour, IEnemy
     private void Shoot()
     {
         Instantiate(bullet, bulletPosition.position, Quaternion.identity);
-        animator.SetTrigger("IsShooting");
+        animator.SetTrigger(IS_SHOOTING);
     }
 
     private void SpawnPowerUp()
@@ -139,8 +144,7 @@ public class GunRobot : MonoBehaviour, IEnemy
     private void Die()
     {
         Destroy(gameObject);
-        int randomInt = Random.Range(0, 11);
-        if(randomInt % 10 == 0)
+        if(Random.Range(0, 5) == 0)
         {
             SpawnPowerUp();
         }

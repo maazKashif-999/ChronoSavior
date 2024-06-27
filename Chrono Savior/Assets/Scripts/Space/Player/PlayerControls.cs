@@ -47,8 +47,9 @@ public class PlayerControls : MonoBehaviour
         Camera mainCamera = Camera.main;
         if (mainCamera != null)
         {
-            minY = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y;
-            maxY = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, 0)).y;
+            float playerHeight = GetComponent<SpriteRenderer>().bounds.size.y;
+            minY = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + playerHeight / 2;
+            maxY = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, 0)).y - playerHeight / 2;
         }
         else
         {

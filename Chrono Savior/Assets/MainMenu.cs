@@ -1,21 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class MainMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public enum Mode
+    {
+        Campaign,
+        Infinity
+    }
+
+    public static Mode mode;
+
     public void playLevelOne()
     {
-        // GameManager.Instance.SetGMState(GameManager.GameManagerState.playing);
+        mode = Mode.Campaign;
         SceneManager.LoadSceneAsync(1);
     }
 
     public void playSpaceInfinity()
     {
-        // GameManager.Instance.SetGMState(GameManager.GameManagerState.);
+        mode = Mode.Infinity;
         SceneManager.LoadSceneAsync(1);
     }
 

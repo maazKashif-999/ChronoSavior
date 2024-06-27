@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     private bool canUseAbility = true;
     private bool areEnemiesFrozen = false;
     private bool redSkinEquipped = true;
+    private Camera mainCamera;
     [SerializeField] GameObject playerBlue;
     [SerializeField] GameObject playerRed;
     [SerializeField] Rigidbody2D rb;
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
+        mainCamera = Camera.main;
         gameOverController = FindObjectOfType<GameOverController>();
         if (Instance != null)
         {
@@ -73,6 +75,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        
         if(rb == null)
         {
             Debug.LogError("Rigidbody2D not found in Player.");
@@ -89,14 +92,18 @@ public class Player : MonoBehaviour
 
     private void Flip()
     {
-        if(playerBlue != null && playerRed != null)
+        Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 rotation = mousePosition - transform.position;
+        float rotationZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+        
+        if(playerBlue != null && playerRed != null && mainCamera != null)
         {
-            if (horizontalInput > 0)
+            if (horizontalInput > 0 || (rotationZ > -90 && rotationZ < 90))
             {
                 playerBlue.transform.rotation = Quaternion.Euler(0, 0, 0);
                 playerRed.transform.rotation = Quaternion.Euler(0, 0, 0);
             }
-            else if (horizontalInput < 0)
+            else if (horizontalInput < 0 || (rotationZ >= 90 && rotationZ <= 180) || (rotationZ <= -90 && rotationZ >= -180))
             {
                 playerBlue.transform.rotation = Quaternion.Euler(0, -180, 0);
                 playerRed.transform.rotation = Quaternion.Euler(0, -180, 0);
@@ -105,7 +112,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Debug.LogError("PlayerBlue or PlayerRed not found in Player.");
+            Debug.LogError("PlayerBlue, MainCamera or PlayerRed not found in Player.");
         }
         
     }

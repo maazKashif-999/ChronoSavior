@@ -5,11 +5,13 @@ public class BulletScript : MonoBehaviour
     private Vector3 mousePosition;
     private Camera mainCamera;
     private Rigidbody2D rb;
-    public float force;
-    public float bulletDamage;
+    [SerializeField] private float force;
+    [SerializeField] private float bulletDamage;
+    private int playerLayer = 6;
+    private int powerupLayer = 11;
     void Start()
     {
-        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        mainCamera = Camera.main;
         rb = GetComponent<Rigidbody2D>();
         mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         Vector3 direction = mousePosition - transform.position;
@@ -20,7 +22,7 @@ public class BulletScript : MonoBehaviour
    
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == 6 || collision.gameObject.layer == 11) return;
+        if(collision.gameObject.layer == playerLayer || collision.gameObject.layer == powerupLayer) return;
         IEnemy enemy = collision.GetComponent<IEnemy>();
         if(enemy != null)
         {

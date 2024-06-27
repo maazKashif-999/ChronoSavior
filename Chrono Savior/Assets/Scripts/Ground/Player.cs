@@ -61,7 +61,6 @@ public class Player : MonoBehaviour
     {
         if(!isAlive)
         {
-            rb.velocity = Vector2.zero;
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             return;
         }

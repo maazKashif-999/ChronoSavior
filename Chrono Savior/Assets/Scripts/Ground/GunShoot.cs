@@ -91,17 +91,16 @@ using UnityEngine;
 
 public class GunShoot : MonoBehaviour
 {
-    public GameObject bullet;
-    public Transform bulletTransform;
-    public bool canFire;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform bulletTransform;
+    [SerializeField] private bool canFire;
     private float timer;
-    public float timeBeteenShots;
-
-    public int maxCapacity;
+    [SerializeField] private float timeBeteenShots;
+    [SerializeField] private int maxCapacity;
     public int MaxCapacity => maxCapacity; // Add this line
     private int currentCapacity;
     public int CurrentCapacity => currentCapacity; // Add this line
-    public float reloadTime = 1f;
+    [SerializeField] private float reloadTime = 1f;
     private bool isReloading = false;
     [SerializeField] private int MAX_AMMO_CAP = int.MaxValue;
     private int currentTotalAmmo;
@@ -125,13 +124,7 @@ public class GunShoot : MonoBehaviour
         {
             return;
         }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            isReloading = true;
-            StartCoroutine(Reload());
-            return;
-        }
-        if (currentCapacity <= 0)
+        if (currentCapacity <= 0 || Input.GetKeyDown(KeyCode.R))
         {
             isReloading = true;
             StartCoroutine(Reload());

@@ -18,7 +18,7 @@ public class AmmoUIController : MonoBehaviour
             }
             else
             {
-                ammoCountText.text = $" {currentGun.CurrentCapacity}/inf";
+                ammoCountText.text = $" {currentGun.CurrentCapacity}/MAX";
             }
             
         }

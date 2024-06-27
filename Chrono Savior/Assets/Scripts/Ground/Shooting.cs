@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Shooting : MonoBehaviour
 {
-    [SerializeField] private Camera mainCamera;
+    private Camera mainCamera;
     [SerializeField] private AmmoUIController ammoUIController; 
 
     private Vector3 mousePosition;
     private int selectedWeaponIndex = 0;
 
     // Start is called before the first frame update
-    void Start()
+    
+    void Awake()
     {
+        mainCamera = Camera.main;
         SelectedWeapon(selectedWeaponIndex);
     }
 
@@ -50,6 +52,7 @@ public class Shooting : MonoBehaviour
 
     void SelectedWeapon(int selectedWeapon)
     {
+        selectedWeaponIndex = selectedWeapon;
         for (int i = 0; i < transform.childCount; i++)
         {
             if (i == selectedWeapon)

@@ -10,6 +10,8 @@ public class EnemyBulletScript : MonoBehaviour
     [SerializeField] private float force;
     [SerializeField] private float bulletDamage = 10;
     [SerializeField] private float rotation = 90f;
+    private int enemyLayer = 8;
+    private int powerupLayer = 11;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -24,7 +26,7 @@ public class EnemyBulletScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == 8 || collision.gameObject.layer == 11) return;
+        if(collision.gameObject.layer == enemyLayer || collision.gameObject.layer == powerupLayer) return;
         Player player = collision.GetComponent<Player>();
         if(player)
         {

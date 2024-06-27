@@ -27,12 +27,25 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
         player = Player.Instance;
         playerCenter = GameObject.FindGameObjectWithTag(PLAYER_CENTER);
         currentHealth = MAX_HEALTH;
-        InvokeRepeating(UPDATE_PATH,0f,0.5f);
-        seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
+        
+        if(seeker != null && playerCenter != null)
+        {
+            InvokeRepeating(UPDATE_PATH,0f,0.5f);
+            seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
+        }
+        else
+        {
+            Debug.LogError("Seeker or PlayerCenter is null in ExplosiveRobot");
+        }
     }
 
     void UpdatePath()
     {
+        if(seeker == null)
+        {
+            Debug.Log("Seeker is null in ExplosiveRobot");
+            return;
+        } 
         if(seeker.IsDone())
         {
             seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
@@ -49,6 +62,12 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
     }
     void Update()
     {
+        if(player == null || playerCenter == null || rb == null)
+        {
+            Debug.LogError("Player, PlayerCenter or Rigidbody2D is null in ExplosiveRobot");
+            return;
+        }
+
         if (player.AreEnemiesFrozen())
         {
             rb.velocity = Vector2.zero;
@@ -64,6 +83,11 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
     }
     void FixedUpdate()
     {
+        if(player == null || rb == null)
+        {
+            Debug.LogError("Player or Rigidbody2D is null in ExplosiveRobot");
+            return;
+        }
         if(path == null || player.AreEnemiesFrozen()) return;
 
         if(currentWayPoint >= path.vectorPath.Count)
@@ -96,6 +120,11 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
     private void SpawnPowerUp()
     {
         int index = Random.Range(0, powerUps.Count);
+        if(powerUps[index] == null)
+        {
+            Debug.LogError("PowerUp is null in ExplosiveRobot");
+            return;
+        }
         Instantiate(powerUps[index], transform.position, Quaternion.identity);
     }
     private void Die()

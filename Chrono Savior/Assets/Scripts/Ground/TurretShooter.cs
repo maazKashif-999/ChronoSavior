@@ -28,6 +28,12 @@ public class TurretShooter : MonoBehaviour, IEnemy
     // Update is called once per frame
     void Update()
     {
+        if(player == null || idle == null || active == null)
+        {
+            Debug.LogError("Player, idle or active is null in TurretShooter.");
+            return;
+        }
+
         if (player.AreEnemiesFrozen())
         {
             return;
@@ -54,6 +60,11 @@ public class TurretShooter : MonoBehaviour, IEnemy
 
     void Shoot()
     {
+        if(bullet == null || bulletPosition == null)
+        {
+            Debug.LogError("Bullet or bulletPosition is null in TurretShooter");
+            return;
+        }
         Instantiate(bullet, bulletPosition.position, Quaternion.identity);
     }
 
@@ -67,6 +78,11 @@ public class TurretShooter : MonoBehaviour, IEnemy
     }
     void Die()
     {
+        if(deathAnimation == null)
+        {
+            Debug.LogError("Death animation is null in TurretShooter");
+            return;
+        }
         Instantiate(deathAnimation, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

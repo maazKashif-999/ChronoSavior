@@ -13,13 +13,20 @@ public class BulletScript : MonoBehaviour
     {
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody2D>();
-
-        mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 direction = mousePosition - transform.position;
-        
-        rb.velocity = new Vector2(direction.x,direction.y).normalized * force;
-        float rot = (Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg) + 90;
-        transform.rotation = Quaternion.Euler(0,0,rot);
+        //is this fine as a null check?
+        if(mainCamera != null && rb != null)
+        {
+            mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 direction = mousePosition - transform.position;
+            rb.velocity = new Vector2(direction.x,direction.y).normalized * force;
+            float rot = (Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg) + 90;
+            transform.rotation = Quaternion.Euler(0,0,rot);
+        }
+        else
+        {
+            Debug.LogError("Camera or Rigidbody2D is null in Bulletscript");
+        }
+       
     }
    
     private void OnTriggerEnter2D(Collider2D collision)

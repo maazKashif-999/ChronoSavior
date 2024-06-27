@@ -20,14 +20,19 @@ public class GameOverController : MonoBehaviour
 
     public void ShowGameOverScreen()
     {
-        Debug.Log("Game Over Screen called"); 
+        if(gameOverCanvas == null)
+        {
+            Debug.LogError("GameOverCanvas null.");
+            return;
+        }
+        // Debug.Log("Game Over Screen called"); 
         gameOverCanvas.SetActive(true); 
         Time.timeScale = 0f; 
     }
 
     public void PlayAgain()
     {
-        Debug.Log("Play Again called");
+        // Debug.Log("Play Again called");
         Time.timeScale = 1f; 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

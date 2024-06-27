@@ -12,16 +12,24 @@ public class EnemyBulletScript : MonoBehaviour
     private Rigidbody2D rb;
     private const int ENEMY_LAYER = 8;
     private const int POWERUP_LAYER = 11;
+    private const string PLAYER_CENTER = "PlayerCenter";
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerCenter = GameObject.FindGameObjectWithTag("PlayerCenter");
+        playerCenter = GameObject.FindGameObjectWithTag(PLAYER_CENTER);
 
-        Vector3 direction = playerCenter.transform.position - transform.position;
-        rb.velocity = new Vector2(direction.x,direction.y).normalized * force;
-
-        float rot = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0,0,rot + rotation);
+        if(playerCenter != null && rb != null)
+        {
+            Vector3 direction = playerCenter.transform.position - transform.position;
+            rb.velocity = new Vector2(direction.x,direction.y).normalized * force;
+            float rot = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0,0,rot + rotation);
+        }
+        else
+        {
+            Debug.LogError("PlayerCenter or Rigidbody2D is null in EnemyBulletScript");
+        }
+    
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

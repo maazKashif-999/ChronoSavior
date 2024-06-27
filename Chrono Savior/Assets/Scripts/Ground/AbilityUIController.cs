@@ -14,10 +14,17 @@ public class AbilityUIController : MonoBehaviour
         player = Player.Instance;
         if (player == null)
         {
-            Debug.LogError("Player not found.");
+            Debug.LogError("Player not found in AbilityUIController.");
         }
-
-        abilityImage.color = normalColor;
+        if(abilityImage == null)
+        {
+            Debug.Log("Ability Image is null in AbilityUIController.");
+        }
+        else
+        {
+            abilityImage.color = normalColor;
+        }
+        
     }
 
     // Update is called once per frame
@@ -33,6 +40,10 @@ public class AbilityUIController : MonoBehaviour
             {
                 abilityImage.color = cooldownColor;
             }
+        }
+        else
+        {
+            Debug.LogError("Player not found in AbilityUIController.");
         }
     }
 }

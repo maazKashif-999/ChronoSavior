@@ -36,21 +36,25 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("GameOverController not found in the scene.");
         }
-        else
-        {
-            Debug.Log("GameOverController found in the scene.");
-        }
 
-        if(redSkinEquipped)
+        if(playerBlue != null && playerRed != null)
         {
-            playerBlue.SetActive(false);
-            playerRed.SetActive(true);
+            if(redSkinEquipped)
+            {
+                playerBlue.SetActive(false);
+                playerRed.SetActive(true);
+            }
+            else
+            {
+                playerBlue.SetActive(true);
+                playerRed.SetActive(false);
+            }
         }
         else
         {
-            playerBlue.SetActive(true);
-            playerRed.SetActive(false);
+            Debug.LogError("PlayerBlue or PlayerRed not found in Player.");
         }
+        
        
     }
 
@@ -69,6 +73,11 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(rb == null)
+        {
+            Debug.LogError("Rigidbody2D not found in Player.");
+            return;
+        }
         if(!isAlive)
         {
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -80,17 +89,25 @@ public class Player : MonoBehaviour
 
     private void Flip()
     {
-        if (horizontalInput > 0)
+        if(playerBlue != null && playerRed != null)
         {
-            playerBlue.transform.rotation = Quaternion.Euler(0, 0, 0);
-            playerRed.transform.rotation = Quaternion.Euler(0, 0, 0);
+            if (horizontalInput > 0)
+            {
+                playerBlue.transform.rotation = Quaternion.Euler(0, 0, 0);
+                playerRed.transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            else if (horizontalInput < 0)
+            {
+                playerBlue.transform.rotation = Quaternion.Euler(0, -180, 0);
+                playerRed.transform.rotation = Quaternion.Euler(0, -180, 0);
+                
+            }
         }
-        else if (horizontalInput < 0)
+        else
         {
-            playerBlue.transform.rotation = Quaternion.Euler(0, -180, 0);
-            playerRed.transform.rotation = Quaternion.Euler(0, -180, 0);
-            
+            Debug.LogError("PlayerBlue or PlayerRed not found in Player.");
         }
+        
     }
 
     public bool IsWalking()

@@ -55,6 +55,11 @@ public class GunShoot : MonoBehaviour
         if (Input.GetMouseButton(0) && canFire && currentTotalAmmo > 0)
         {
             canFire = false;
+            if(bulletTransform == null)
+            {
+                Debug.LogError("Bullet Transform is null in GunShoot.");
+                return;
+            }
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
             currentTotalAmmo--;
             currentCapacity--;

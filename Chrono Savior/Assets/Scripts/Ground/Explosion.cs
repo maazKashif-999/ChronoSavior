@@ -16,9 +16,12 @@ public class Explosion : MonoBehaviour
     public void Explode()
     {
         Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(transform.position, attackRadius,playerLayer);
-        foreach(Collider2D plyer in hitPlayer)
+        foreach(Collider2D player in hitPlayer)
         {
-            plyer.GetComponent<Player>().TakeDamage(attackDamage);
+            if(player != null) //is this even necessary? what am i even doing smh help
+            {
+                player.GetComponent<Player>().TakeDamage(attackDamage);
+            }
         }
     }
 

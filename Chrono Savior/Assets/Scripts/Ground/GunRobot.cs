@@ -35,12 +35,24 @@ public class GunRobot : MonoBehaviour, IEnemy
         currentHealth = MAX_HEALTH;
         player = Player.Instance;
         playerCenter = GameObject.FindGameObjectWithTag(PLAYER_CENTER);
-        InvokeRepeating(UPDATE_PATH,0f,0.5f);
-        seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
+        if(seeker != null && playerCenter != null)
+        {
+            InvokeRepeating(UPDATE_PATH,0f,0.5f);
+            seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
+        }
+        else
+        {
+            Debug.LogError("Seeker or PlayerCenter is null in GunRobot");
+        }
     }
 
     void UpdatePath()
     {
+        if(seeker == null)
+        {
+            Debug.Log("Seeker is null in GunRobot");
+            return;
+        }
         if(seeker.IsDone())
         {
             seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
@@ -57,6 +69,12 @@ public class GunRobot : MonoBehaviour, IEnemy
     }
     void Update()
     {
+        if(player == null || playerCenter == null || rb == null)
+        {
+            Debug.LogError("Player, PlayerCenter or Rigidbody2D is null in GunRobot");
+            return;
+        } 
+
         if (player.AreEnemiesFrozen())
         {
             rb.velocity = Vector2.zero;
@@ -92,6 +110,11 @@ public class GunRobot : MonoBehaviour, IEnemy
     }
     void FixedUpdate()
     {
+        if(player == null || rb == null)
+        {
+            Debug.LogError("Player or Rigidbody2D is null in GunRobot");
+            return;
+        }
         if(path == null || inRange || player.AreEnemiesFrozen()) return;
         
         if(currentWayPoint >= path.vectorPath.Count)
@@ -132,12 +155,23 @@ public class GunRobot : MonoBehaviour, IEnemy
     private void Shoot()
     {
         Instantiate(bullet, bulletPosition.position, Quaternion.identity);
+        if(animator == null)
+        {
+            Debug.LogError("Animator is null in GunRobot");
+            return;
+        }
         animator.SetTrigger(IS_SHOOTING);
+        
     }
 
     private void SpawnPowerUp()
     {
         int index = Random.Range(0, powerUps.Count);
+        if(powerUps[index] == null)
+        {
+            Debug.LogError("PowerUp is null in GunRobot");
+            return;
+        }
         Instantiate(powerUps[index], transform.position, Quaternion.identity);
     }
 
@@ -148,7 +182,6 @@ public class GunRobot : MonoBehaviour, IEnemy
         {
             SpawnPowerUp();
         }
-        
     }
 
 }

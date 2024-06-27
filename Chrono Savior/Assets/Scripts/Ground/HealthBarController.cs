@@ -20,6 +20,10 @@ public class HealthBarController : MonoBehaviour
         {
             UpdateHealthBar(player.GetCurrentHealth());
         }
+        else
+        {
+            Debug.LogError("Player not found in HealthBarController.");
+        }
     }
 
     void UpdateHealthBar(float currentHealth)

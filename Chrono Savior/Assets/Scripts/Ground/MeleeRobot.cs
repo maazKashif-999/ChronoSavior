@@ -5,7 +5,7 @@ using Pathfinding;
 public class MeleeRobot : MonoBehaviour, IEnemy
 {
     // This script contains the pathfinding of the robots (similar code is used for other enemies). We have used the A* pathfinding package to implement the pathfinding. However, since we have not studied pathfinding in class yet, nor are we entirely familiar with the code, we have largely referenced Brackeys tutorial for pathfinding. 
-    [SerializeField] private List<OnPowerupInteract> powerUps;
+    [SerializeField] private List<OnPowerupInteract> powerUps = new List<OnPowerupInteract>();
     [SerializeField] private float MAX_HEALTH;
     [SerializeField] private Animator animator;
     [SerializeField] private LayerMask playerLayer;
@@ -33,12 +33,25 @@ public class MeleeRobot : MonoBehaviour, IEnemy
         player = Player.Instance;
         playerCenter = GameObject.FindGameObjectWithTag(PLAYER_CENTER);
         currentHealth = MAX_HEALTH;
-        InvokeRepeating(UPDATE_PATH,0f,0.5f);
-        seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
+        if(seeker != null && playerCenter != null)
+        {
+            InvokeRepeating(UPDATE_PATH,0f,0.5f);
+            seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
+        }
+        else
+        {
+            Debug.LogError("Seeker or PlayerCenter is null in MeleeRobot");
+        }
+        
     }
 
     void UpdatePath()
     {
+        if(seeker == null)
+        {
+            Debug.Log("Seeker is null in MeleeRobot");
+            return;
+        }
         if(seeker.IsDone())
         {
             seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
@@ -56,6 +69,12 @@ public class MeleeRobot : MonoBehaviour, IEnemy
     // Update is called once per frame
     void Update()
     {
+        if(player == null || playerCenter == null || rb == null)
+        {
+            Debug.LogError("Player, PlayerCenter or Rigidbody2D is null in MeleeRobot");
+            return;
+        }
+
         if (player.AreEnemiesFrozen() && rb.velocity != Vector2.zero)
         {
             rb.velocity = Vector2.zero;
@@ -71,6 +90,11 @@ public class MeleeRobot : MonoBehaviour, IEnemy
     }
     void FixedUpdate()
     {
+        if(player == null || rb == null)
+        {
+            Debug.LogError("Player or Rigidbody2D is null in MeleeRobot");
+            return;
+        }
         if(path == null || player.AreEnemiesFrozen()) return;
 
         if(currentWayPoint >= path.vectorPath.Count)
@@ -103,15 +127,31 @@ public class MeleeRobot : MonoBehaviour, IEnemy
     public void MeleeAttack()
     {
         Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(transform.position, attackRadius, playerLayer);
-        foreach(Collider2D plyer in hitPlayer)
+        foreach(Collider2D playerCollision in hitPlayer)
         {
-            animator.SetTrigger(IS_ATTACKING);
-            plyer.GetComponent<Player>().TakeDamage(attackDamage);
+            if(animator != null)
+            {   
+                animator.SetTrigger(IS_ATTACKING);
+            }
+            else
+            {
+                Debug.LogError("Animator is null in MeleeRobot");
+            }
+            if(playerCollision != null)
+            {
+                playerCollision.GetComponent<Player>().TakeDamage(attackDamage);
+            }
+            
         }
     }
     private void SpawnPowerUp()
     {
         int index = Random.Range(0, powerUps.Count);
+        if(powerUps[index] == null)
+        {
+            Debug.LogError("PowerUp is null in MeleeRobot");
+            return;
+        }
         Instantiate(powerUps[index], transform.position, Quaternion.identity);
     }
     private void Die()

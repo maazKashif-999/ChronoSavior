@@ -102,14 +102,7 @@ public class SpaceGameManager : MonoBehaviour
                 {
                     enemies.SetActive(true);
                     enemyWaveManager = FindObjectOfType<EnemyWaveManager>();
-                    if (enemyWaveManager != null)
-                    {
-                        enemyWaveManager.SetMode(EnemyWaveManager.Mode.Infinity);
-                    }
-                    else
-                    {
-                        Debug.LogWarning("EnemyWaveManager not found in the scene.");
-                    }
+                    
                 }
                 else
                 {
@@ -210,14 +203,20 @@ public class SpaceGameManager : MonoBehaviour
             Debug.LogWarning("GameOverPanel GameObject not assigned in SpaceGameManager.");
         }
 
-        if (enemyWaveManager != null && enemyWaveManager.GetMode() == EnemyWaveManager.Mode.Campaign)
-        {
+        switch (MainMenu.mode)
+    {
+        case MainMenu.Mode.Campaign:
             StartGame();
-        }
-        else
-        {
+            break;
+
+        case MainMenu.Mode.Infinity:
             StartInfinity();
-        }
+            break;
+
+        default:
+            Debug.LogWarning("Unknown game mode.");
+            break;
+    }
     }
 
     public void WinGame()

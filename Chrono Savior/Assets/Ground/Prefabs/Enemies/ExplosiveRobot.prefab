@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4812825933164327933}
   - component: {fileID: 1681607408109933432}
   - component: {fileID: 7752672165731988115}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ExplosiveRobot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -335964993
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -1301951834, guid: d6cc3dc6b0bf8419e91d9b22a8652f69, type: 3}
   m_Color: {r: 0.027009675, g: 0.9433962, b: 0, a: 1}

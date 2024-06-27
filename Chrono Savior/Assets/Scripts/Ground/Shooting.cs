@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Shooting : MonoBehaviour
 {
-    private Camera mainCamera;
     [SerializeField] private AmmoUIController ammoUIController; 
-
+    private Camera mainCamera;
     private Vector3 mousePosition;
+    private Player player;
     private int selectedWeaponIndex = 0;
 
     // Start is called before the first frame update
@@ -15,13 +15,14 @@ public class Shooting : MonoBehaviour
     void Awake()
     {
         mainCamera = Camera.main;
+        player = Player.Instance;
         SelectedWeapon(selectedWeaponIndex);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!Player.Instance.IsAlive()) return;
+        if (!player.IsAlive()) return;
 
         mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         Vector3 rotation = mousePosition - transform.position;

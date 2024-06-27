@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-    [SerializeField] private float attackDamage = 150f;
+    [SerializeField] private float attackDamage = 75f;
     [SerializeField] private float attackRadius = 1f;
     [SerializeField] private LayerMask playerLayer;
     void Start()

@@ -6,7 +6,6 @@ public class AbilityUIController : MonoBehaviour
     [SerializeField] private Image abilityImage;
     [SerializeField] private Color normalColor = Color.white;
     [SerializeField] private Color cooldownColor = Color.grey;
-
     private Player player;
 
     // Start is called before the first frame update

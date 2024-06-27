@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class AmmoUIController : MonoBehaviour
 {
     [SerializeField] private Text ammoCountText;
-
     private GunShoot currentGun;
 
     // Update is called once per frame

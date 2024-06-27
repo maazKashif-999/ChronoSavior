@@ -5,35 +5,36 @@ using UnityEngine;
 public class TurretShooter : MonoBehaviour, IEnemy
 {
     // Start is called before the first frame update
-    private const float MAX_HEALTH = 50f;
-    private float currentHealth;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletPosition;
     [SerializeField] private GameObject active;
     [SerializeField] private GameObject idle;
     [SerializeField] private GameObject deathAnimation;
-    private GameObject player;
+    private const float MAX_HEALTH = 50f;
+    private float currentHealth;
+    private Player player;
     private float timer;
     private const float TIME_BETWEEN_SHOTS = 1.5f;
     private const float DETECT_DISTANCE = 5f;
     
     void Start() 
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = Player.Instance;
         currentHealth = MAX_HEALTH;
         idle.SetActive(true);
         active.SetActive(false);
     }
-
+    
     // Update is called once per frame
     void Update()
     {
-        if (Player.Instance.AreEnemiesFrozen())
+        if (player.AreEnemiesFrozen())
         {
             return;
         }
-        float distance = Vector2.Distance(player.transform.position, transform.position);
-        if(distance < DETECT_DISTANCE)
+        Vector2 distanceVec = player.transform.position - transform.position;
+        float distanceSquared = distanceVec.sqrMagnitude;
+        if(distanceSquared < (DETECT_DISTANCE * DETECT_DISTANCE))
         {
             idle.SetActive(false);
             active.SetActive(true);
@@ -67,7 +68,7 @@ public class TurretShooter : MonoBehaviour, IEnemy
     void Die()
     {
         Instantiate(deathAnimation, transform.position, Quaternion.identity);
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
 }

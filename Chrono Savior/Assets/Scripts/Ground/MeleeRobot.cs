@@ -6,36 +6,42 @@ public class MeleeRobot : MonoBehaviour, IEnemy
 {
     // This script contains the pathfinding of the robots (similar code is used for other enemies). We have used the A* pathfinding package to implement the pathfinding. However, since we have not studied pathfinding in class yet, nor are we entirely familiar with the code, we have largely referenced Brackeys tutorial for pathfinding. 
     [SerializeField] private List<OnPowerupInteract> powerUps;
-    [SerializeField] private float MAX_HEALTH = 30f;
+    [SerializeField] private float MAX_HEALTH;
     [SerializeField] private Animator animator;
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private float attackRadius;
     [SerializeField] private float attackDamage;
-    private float currentHealth;
-    private GameObject player;
     [SerializeField] private float movementSpeed;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Seeker seeker;
+    private float currentHealth;
+    private GameObject playerCenter;
+    private Player player;
     private float nextWaypointDistance = 0.1f;
     private Path path;
     private int currentWayPoint = 0;
     private float timer = 0;
     private const float TIME_BETWEEN_ATTACK = 0.5f;
+    private const string UPDATE_PATH = "UpdatePath";
+    private const string PLAYER_CENTER = "PlayerCenter";
+    private const string IS_ATTACKING = "IsAttacking";
+
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("PlayerCenter");
+        player = Player.Instance;
+        playerCenter = GameObject.FindGameObjectWithTag(PLAYER_CENTER);
         currentHealth = MAX_HEALTH;
-        InvokeRepeating("UpdatePath",0f,0.5f);
-        seeker.StartPath(rb.position, player.transform.position, OnPathComplete);
+        InvokeRepeating(UPDATE_PATH,0f,0.5f);
+        seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
     }
 
     void UpdatePath()
     {
         if(seeker.IsDone())
         {
-            seeker.StartPath(rb.position, player.transform.position, OnPathComplete);
+            seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
         }
     }
     private void OnPathComplete(Path p)
@@ -50,7 +56,7 @@ public class MeleeRobot : MonoBehaviour, IEnemy
     // Update is called once per frame
     void Update()
     {
-        if (Player.Instance.AreEnemiesFrozen() && rb.velocity != Vector2.zero)
+        if (player.AreEnemiesFrozen() && rb.velocity != Vector2.zero)
         {
             rb.velocity = Vector2.zero;
             return;
@@ -65,7 +71,7 @@ public class MeleeRobot : MonoBehaviour, IEnemy
     }
     void FixedUpdate()
     {
-        if(path == null || Player.Instance.AreEnemiesFrozen()) return;
+        if(path == null || player.AreEnemiesFrozen()) return;
 
         if(currentWayPoint >= path.vectorPath.Count)
         {
@@ -99,7 +105,7 @@ public class MeleeRobot : MonoBehaviour, IEnemy
         Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(transform.position, attackRadius, playerLayer);
         foreach(Collider2D plyer in hitPlayer)
         {
-            animator.SetTrigger("IsAttacking");
+            animator.SetTrigger(IS_ATTACKING);
             plyer.GetComponent<Player>().TakeDamage(attackDamage);
         }
     }
@@ -110,16 +116,16 @@ public class MeleeRobot : MonoBehaviour, IEnemy
     }
     private void Die()
     {
-        if(MAX_HEALTH > 50)
+        if(MAX_HEALTH == 60)
         {
-            if(Random.Range(0,6) % 5 == 0)
+            if(Random.Range(0,6) == 0)
             {
                 SpawnPowerUp();
             }
         }
-        else if(MAX_HEALTH > 30)
+        else if(MAX_HEALTH == 50)
         {
-            if(Random.Range(0,9) % 8 == 0)
+            if(Random.Range(0,9) == 0)
             {
                 SpawnPowerUp();
             }

@@ -12,8 +12,12 @@ public class PlayerControls : MonoBehaviour
     public TextMeshProUGUI coinCount; // Reference to the TextMeshPro text element for displaying coin count
     public TextMeshProUGUI tokenCount;
     float health;
+    float shield;
     public HealthBar healthBar;
+
+    public ShieldBar shieldBar;
     int maxHealth = 100;
+    int maxShield = 50;
     float bulletSpeed = 6.0f;
     int damage = 10;
     public GameObject playerBulletPrefab; // Prefab of the player bullet
@@ -30,9 +34,11 @@ public class PlayerControls : MonoBehaviour
     {
         gameObject.SetActive(true);
         health = maxHealth; // Reset health to max
+        shield = maxShield;
         coins = 0; // Reset coin count
         token = 0; 
         UpdateHealth();
+        UpdateShield();
 
         if (tokenCount != null)
         {
@@ -144,9 +150,18 @@ public class PlayerControls : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        health = Mathf.Clamp(health, 0, maxHealth);
-        UpdateHealth();
+        if (shield > 0)
+        {
+            shield -= damage;
+            Mathf.Clamp(shield, 0, maxShield);
+            UpdateShield();
+        }
+        else{
+            health -= damage;
+            health = Mathf.Clamp(health, 0, maxHealth);
+            UpdateHealth();
+        }
+        
         if (health <= 0)
         {
             Explode();
@@ -178,6 +193,19 @@ public class PlayerControls : MonoBehaviour
             Debug.LogWarning("Health bar is not assigned.");
         }
     }
+    void UpdateShield()
+    {
+        float healthAmount = shield / maxShield;
+        if (shieldBar != null)
+        {
+            shieldBar.SetSheild(healthAmount);
+        }
+        else
+        {
+            Debug.LogWarning("Shield bar is not assigned.");
+        }
+    }
+
 
     IEnumerator WaitAndEndGame(float waitTime)
     {

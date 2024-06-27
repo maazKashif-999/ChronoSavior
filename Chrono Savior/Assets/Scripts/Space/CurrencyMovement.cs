@@ -2,12 +2,22 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    float speed = 1.5f; // Speed at which the coin moves must be equal to background
+    [SerializeField]
+    private float speed = 1.5f; // Speed at which the coin moves
+
     private float screenEdgeX;
 
     private void Start()
     {
-        screenEdgeX = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
+        Camera mainCamera = Camera.main;
+        if (mainCamera != null)
+        {
+            screenEdgeX = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
+        }
+        else
+        {
+            Debug.LogWarning("Main camera is not assigned.");
+        }
     }
 
     private void Update()

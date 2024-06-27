@@ -9,6 +9,13 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     public void playLevelOne()
     {
+        // GameManager.Instance.SetGMState(GameManager.GameManagerState.playing);
+        SceneManager.LoadSceneAsync(1);
+    }
+
+    public void playSpaceInfinity()
+    {
+        // GameManager.Instance.SetGMState(GameManager.GameManagerState.);
         SceneManager.LoadSceneAsync(1);
     }
 

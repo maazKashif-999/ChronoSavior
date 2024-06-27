@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AesteroidPowerup : MonoBehaviour
+public class Powerup : MonoBehaviour
 {
     public PowerUpEffect powerUpEffect;
     private float screenEdgeX;
@@ -11,7 +11,6 @@ public class AesteroidPowerup : MonoBehaviour
     {
         screenEdgeX = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
     }
-
     void Update()
     {
         transform.position += Vector3.left * powerUpEffect.speed * Time.deltaTime;
@@ -27,10 +26,6 @@ public class AesteroidPowerup : MonoBehaviour
         {
             powerUpEffect.Apply(other.gameObject);
             Destroy(gameObject); 
-        }
-        else if (other.CompareTag("PlayerBullets") || other.CompareTag("EnemyBullets"))
-        {
-            Destroy(other.gameObject);
         }
     }
 }

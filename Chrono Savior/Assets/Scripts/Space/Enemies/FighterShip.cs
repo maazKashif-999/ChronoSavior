@@ -7,7 +7,7 @@ public class FighterShip : EnemyShip
         base.Start(); // Call base class (EnemyShip) Start method first
         health = 50;
         speed = 4.0f;
-        limitXPosition = 5f;
+        limitXPosition = 4.5f;
         fireInterval = 0.5f;
         bulletSpeed = 4.0f;
         damage = 10;
@@ -17,6 +17,7 @@ public class FighterShip : EnemyShip
 
     protected override void Update()
     {
+        
         base.Update(); // Call base class (EnemyShip) Update method
     }
 

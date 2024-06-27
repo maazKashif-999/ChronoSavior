@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ScrollingBackground : MonoBehaviour
 {
-    [SerializeField]
+
     private float scrollSpeed = 0.3f;
     private Vector2 startPos;
 
@@ -15,7 +15,9 @@ public class ScrollingBackground : MonoBehaviour
     {
         if (transform != null)
         {
-            Vector2 newPos = new Vector2(startPos.x - scrollSpeed * Time.deltaTime, startPos.y);
+            // Calculate new position
+            Vector3 newPos = new Vector3(transform.position.x - scrollSpeed * Time.deltaTime, startPos.y, 0);
+            // Update the position
             transform.position = newPos;
         }
     }

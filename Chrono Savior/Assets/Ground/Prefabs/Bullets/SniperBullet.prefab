@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796a5d65346994a6b94864e3185fb399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletType: Sniper
   force: 20
   bulletDamage: 50
 --- !u!61 &4831818068501183074

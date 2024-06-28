@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class GunShoot : MonoBehaviour
 {
+    [SerializeField] private string gunType;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletTransform;
     [SerializeField] private bool canFire;
@@ -18,6 +20,11 @@ public class GunShoot : MonoBehaviour
     private bool isReloading = false;
     private int currentTotalAmmo;
     public int CurrentTotalAmmo => currentTotalAmmo; // Add this line
+    private const string AR = "AR";
+    private const string SMG = "SMG";
+    private const string PISTOL = "Pistol";
+    private const string SHOTGUN = "Shotgun";
+    private const string SNIPER = "Sniper";
 
     // Update is called once per frame
     void Start()
@@ -60,7 +67,33 @@ public class GunShoot : MonoBehaviour
                 Debug.LogError("Bullet Transform is null in GunShoot.");
                 return;
             }
-            Instantiate(bullet, bulletTransform.position, Quaternion.identity);
+            GameObject bullet = null;
+            if(gunType == AR)
+            {
+                bullet = ARBulletPool.SharedInstance.GetPooledObject(); 
+            }
+            else if(gunType == SMG)
+            {
+                bullet = SMGBulletPool.SharedInstance.GetPooledObject(); 
+            }
+            else if(gunType == PISTOL)
+            {
+                bullet = PistolBulletPool.SharedInstance.GetPooledObject(); 
+            }
+            else if(gunType == SNIPER)
+            {
+                bullet = SniperBulletPool.SharedInstance.GetPooledObject(); 
+            }
+            // else if(gunType == SHOTGUN)
+            // {
+            //     bullet = ShotgunBulletPool.SharedInstance.GetPooledObject(); 
+            // }
+            if (bullet != null) 
+            {
+                bullet.transform.position = bulletTransform.position;
+                bullet.transform.rotation = Quaternion.identity;
+                bullet.SetActive(true);
+            }
             currentTotalAmmo--;
             currentCapacity--;
         }

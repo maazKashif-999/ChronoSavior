@@ -958,6 +958,101 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 523189788}
   m_CullTransparentMesh: 1
+--- !u!1 &532103278
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 532103280}
+  - component: {fileID: 532103279}
+  - component: {fileID: 532103281}
+  - component: {fileID: 532103283}
+  - component: {fileID: 532103282}
+  m_Layer: 0
+  m_Name: PoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &532103279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532103278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c24efb7af1e744d47a026b950025d49a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects: []
+  objectToPool: {fileID: 8650246631434452996, guid: 898c8dc2f7c77467c8bc98c62429b712, type: 3}
+  amountToPool: 15
+--- !u!4 &532103280
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532103278}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.32869086, y: 6.9702425, z: -10.007746}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &532103281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532103278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef33d6fa66260411a9a33035031c3047, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects: []
+  objectToPool: {fileID: 8650246631434452996, guid: f45e69970b42c4d4eb2403b469eac0df, type: 3}
+  amountToPool: 25
+--- !u!114 &532103282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532103278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca1ea2a50ccf54026953a8e6c9b4d117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects: []
+  objectToPool: {fileID: 8650246631434452996, guid: e505cef1179664f12954921f88121659, type: 3}
+  amountToPool: 6
+--- !u!114 &532103283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532103278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0617d11d34fb4939aeaae44d7eb42fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects: []
+  objectToPool: {fileID: 8650246631434452996, guid: 95341120a570841c58aefee1e27ca39a, type: 3}
+  amountToPool: 3
 --- !u!1 &547687290
 GameObject:
   m_ObjectHideFlags: 0
@@ -1167,6 +1262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1885e065e18493ebac493adb1eb225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunType: SMG
   bullet: {fileID: 8650246631434452996, guid: f45e69970b42c4d4eb2403b469eac0df, type: 3}
   bulletTransform: {fileID: 444274854}
   canFire: 1
@@ -20437,6 +20533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1885e065e18493ebac493adb1eb225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunType: AR
   bullet: {fileID: 8650246631434452996, guid: 898c8dc2f7c77467c8bc98c62429b712, type: 3}
   bulletTransform: {fileID: 342702699}
   canFire: 1
@@ -22296,6 +22393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1885e065e18493ebac493adb1eb225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunType: Pistol
   bullet: {fileID: 8650246631434452996, guid: e505cef1179664f12954921f88121659, type: 3}
   bulletTransform: {fileID: 862454696}
   canFire: 1
@@ -22513,6 +22611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1885e065e18493ebac493adb1eb225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunType: Sniper
   bullet: {fileID: 8650246631434452996, guid: 95341120a570841c58aefee1e27ca39a, type: 3}
   bulletTransform: {fileID: 1629556736}
   canFire: 1
@@ -23260,3 +23359,4 @@ SceneRoots:
   - {fileID: 618107698}
   - {fileID: 1441134031}
   - {fileID: 168672394}
+  - {fileID: 532103280}

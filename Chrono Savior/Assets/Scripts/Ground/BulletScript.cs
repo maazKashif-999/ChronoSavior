@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
+    [SerializeField] private string bulletType;
     [SerializeField] private float force;
     [SerializeField] private float bulletDamage;
     private Vector3 mousePosition;
@@ -9,7 +10,7 @@ public class BulletScript : MonoBehaviour
     private Rigidbody2D rb;
     private const int PLAYER_LAYER = 6;
     private const int POWERUP_LAYER = 11;
-    void Start()
+    void OnEnable()
     {
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody2D>();
@@ -38,7 +39,9 @@ public class BulletScript : MonoBehaviour
             float currentDamage = bulletDamage * Player.Instance.GetDamageMultipler();
             enemy.TakeDamage(currentDamage);
         }
-        Destroy(gameObject);
+        
+        gameObject.SetActive(false);
+        
     }
 }
  

@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 383768246346654950}
   - component: {fileID: 8250093474604235715}
   - component: {fileID: 8870330184338314207}
-  - component: {fileID: 8680333884747063148}
   - component: {fileID: -2168767402512245969}
   - component: {fileID: 4800389848296228566}
+  - component: {fileID: 6020731602919724604}
   m_Layer: 0
   m_Name: EnergyToken
   m_TagString: token
@@ -109,18 +109,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8680333884747063148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7812099448907868456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a5d30e1c0435c3479332f385005f707, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &-2168767402512245969
 Rigidbody2D:
   serializedVersion: 4
@@ -183,3 +171,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2.6
+--- !u!114 &6020731602919724604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7812099448907868456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aec71ca6c260dd9469862afcb75169f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpEffect: {fileID: 11400000, guid: 5c8ba20e6856a3a429ce2eb83649973a, type: 2}

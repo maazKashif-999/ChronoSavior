@@ -7,7 +7,12 @@ public class PlayerBullet : MonoBehaviour
     private Vector3 targetPosition;
     private Vector3 direction;
     private float speed;
-    public int damage;
+    private int damage;
+
+    public int Damage
+    {
+        get { return damage; }
+    }
 
     public void Initialize(Vector3 target, float bulletSpeed, int bulletDamage, Quaternion rotation)
     {
@@ -33,10 +38,5 @@ public class PlayerBullet : MonoBehaviour
         {
             Debug.LogWarning("Main camera is not assigned.");
         }
-    }
-
-    public int GetDamage()
-    {
-        return damage;
     }
 }

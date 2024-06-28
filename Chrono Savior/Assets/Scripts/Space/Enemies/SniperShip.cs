@@ -7,7 +7,7 @@ public class SniperShip : EnemyShip
         base.Start(); // Call base class (EnemyShip) Start method first
         health = 100;
         speed = 4.0f;
-        limitXPosition = 6f;
+        limitXPosition = 5.3f;
         fireInterval = 1.5f;
         bulletSpeed = 2.0f;
         damage = 30;

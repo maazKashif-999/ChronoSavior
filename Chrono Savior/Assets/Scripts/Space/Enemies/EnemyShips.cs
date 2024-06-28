@@ -69,7 +69,7 @@ public class EnemyShip : MonoBehaviour
 
             if (bullet != null)
             {
-                TakeDamage(bullet.damage);
+                TakeDamage(bullet.Damage);
                 Destroy(other.gameObject);
             }
         }
@@ -101,7 +101,7 @@ public class EnemyShip : MonoBehaviour
 
     private void DropCoin()
     {
-        if (coinPrefab != null && tokenPrefab != null)
+        if (coinPrefab != null && tokenPrefab != null && MainMenu.mode == MainMenu.Mode.Campaign)
         {
             float randomValue = Random.Range(0f, 1f);
             if (randomValue <= coinDroppingProbability)

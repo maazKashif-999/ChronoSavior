@@ -19,22 +19,41 @@ public class EnemyWaveManager : MonoBehaviour
     private List<GameObject> spawnedEnemies = new List<GameObject>(); // List to keep track of spawned enemies
     private Coroutine asteroidSpawner; // Coroutine for spawning asteroids
     private Coroutine enemiesSpawner;
-    float minY,maxY;
+    float minY,maxY,shipSize,aesterpodSize;
     private void Start()
     {
         Camera mainCamera = Camera.main;
         if (mainCamera != null)
         {
             
-            minY = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y ;
-            maxY = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, 0)).y ;
+            minY = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + 0.3f ;
+            maxY = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, 0)).y - 0.3f ;
         }
         else
         {
             Debug.LogWarning("Main camera is not assigned.");
         }
+        shipSize = GetPrefabSize(fighterShipPrefab);
+        aesterpodSize = GetPrefabSize(asteroidPrefab);
         StartNextWave();
         
+    }
+
+    float GetPrefabSize(GameObject prefab)
+    {
+        // Instantiate the prefab temporarily to get the size
+        GameObject tempObject = Instantiate(prefab);
+
+        // Get the SpriteRenderer component
+        SpriteRenderer spriteRenderer = tempObject.GetComponent<SpriteRenderer>();
+
+        // Calculate the size
+        float size = (spriteRenderer.bounds.size.y)/2;
+
+        // Destroy the temporary object
+        Destroy(tempObject);
+
+        return size;
     }
     private void StartNextWave()
     {
@@ -122,7 +141,7 @@ public class EnemyWaveManager : MonoBehaviour
         {
             yield return new WaitForSeconds(3.0f); // Wait for 1 second before spawning the next asteroid
             // Spawn asteroid
-            Vector3 spawnPosition = new Vector3(8.0f, Random.Range(minY, maxY), 0f);
+            Vector3 spawnPosition = new Vector3(8.0f, Random.Range(minY+aesterpodSize, maxY-aesterpodSize), 0f);
             Instantiate(asteroidPrefab, spawnPosition, Quaternion.identity);
         }
     }
@@ -134,7 +153,7 @@ public class EnemyWaveManager : MonoBehaviour
         {
             validPosition = true;
             float spawnX = 8.0f;
-            float spawnY = Random.Range(minY, maxY);
+            float spawnY = Random.Range(minY+shipSize, maxY-shipSize);
             spawnPosition = new Vector3(spawnX, spawnY, 0f);
             // Check if the new spawn position is too close to any existing positions
             foreach (Vector3 pos in spawnedPositions)

@@ -39,11 +39,10 @@ public class SpaceGameManager : MonoBehaviour
 
     private void Awake()
     {
-        // Ensure that only one instance of the GameManager exists
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Persist across scenes
+            DontDestroyOnLoad(gameObject);
         }
         else
         {

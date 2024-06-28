@@ -59,7 +59,8 @@ public class GameTimer : MonoBehaviour
 
     private string FormatTime(float time)
     {
-        int seconds = Mathf.FloorToInt(time);
-        return string.Format("{0:00}", seconds);
+        int minutes = Mathf.FloorToInt(time / 60F);
+        int seconds = Mathf.FloorToInt(time % 60F);
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 }

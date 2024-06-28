@@ -91,15 +91,19 @@ public class PlayerControls : MonoBehaviour
         if (mainCamera != null)
         {
             float playerHeight = GetComponent<SpriteRenderer>().bounds.size.y;
+
             minY = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + playerHeight / 2;
             maxY = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, 0)).y - playerHeight / 2;
+        
+            
+            transform.position = new Vector3(mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + 0.3f, 0, 0);
         }
         else
         {
             Debug.LogWarning("Main camera is not assigned.");
         }
 
-        transform.position = new Vector3(-6, 0, 0);
+        
         transform.rotation = Quaternion.Euler(0, 0, 270);
     }
 

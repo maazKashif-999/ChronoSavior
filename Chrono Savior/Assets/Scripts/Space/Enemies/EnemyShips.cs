@@ -28,6 +28,8 @@ public class EnemyShip : MonoBehaviour
 
         enemyWaveManager = FindObjectOfType<EnemyWaveManager>();
         player = FindObjectOfType<PlayerControls>();
+        
+
     }
 
     protected virtual void Update()

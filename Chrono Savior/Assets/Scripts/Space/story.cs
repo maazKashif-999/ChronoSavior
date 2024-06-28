@@ -20,6 +20,7 @@ public class EnemyWaveManager : MonoBehaviour
     private Coroutine asteroidSpawner; // Coroutine for spawning asteroids
     private Coroutine enemiesSpawner;
     float minY,maxY,shipSize,aesterpodSize;
+
     private void Start()
     {
         Camera mainCamera = Camera.main;
@@ -83,7 +84,6 @@ public class EnemyWaveManager : MonoBehaviour
             asteroidSpawner = StartCoroutine(SpawnAsteroids()); // Start spawning asteroids
             enemiesSpawner = StartCoroutine(SpawnWave(fighterCount,bomberCount,sniperCount));
             break;
-
             default:
                 Debug.LogWarning("Unknown game mode.");
                 break;

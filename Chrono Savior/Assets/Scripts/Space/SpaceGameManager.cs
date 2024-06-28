@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpaceGameManager : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class SpaceGameManager : MonoBehaviour
     public GameObject player;
     public GameObject enemies;
     public GameObject gameOverPanel;
+
+    public GameObject coinsCollected,tokensCollected;
+
 
     private EnemyWaveManager enemyWaveManager;
 
@@ -21,6 +25,17 @@ public class SpaceGameManager : MonoBehaviour
     }
 
     private GameManagerState GMState;
+
+    public Text timerText;
+    private float elapsedTime;
+    private bool isRunning;
+    void UpdateTimerUI()
+    {
+        int minutes = Mathf.FloorToInt(elapsedTime / 60F);
+        int seconds = Mathf.FloorToInt(elapsedTime - minutes * 60);
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
 
     private void Awake()
     {
@@ -36,11 +51,32 @@ public class SpaceGameManager : MonoBehaviour
         }
     }
 
+
+
     // Start is called before the first frame update
     void Start()
     {
-        GMState = GameManagerState.playing;
-        UpdateGMState();
+        switch(MainMenu.mode)
+        {
+            case MainMenu.Mode.Infinity:
+                StartInfinity();
+                break;
+            case MainMenu.Mode.Campaign:
+                StartGame();
+                break;
+            default:
+                Debug.LogError("Unknown game mode");
+                break;
+
+        }
+    }
+
+    private void Update()
+    {
+        if (isRunning){
+            elapsedTime += Time.deltaTime;
+            UpdateTimerUI();
+        }
     }
 
     void UpdateGMState()
@@ -153,16 +189,24 @@ public class SpaceGameManager : MonoBehaviour
 
     public void StartGame()
     {
+        coinsCollected.SetActive(true);
+        tokensCollected.SetActive(true);
+        timerText.gameObject.SetActive(false);
         SetGMState(GameManagerState.playing);
     }
 
     public void StartInfinity()
     {
+        isRunning = true;
+        elapsedTime = 0f;
+        timerText.gameObject.SetActive(true);
         SetGMState(GameManagerState.infinity);
     }
 
     public void EndGame()
     {
+        isRunning = false;
+        timerText.gameObject.SetActive(false);
         SetGMState(GameManagerState.gameover);
     }
 

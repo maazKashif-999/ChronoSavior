@@ -7,11 +7,15 @@ public class SniperShip : EnemyShip
         base.Start(); // Call base class (EnemyShip) Start method first
         health = 100;
         speed = 4.0f;
-        limitXPosition = 5.3f;
+        Camera mainCamera = Camera.main;
+        if (mainCamera != null)
+        {
+            limitXPosition = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, 0)).x-0.5f;
+        }
         fireInterval = 1.5f;
         bulletSpeed = 2.0f;
         damage = 30;
-        angle = 90;
+        angle = 270;
         coinDroppingProbability = 0.15f;
     }
 

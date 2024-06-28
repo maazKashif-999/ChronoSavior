@@ -20,7 +20,10 @@ public class PlayerBullet : MonoBehaviour
         speed = bulletSpeed;
         damage = bulletDamage;
         direction = (targetPosition - transform.position).normalized;
-        transform.rotation = rotation;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle))*rotation;
+        //transform.rotation = rotation;
     }
 
     void Update()

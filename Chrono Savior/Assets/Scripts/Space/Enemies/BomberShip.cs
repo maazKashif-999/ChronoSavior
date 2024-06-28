@@ -2,16 +2,24 @@ using UnityEngine;
 
 public class BomberShip : EnemyShip
 {
+    
     protected override void Start()
     {
+
         base.Start(); // Call base class (EnemyShip) Start method first
+        Camera mainCamera = Camera.main;
+        if (mainCamera != null)
+        {
+            limitXPosition = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, 0)).x-0.75f;
+        }
+        
         health = 80;
         speed = 4.0f;
-        limitXPosition = 5.5f;
+        
         fireInterval = 1f;
         bulletSpeed = 2.0f;
         damage = 25;
-        angle = 180;
+        angle = 0;
         coinDroppingProbability = 0.2f;
     }
 

@@ -7,11 +7,15 @@ public class FighterShip : EnemyShip
         base.Start(); // Call base class (EnemyShip) Start method first
         health = 50;
         speed = 4.0f;
-        limitXPosition = 4.5f;
+        Camera mainCamera = Camera.main;
+        if (mainCamera != null)
+        {
+            limitXPosition = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, 0)).x-1f;
+        }
         fireInterval = 0.5f;
         bulletSpeed = 4.0f;
         damage = 10;
-        angle = 90;
+        angle = 270;
         coinDroppingProbability = 0.1f;
     }
 

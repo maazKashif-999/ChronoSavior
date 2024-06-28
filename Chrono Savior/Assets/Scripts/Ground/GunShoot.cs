@@ -67,27 +67,34 @@ public class GunShoot : MonoBehaviour
                 Debug.LogError("Bullet Transform is null in GunShoot.");
                 return;
             }
+
             GameObject bullet = null;
-            if(gunType == AR)
+
+            if(gunType == AR && ARBulletPool.SharedInstance != null)
             {
                 bullet = ARBulletPool.SharedInstance.GetPooledObject(); 
             }
-            else if(gunType == SMG)
+            else if(gunType == SMG && SMGBulletPool.SharedInstance != null)
             {
                 bullet = SMGBulletPool.SharedInstance.GetPooledObject(); 
             }
-            else if(gunType == PISTOL)
+            else if(gunType == PISTOL && PistolBulletPool.SharedInstance != null)
             {
                 bullet = PistolBulletPool.SharedInstance.GetPooledObject(); 
             }
-            else if(gunType == SNIPER)
+            else if(gunType == SNIPER && SniperBulletPool.SharedInstance != null)
             {
                 bullet = SniperBulletPool.SharedInstance.GetPooledObject(); 
             }
-            // else if(gunType == SHOTGUN)
-            // {
-            //     bullet = ShotgunBulletPool.SharedInstance.GetPooledObject(); 
-            // }
+            else if(gunType == SHOTGUN && ShotgunBulletPool.SharedInstance != null)
+            {
+                bullet = ShotgunBulletPool.SharedInstance.GetPooledObject(); 
+            }
+            else
+            {
+                Debug.LogError("Bullet Pool not found in GunShoot.");
+            }
+            
             if (bullet != null) 
             {
                 bullet.transform.position = bulletTransform.position;

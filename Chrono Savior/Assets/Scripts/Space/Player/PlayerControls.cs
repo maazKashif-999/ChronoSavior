@@ -16,8 +16,12 @@ public class PlayerControls : MonoBehaviour
     float shield;
     public HealthBar healthBar;
     public AudioClip explosionSound; // Explosion sound clip
-    public AudioClip bulletSound;
+    public AudioClip bulletSound; //bullet picking up sound clip
+    public AudioClip tokenPickupSound; //token picking up sound clip
+    public AudioClip coinPickupSound; //coin picking up sound clip
     private AudioSource audioSource; // AudioSource component
+
+
 
     public ShieldBar shieldBar;
     const int MAX_HEALTH = 100;
@@ -28,6 +32,10 @@ public class PlayerControls : MonoBehaviour
     private SpaceGameManager gameManager; // Reference to the GameManager
     private int coins = 0; // Variable to keep track of collected coins
     private int token = 0;
+
+    //hold fire additions
+    //bool canFire = true;
+    Coroutine fireCoroutine;
 
     const int MULTIPLIER = 20;
 
@@ -112,14 +120,38 @@ public class PlayerControls : MonoBehaviour
     void Update()
     {
         // Fire bullet when user clicks left mouse button or touches screen
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    FireBullet();
+        //}
+
+
         if (Input.GetMouseButtonDown(0))
         {
-            FireBullet();
+            fireCoroutine = StartCoroutine(FireContinuously());
         }
+
+        // Stop firing when user releases left mouse button or stops touching screen
+        if (Input.GetMouseButtonUp(0))
+        {
+            StopCoroutine(fireCoroutine);
+        }
+
+
         RotateTowardsMouse();
         
         Move();
     }
+
+    IEnumerator FireContinuously()
+    {
+        while (true)
+        {
+            FireBullet();
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
 
     void RotateTowardsMouse()
         {
@@ -284,7 +316,13 @@ public class PlayerControls : MonoBehaviour
         {
             tokenCount.text = token.ToString();
         }
+
+        if (audioSource != null && tokenPickupSound != null)
+        {
+            audioSource.PlayOneShot(tokenPickupSound);
+        }
     }
+
 
     public void UpdateCoin()
     {
@@ -292,6 +330,11 @@ public class PlayerControls : MonoBehaviour
         if (coinCount != null)
         {
             coinCount.text = coins.ToString();
+        }
+
+        if (audioSource != null && coinPickupSound != null)
+        {
+            audioSource.PlayOneShot(coinPickupSound);
         }
     }
     IEnumerator WaitAndEndGame(float waitTime)

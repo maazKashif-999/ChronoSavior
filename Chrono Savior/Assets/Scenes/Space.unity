@@ -1533,7 +1533,9 @@ MonoBehaviour:
   tokenCount: {fileID: 477875369}
   healthBar: {fileID: 1763468928}
   explosionSound: {fileID: 8300000, guid: a7ee107c806f04722b1766fa6b8931bf, type: 3}
-  bulletSound: {fileID: 8300000, guid: f291bc5502f2441c59daaf04135ca644, type: 3}
+  bulletSound: {fileID: 8300000, guid: 8f91cde3df378410f8d62a53905f8a39, type: 3}
+  tokenPickupSound: {fileID: 8300000, guid: e8abea87c78334f8eab4be29d562b9e8, type: 3}
+  coinPickupSound: {fileID: 8300000, guid: f9782fc70bfda4885be392a599a54df0, type: 3}
   shieldBar: {fileID: 158397279}
   playerBulletPrefab: {fileID: 3613634235533893083, guid: 9982b0a141a2d8246bc26fd6d910ca70, type: 3}
 --- !u!61 &753992972

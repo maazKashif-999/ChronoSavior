@@ -143,7 +143,7 @@ public class EnemyWaveManager : MonoBehaviour
             yield return new WaitForSeconds(3.0f); // Wait for 1 second before spawning the next asteroid
             // Spawn asteroid
             Vector3 spawnPosition = new Vector3(8.0f, Random.Range(minY+aesterpodSize, maxY-aesterpodSize), 0f);
-            Instantiate(asteroidPrefab, spawnPosition, Quaternion.identity);
+            PoolManager.Instance.SpawnFromPool("Aesteroid", spawnPosition, Quaternion.identity);
         }
     }
     private Vector3 CalculateSpawnPosition()
@@ -191,6 +191,11 @@ public class EnemyWaveManager : MonoBehaviour
         foreach (GameObject powerUp in powerUps)
         {
             Destroy(powerUp);
+        }
+        GameObject[] aesteroids = GameObject.FindGameObjectsWithTag("Aesteroid");
+        foreach (GameObject powerUp in powerUps)
+        {
+            PoolManager.Instance.ReturnToPool("Aesteroid", gameObject);
         }
     }
     public void ResetWaves()

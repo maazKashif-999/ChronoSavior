@@ -34,12 +34,24 @@ public class PlayerBullet : MonoBehaviour
             Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
             if (screenPosition.x < 0 || screenPosition.x > Screen.width || screenPosition.y < 0 || screenPosition.y > Screen.height)
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
         else
         {
             Debug.LogWarning("Main camera is not assigned.");
         }
+    }
+
+    void OnDisable()
+    {
+        if (gameObject.CompareTag("PlayerBullets"))
+        {
+            PoolManager.Instance.ReturnToPool("PlayerBullet", gameObject);
+        }
+        else{
+            Destroy(gameObject);
+        }
+        
     }
 }

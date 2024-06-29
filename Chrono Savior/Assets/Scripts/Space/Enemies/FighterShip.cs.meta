@@ -3,7 +3,12 @@ guid: ae1ca746da9680d4c813522182581705
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bulletPrefab: {instanceID: 0}
+  - explosion: {instanceID: 0}
+  - coinPrefab: {instanceID: 0}
+  - tokenPrefab: {instanceID: 0}
+  - powerupPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

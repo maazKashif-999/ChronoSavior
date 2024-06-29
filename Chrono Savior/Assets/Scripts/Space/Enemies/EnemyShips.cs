@@ -8,6 +8,7 @@ public class EnemyShip : MonoBehaviour
     [SerializeField] private GameObject explosion; // Prefab of the explosion
     [SerializeField] private GameObject coinPrefab; // Prefab of the coins
     [SerializeField] private GameObject tokenPrefab;
+    [SerializeField] private GameObject powerupPrefab;
     protected float fireInterval; // Interval between consecutive bullet fires
     protected float bulletSpeed; // Speed of the fired bullets
     protected int health = 10;
@@ -15,6 +16,8 @@ public class EnemyShip : MonoBehaviour
     private EnemyWaveManager enemyWaveManager;
     protected float angle;
     protected float coinDroppingProbability;
+    protected float tokenDroppingProbability;
+
     private PlayerControls player;
     protected float nextFireTime; // Time when the ship can fire next
 
@@ -28,7 +31,7 @@ public class EnemyShip : MonoBehaviour
 
         enemyWaveManager = FindObjectOfType<EnemyWaveManager>();
         player = FindObjectOfType<PlayerControls>();
-        
+
 
     }
 
@@ -73,7 +76,7 @@ public class EnemyShip : MonoBehaviour
             {
                 TakeDamage(bullet.Damage);
                 other.gameObject.SetActive(false);
-                
+
             }
         }
     }
@@ -111,7 +114,12 @@ public class EnemyShip : MonoBehaviour
             {
                 Instantiate(coinPrefab, transform.position, Quaternion.identity);
             }
-            else
+            //else if(randomValue > coinDroppingProbability && randomValue<= tokenDroppingProbability) 
+            //{
+            //    Instantiate(powerupPrefab, transform.position, Quaternion.identity);
+            //}
+
+            else 
             {
                 Instantiate(tokenPrefab, transform.position, Quaternion.identity);
             }

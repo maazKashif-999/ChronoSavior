@@ -12,6 +12,8 @@ TagManager:
   - coins
   - token
   - PowerUp
+  - Hazard
+  - Aesteroid
   layers:
   - Default
   - TransparentFX

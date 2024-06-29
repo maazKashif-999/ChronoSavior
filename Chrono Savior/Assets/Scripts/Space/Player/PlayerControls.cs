@@ -173,7 +173,7 @@ public class PlayerControls : MonoBehaviour
     {
         if (playerBulletPrefab != null)
         {
-            GameObject bulletObject = Instantiate(playerBulletPrefab, transform.position, Quaternion.identity);
+            GameObject bulletObject = PoolManager.Instance.SpawnFromPool("PlayerBullet", transform.position, Quaternion.identity);
             Camera mainCamera = Camera.main;
             if (mainCamera != null)
             {
@@ -214,27 +214,6 @@ public class PlayerControls : MonoBehaviour
                 Destroy(other.gameObject);
             }
         }
-        // else if (other.CompareTag("coins"))
-        // {
-        //     coins++;
-        //     Debug.Log(coins);
-
-        //     if (coinCount != null)
-        //     {
-        //         coinCount.text = coins.ToString();
-        //     }
-        //     Destroy(other.gameObject);
-        // }
-        // else if (other.CompareTag("token"))
-        // {
-        //     token += multi;
-
-        //     if (tokenCount != null)
-        //     {
-        //         tokenCount.text = token.ToString();
-        //     }
-        //     Destroy(other.gameObject);
-        // }
     }
     public void TakeDamage(int damage)
     {

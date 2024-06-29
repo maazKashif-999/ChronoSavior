@@ -72,7 +72,8 @@ public class EnemyShip : MonoBehaviour
             if (bullet != null)
             {
                 TakeDamage(bullet.Damage);
-                Destroy(other.gameObject);
+                other.gameObject.SetActive(false);
+                
             }
         }
     }

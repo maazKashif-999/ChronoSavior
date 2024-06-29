@@ -17,7 +17,7 @@ public class AesteroidPowerup : MonoBehaviour
         transform.position += Vector3.left * powerUpEffect.speed * Time.deltaTime;
         if (transform.position.x < screenEdgeX)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
@@ -26,11 +26,14 @@ public class AesteroidPowerup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             powerUpEffect.Apply(other.gameObject);
-            Destroy(gameObject); 
+            gameObject.SetActive(false);
         }
         else if (other.CompareTag("PlayerBullets") || other.CompareTag("EnemyBullets"))
         {
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
         }
     }
+    private void OnDisable() {
+        PoolManager.Instance.ReturnToPool("Aesteroid", gameObject);
+    }    
 }

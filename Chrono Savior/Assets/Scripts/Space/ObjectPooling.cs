@@ -45,7 +45,10 @@ public class PoolManager : MonoBehaviour
             Debug.LogWarning("Pool with tag " + tag + " doesn't exist.");
             return null;
         }
-
+        if (poolDictionary[tag].Count == 0)
+        {
+            return null; // Or instantiate a new object if needed
+        }
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
 
         objectToSpawn.SetActive(true);
@@ -65,11 +68,7 @@ public class PoolManager : MonoBehaviour
             Destroy(objectToReturn);  // Fallback in case of error
             return;
         }
-        if (poolDictionary[tag].Count == 0)
-        {
-            Debug.LogWarning("Pool with tag " + tag + " is empty. Consider increasing initial pool size.");
-            return; // Or instantiate a new object if needed
-        }
+        
         objectToReturn.SetActive(false);
         poolDictionary[tag].Enqueue(objectToReturn);
     }

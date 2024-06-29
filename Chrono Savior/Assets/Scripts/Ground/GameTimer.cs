@@ -49,12 +49,12 @@ public class GameTimer : MonoBehaviour
 
     private void UpdateHighScoreText()
     {
-        highScoreText.text = "High Score: " + FormatTime(highScore);
+        highScoreText.text = "Highest Score: " + FormatTime(highScore);
     }
 
     private void UpdateTimerText(float time)
     {
-        timerText.text = "Time: " + FormatTime(time);
+        timerText.text = "Score: " + FormatTime(time);
     }
 
     private string FormatTime(float time)

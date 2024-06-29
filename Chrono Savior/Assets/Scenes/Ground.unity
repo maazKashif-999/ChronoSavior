@@ -1902,8 +1902,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -802.9852, y: 429.6}
-  m_SizeDelta: {x: 255.0296, y: 48.1188}
+  m_AnchoredPosition: {x: -762.6, y: 429.6}
+  m_SizeDelta: {x: 289.7, y: 48.1188}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &695330206
 MonoBehaviour:
@@ -1938,7 +1938,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: HighScore
+  m_Text: Highest Score
 --- !u!222 &695330207
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11019,6 +11019,16 @@ Tilemap:
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
   - first: {x: -1, y: 0, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 0, y: 0, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 0
@@ -20750,7 +20760,7 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 1684
+  - m_RefCount: 1685
     m_Data: {fileID: 11400000, guid: 7ba5a4b9faef34f139573dae1a59687c, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 8be70842b7cb24494b95078819c4d29a, type: 2}
@@ -20769,7 +20779,7 @@ Tilemap:
   - m_RefCount: 27
     m_Data: {fileID: 11400000, guid: 3266afb5090954cbfa347a10cf34ee33, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 1684
+  - m_RefCount: 1685
     m_Data: {fileID: 1298343322, guid: b212f7b4fbb54447c8ac2b566d8509eb, type: 3}
   - m_RefCount: 82
     m_Data: {fileID: 1463662550, guid: b212f7b4fbb54447c8ac2b566d8509eb, type: 3}
@@ -20788,7 +20798,7 @@ Tilemap:
   - m_RefCount: 27
     m_Data: {fileID: -1963194743, guid: b212f7b4fbb54447c8ac2b566d8509eb, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 1843
+  - m_RefCount: 1844
     m_Data:
       e00: 1
       e01: 0
@@ -20843,7 +20853,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 1861
+  - m_RefCount: 1862
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -20903,7 +20913,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -802.9852, y: 470.94055}
+  m_AnchoredPosition: {x: -780, y: 470.94055}
   m_SizeDelta: {x: 255.0296, y: 48.1188}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &774778622
@@ -20939,7 +20949,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Timer
+  m_Text: Score
 --- !u!222 &774778623
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23878,9 +23888,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 20a2517404efc457793e438892633e47, type: 3}
     m_FontSize: 40
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 300

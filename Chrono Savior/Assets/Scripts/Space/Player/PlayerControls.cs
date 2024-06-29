@@ -10,26 +10,26 @@ public class PlayerControls : MonoBehaviour
     float speed = 5f; 
     float minY; // Minimum Y position
     float maxY; // Maximum Y position
-    public GameObject explosion;
-    public Text coinCount; // Reference to the TextMeshPro text element for displaying coin count
-    public Text tokenCount;
+    [SerializeField] private GameObject explosion;
+    [SerializeField] private Text coinCount; // Reference to the TextMeshPro text element for displaying coin count
+    [SerializeField] private Text tokenCount;
     float health;
     float shield;
-    public HealthBar healthBar;
-    public AudioClip explosionSound; // Explosion sound clip
-    public AudioClip bulletSound; //bullet picking up sound clip
-    public AudioClip tokenPickupSound; //token picking up sound clip
-    public AudioClip coinPickupSound; //coin picking up sound clip
+    [SerializeField] private HealthBar healthBar;
+    [SerializeField] private AudioClip explosionSound; // Explosion sound clip
+    [SerializeField] private AudioClip bulletSound; //bullet picking up sound clip
+    [SerializeField] private AudioClip tokenPickupSound; //token picking up sound clip
+    [SerializeField] private AudioClip coinPickupSound; //coin picking up sound clip
     private AudioSource audioSource; // AudioSource component
 
 
 
-    public ShieldBar shieldBar;
+    [SerializeField] private ShieldBar shieldBar;
     const int MAX_HEALTH = 100;
     const int MAX_SHIELD = 50;
     float bulletSpeed = 6.0f;
     int damage ;
-    public GameObject playerBulletPrefab; // Prefab of the player bullet
+    [SerializeField] private GameObject playerBulletPrefab; // Prefab of the player bullet
     private SpaceGameManager gameManager; // Reference to the GameManager
     private int coins = 0; // Variable to keep track of collected coins
     private int token = 0;

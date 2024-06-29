@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    public Image health;
+    [SerializeField] private Image health;
     public void SetHealth(float amount)
     {
         if (health != null)

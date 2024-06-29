@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class ShieldBar : MonoBehaviour
 {
-    public Image shield;
+    [SerializeField] private Image shield;
     public void SetSheild(float amount)
     {
         if (shield != null)

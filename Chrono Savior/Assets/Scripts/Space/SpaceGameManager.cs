@@ -7,11 +7,11 @@ public class SpaceGameManager : MonoBehaviour
 {
     public static SpaceGameManager Instance { get; private set; }
     
-    public GameObject player;
-    public GameObject enemies;
-    public GameObject gameOverPanel;
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject enemies;
+    [SerializeField] private GameObject gameOverPanel;
 
-    public GameObject coinsCollected,tokensCollected;
+    [SerializeField] private GameObject coinsCollected,tokensCollected;
 
 
     private EnemyWaveManager enemyWaveManager;
@@ -26,7 +26,7 @@ public class SpaceGameManager : MonoBehaviour
 
     private GameManagerState GMState;
 
-    public Text timerText;
+    [SerializeField] private Text timerText;
     private float elapsedTime;
     private bool isRunning;
     void UpdateTimerUI()

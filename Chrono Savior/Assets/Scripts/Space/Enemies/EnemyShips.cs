@@ -4,12 +4,12 @@ public class EnemyShip : MonoBehaviour
 {
     protected float speed; // Speed of the enemy ship
     protected float limitXPosition; // X position where the ship stops
-    public GameObject bulletPrefab; // Prefab of the bullet
-    public GameObject explosion; // Prefab of the explosion
-    public GameObject coinPrefab; // Prefab of the coins
-    public GameObject tokenPrefab;
-    public float fireInterval; // Interval between consecutive bullet fires
-    public float bulletSpeed; // Speed of the fired bullets
+    [SerializeField] private GameObject bulletPrefab; // Prefab of the bullet
+    [SerializeField] private GameObject explosion; // Prefab of the explosion
+    [SerializeField] private GameObject coinPrefab; // Prefab of the coins
+    [SerializeField] private GameObject tokenPrefab;
+    protected float fireInterval; // Interval between consecutive bullet fires
+    protected float bulletSpeed; // Speed of the fired bullets
     protected int health = 10;
     protected int damage;
     private EnemyWaveManager enemyWaveManager;

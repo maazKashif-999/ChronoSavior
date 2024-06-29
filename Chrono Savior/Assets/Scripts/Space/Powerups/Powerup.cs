@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
-    public PowerUpEffect powerUpEffect;
+    [SerializeField] private PowerUpEffect powerUpEffect;
     private float screenEdgeX;
 
     private void Start()

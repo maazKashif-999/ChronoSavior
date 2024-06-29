@@ -5,11 +5,11 @@ using UnityEngine.UI;
 using TMPro;
 public class EnemyWaveManager : MonoBehaviour
 {
-    public GameObject fighterShipPrefab;
-    public GameObject bomberShipPrefab;
-    public GameObject sniperShipPrefab;
-    public GameObject asteroidPrefab; // Add a reference to the asteroid prefab
-    public Text waveText;
+    [SerializeField] private GameObject fighterShipPrefab;
+    [SerializeField] private GameObject bomberShipPrefab;
+    [SerializeField] private GameObject sniperShipPrefab;
+    [SerializeField] private GameObject asteroidPrefab; // Add a reference to the asteroid prefab
+    [SerializeField] private Text waveText;
     private int[] fighterShipsPerWave = {3, 2, 0, 2, 0};
     private int[] bomberShipsPerWave = {0, 0, 3, 3, 5};
     private int[] sniperShipsPerWave = {0, 3, 2, 2, 0};

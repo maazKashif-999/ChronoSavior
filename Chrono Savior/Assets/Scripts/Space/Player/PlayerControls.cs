@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -10,8 +11,8 @@ public class PlayerControls : MonoBehaviour
     float minY; // Minimum Y position
     float maxY; // Maximum Y position
     public GameObject explosion;
-    public TextMeshProUGUI coinCount; // Reference to the TextMeshPro text element for displaying coin count
-    public TextMeshProUGUI tokenCount;
+    public Text coinCount; // Reference to the TextMeshPro text element for displaying coin count
+    public Text tokenCount;
     float health;
     float shield;
     public HealthBar healthBar;
@@ -33,10 +34,7 @@ public class PlayerControls : MonoBehaviour
     private int coins = 0; // Variable to keep track of collected coins
     private int token = 0;
 
-    //hold fire additions
-    //bool canFire = true;
-    Coroutine fireCoroutine;
-
+    private float fireRate,fireTimer;
     const int MULTIPLIER = 20;
 
     int multi;
@@ -86,6 +84,8 @@ public class PlayerControls : MonoBehaviour
         multi = MULTIPLIER;
         coins = 0; // Reset coin count
         token = 0; 
+        fireRate = 0.2f;
+        fireTimer = 0f;
         UpdateHealth();
         UpdateShield();
 
@@ -120,38 +120,28 @@ public class PlayerControls : MonoBehaviour
     void Update()
     {
         // Fire bullet when user clicks left mouse button or touches screen
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    FireBullet();
-        //}
-
-
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
-            fireCoroutine = StartCoroutine(FireContinuously());
+            fireTimer += Time.deltaTime;
+
+            if (fireTimer >= fireRate)
+            {
+                FireBullet();
+                fireTimer = 0f; // Reset the timer
+            }
+        }
+        else
+        {
+            // Reset the timer when the mouse button is released to avoid immediate firing when pressed again
+            fireTimer = fireRate;
         }
 
-        // Stop firing when user releases left mouse button or stops touching screen
-        if (Input.GetMouseButtonUp(0))
-        {
-            StopCoroutine(fireCoroutine);
-        }
 
 
         RotateTowardsMouse();
         
         Move();
     }
-
-    IEnumerator FireContinuously()
-    {
-        while (true)
-        {
-            FireBullet();
-            yield return new WaitForSeconds(1f);
-        }
-    }
-
 
     void RotateTowardsMouse()
         {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 public class EnemyWaveManager : MonoBehaviour
 {
@@ -8,13 +9,13 @@ public class EnemyWaveManager : MonoBehaviour
     public GameObject bomberShipPrefab;
     public GameObject sniperShipPrefab;
     public GameObject asteroidPrefab; // Add a reference to the asteroid prefab
-    public TextMeshProUGUI waveText;
+    public Text waveText;
     private int[] fighterShipsPerWave = {3, 2, 0, 2, 0};
     private int[] bomberShipsPerWave = {0, 0, 3, 3, 5};
     private int[] sniperShipsPerWave = {0, 3, 2, 2, 0};
     private int currentWave = 0; // Current wave index
     private int enemiesRemaining; // Number of enemies remaining in the current wave
-    public float minSpacing = 0.5f; // Minimum spacing between ships
+    private float minSpacing = 0.5f; // Minimum spacing between ships
     private List<Vector3> spawnedPositions = new List<Vector3>(); // List to keep track of spawned positions
     private List<GameObject> spawnedEnemies = new List<GameObject>(); // List to keep track of spawned enemies
     private Coroutine asteroidSpawner; // Coroutine for spawning asteroids

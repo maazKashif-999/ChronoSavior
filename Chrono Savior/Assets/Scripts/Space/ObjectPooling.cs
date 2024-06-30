@@ -31,7 +31,7 @@ public class PoolManager : MonoBehaviour
             {
                 GameObject obj = Instantiate(pool.prefab);
                 obj.SetActive(false);
-                poolDictionary[pool.tag].Enqueue(obj);
+                // poolDictionary[pool.tag].Enqueue(obj);
             }
 
             

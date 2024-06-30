@@ -8,15 +8,17 @@ public class EnemyShip : MonoBehaviour
     [SerializeField] private GameObject explosion; // Prefab of the explosion
     [SerializeField] private GameObject coinPrefab; // Prefab of the coins
     [SerializeField] private GameObject tokenPrefab;
-    [SerializeField] private GameObject powerupPrefab;
+    [SerializeField] private List<GameObject> powerupPrefabs;
     protected float fireInterval; // Interval between consecutive bullet fires
     protected float bulletSpeed; // Speed of the fired bullets
-    protected int health = 10;
+    protected int health;
     protected int damage;
     private EnemyWaveManager enemyWaveManager;
     protected float angle;
     protected float coinDroppingProbability;
     protected float tokenDroppingProbability;
+
+    protected float powerUpDroppingProbability;
 
     private PlayerControls player;
     protected float nextFireTime; // Time when the ship can fire next
@@ -114,15 +116,31 @@ public class EnemyShip : MonoBehaviour
             {
                 Instantiate(coinPrefab, transform.position, Quaternion.identity);
             }
-            //else if(randomValue > coinDroppingProbability && randomValue<= tokenDroppingProbability) 
-            //{
-            //    Instantiate(powerupPrefab, transform.position, Quaternion.identity);
-            //}
+            else if (randomValue <= powerUpDroppingProbability)
+            {
+                SpawnPowerup();
+            }
 
             else 
             {
                 Instantiate(tokenPrefab, transform.position, Quaternion.identity);
             }
+        }
+        else
+        {
+            SpawnPowerup();
+        }
+    }
+    public void SpawnPowerup()
+    {
+        if (powerupPrefabs.Count > 0)
+        {
+            // Randomly select a powerup from the list
+            int randomIndex = Random.Range(0, powerupPrefabs.Count);
+            GameObject selectedPowerup = powerupPrefabs[randomIndex];
+
+            // Instantiate the selected powerup at the given position
+            Instantiate(selectedPowerup,transform.position, Quaternion.identity);
         }
     }
 }

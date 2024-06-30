@@ -24,7 +24,6 @@ public class PoolManager : MonoBehaviour
 
         foreach (Pool pool in pools)
         {
-            Debug.Log(pool.tag);
             Queue<GameObject> objectPool = new Queue<GameObject>();
             poolDictionary.Add(pool.tag, objectPool);
             for (int i = 0; i < pool.size; i++)
@@ -45,7 +44,6 @@ public class PoolManager : MonoBehaviour
             Debug.LogWarning("Pool with tag " + tag + " doesn't exist.");
             return null;
         }
-        Debug.Log(poolDictionary[tag].Count);
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
 
         objectToSpawn.SetActive(true);

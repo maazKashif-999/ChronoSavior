@@ -21,6 +21,7 @@ public class MainMenu : MonoBehaviour
     {
         mode = Mode.Infinity;
         SceneManager.LoadSceneAsync(1);
+
     }
 
     public void playLevelTwo()

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SpaceGameManager : MonoBehaviour
 {
-    public static SpaceGameManager Instance { get; private set; }
+    
     
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject enemies;
@@ -37,18 +37,18 @@ public class SpaceGameManager : MonoBehaviour
     }
 
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+    // private void Awake()
+    // {
+    //     if (Instance == null)
+    //     {
+    //         Instance = this;
+    //         // DontDestroyOnLoad(gameObject);
+    //     }
+    //     else
+    //     {
+    //         Destroy(gameObject);
+    //     }
+    // }
 
 
 

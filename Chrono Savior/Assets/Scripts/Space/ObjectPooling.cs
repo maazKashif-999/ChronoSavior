@@ -45,10 +45,7 @@ public class PoolManager : MonoBehaviour
             Debug.LogWarning("Pool with tag " + tag + " doesn't exist.");
             return null;
         }
-        if (poolDictionary[tag].Count == 0)
-        {
-            return null; // Or instantiate a new object if needed
-        }
+        Debug.Log(poolDictionary[tag].Count);
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
 
         objectToSpawn.SetActive(true);

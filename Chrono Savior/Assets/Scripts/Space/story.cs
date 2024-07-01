@@ -36,7 +36,8 @@ public class EnemyWaveManager : MonoBehaviour
             Debug.LogWarning("Main camera is not assigned.");
         }
         shipSize = GetPrefabSize(fighterShipPrefab);
-        aesterpodSize = GetPrefabSize(asteroidPrefab);
+        aesterpodSize = shipSize;
+        // aesterpodSize = GetPrefabSize(asteroidPrefab);
         StartNextWave();
         
     }

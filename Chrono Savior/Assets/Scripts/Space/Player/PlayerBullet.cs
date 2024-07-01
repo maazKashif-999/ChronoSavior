@@ -46,6 +46,7 @@ public class PlayerBullet : MonoBehaviour
     void OnDisable()
     {
         if (gameObject.CompareTag("PlayerBullets"))
+
         {
             PoolManager.Instance.ReturnToPool("PlayerBullet", gameObject);
         }
@@ -54,4 +55,12 @@ public class PlayerBullet : MonoBehaviour
         }
         
     }
+    private void OnDestroy() {
+        if (gameObject.CompareTag("PlayerBullets"))
+
+        {
+            Debug.Log("Bullet destroyed");
+        }
+        // 
+    }   
 }

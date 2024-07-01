@@ -22,8 +22,10 @@ public class Powerup : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("working");
         if (other.CompareTag("Player"))
         {
+            Debug.Log("hit");
             powerUpEffect.Apply(other.gameObject);
             Destroy(gameObject); 
         }

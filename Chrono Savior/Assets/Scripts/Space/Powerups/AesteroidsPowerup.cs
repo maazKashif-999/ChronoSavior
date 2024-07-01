@@ -23,6 +23,7 @@ public class AesteroidPowerup : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        
         if (other.CompareTag("Player"))
         {
             powerUpEffect.Apply(other.gameObject);
@@ -34,7 +35,6 @@ public class AesteroidPowerup : MonoBehaviour
         }
     }
     private void OnDisable() {
-        Debug.Log("Aesteroid destroyed");
         PoolManager.Instance.ReturnToPool("Aesteroid", gameObject);
     }    
 }

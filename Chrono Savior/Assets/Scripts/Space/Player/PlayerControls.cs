@@ -57,7 +57,8 @@ public class PlayerControls : MonoBehaviour
 
     public int Health
     {
-        set { health = MAX_HEALTH; }
+        set { health = MAX_HEALTH;
+        UpdateHealth(); }
     }
     public int Damage
     {
@@ -66,7 +67,9 @@ public class PlayerControls : MonoBehaviour
     }
     public int Shield
     {
-        set { shield = MAX_SHIELD; }
+        set { 
+            shield = MAX_SHIELD;
+            UpdateShield(); }
     }
  
     private void Start()

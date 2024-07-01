@@ -17,6 +17,7 @@ public class FighterShip : EnemyShip
         damage = 10;
         angle = 270;
         coinDroppingProbability = 0.1f;
+        powerUpDroppingProbability = 0.25f;
     }
 
     protected override void Update()

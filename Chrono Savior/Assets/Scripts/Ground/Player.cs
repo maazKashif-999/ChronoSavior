@@ -63,6 +63,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (PauseMenu.GameIsPaused)
+        {
+            return;
+        }
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
         isWalking = horizontalInput != 0 || verticalInput != 0;

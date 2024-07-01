@@ -22,7 +22,11 @@ public class WeaponSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player == null || mainCamera == null)
+        if (PauseMenu.GameIsPaused)
+        {
+            return;
+        }
+        if (player == null || mainCamera == null)
         {
             Debug.LogError("Player or Main Camera not found in WeaponSwitch.");
             return;

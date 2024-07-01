@@ -173,6 +173,7 @@ public class PlayerControls : MonoBehaviour
 
     void FireBullet()
     {
+        if(PauseMenu.GameIsPaused) return;
         if (playerBulletPrefab != null)
         {
             GameObject bulletObject = PoolManager.Instance.SpawnFromPool("PlayerBullet", transform.position, Quaternion.identity);

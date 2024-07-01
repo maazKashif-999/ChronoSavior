@@ -78,7 +78,13 @@ public class GunShoot : MonoBehaviour
             }
 
             GameObject bullet = null;
-
+            if(Player.Instance == null)
+            {
+                Debug.Log("Player is null");
+                return;
+            }
+            if(!Player.Instance.IsAlive() || PauseMenu.GameIsPaused) return;
+            
             if(BulletPool.SharedInstance != null)
             {
                 if(gunType == PISTOL)

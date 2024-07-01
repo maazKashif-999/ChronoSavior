@@ -8,6 +8,7 @@
 - [Usage](#usage)
 - [Controls](#controls)
 - [Menu Flowchart](#menu-flowchart)
+- [Prototype 2 Details](#Prototype-2)
 - [Contact](#contact)
 
 ## Installation
@@ -44,16 +45,55 @@ To play the game or test its features:
 ### Weapon Swapping:
 - **Keyboard:** 1, 2, 3 to cycle between weapons.
 
+## Game Pausing
+- **Keyboard:** Escape key to to pause the game
+
 ## Menu Flowchart
 **Main Menu:**
-- Select Gameplay: Cosmic Travel / Ground Combat Simulation
-  - If Cosmic Travel is Selected: The first level of the story mode starts
-  - If Ground Combat Simulation Selected: The infinite ground combat simulation freeplay starts
+- Start
+  - Infinite Mode
+    - Space Travel
+    - Ground Combat
+  - Campaign Mode
+    - Load New Session (currently only space shooter level added - inprogress)
+    - Load Last Session (feature not added yet)
+- Options
+    - Volume
+- Store (feature not added yet)
+- Instruction (feature not added yet)
 
 **Game Over Screen:**
-- Play again/retry
+- Restart
+- Options
+    - Volume
 - Main Menu
 
+**Pause Screen:**
+- Resume
+- Options
+- Main Menu
+
+## Prototype 2
+### Fixes 
+- UI showing bullet count #/inf changed to show #/MAX
+- The sprite slips when the gun is facing left, making gun rotation feel natural
+- Null checks/Defensive coding implemented
+- Mathf.Clamp used to clean up if/else blocks
+- Spacecraft bounds fixed
+- Used SerializeField everywhere instead of layer int
+- Object pooling on bullets 
+- sqrMagnitude used instead of square root
+- Code made consistent throughout
+
+### Additions
+- Added proper main menu
+- Added pause menu and resume functionality
+- Added sounds
+- Added volume slider in options
+- Added UI for space mode
+- Added power-ups for space shooter mode
+- Art updated
+- Campaign mode progress started - space shooter section done
 
 
 ## Contact

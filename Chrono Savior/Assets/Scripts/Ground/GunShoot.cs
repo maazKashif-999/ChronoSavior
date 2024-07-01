@@ -30,6 +30,10 @@ public class GunShoot : MonoBehaviour
     private const int SNIPER_INDEX = 2;
     private const int SMG_INDEX = 3;
     private const int SHOTGUN_INDEX = 4;
+
+    [SerializeField] private AudioSource myaudio;
+    public AudioClip bulletSound;
+
     
 
     // Update is called once per frame
@@ -99,7 +103,17 @@ public class GunShoot : MonoBehaviour
                     bullet = BulletPool.SharedInstance.GetPooledBullet(SHOTGUN_INDEX); 
                 }
             }
-            
+
+            if(bullet!=null && myaudio!=null && bulletSound!=null)
+            {
+                myaudio.PlayOneShot(bulletSound);
+            }
+
+            else
+            {
+                Debug.LogWarning("Audio source or explosion sound clip is not assigned.");
+            }
+
             if (bullet != null) 
             {
                 bullet.transform.position = bulletTransform.position;

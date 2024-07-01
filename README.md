@@ -92,7 +92,9 @@ To play the game or test its features:
 - Added volume slider in options
 - Added UI for space mode
 - Added power-ups for space shooter mode
-- Art updated
+- Art updated 
+- Added more guns
+- Added basic state mangement (highest score, tokens and coins collected etc)
 - Campaign mode progress started - space shooter section done
 
 

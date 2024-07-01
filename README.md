@@ -45,7 +45,7 @@ To play the game or test its features:
 ### Weapon Swapping:
 - **Keyboard:** 1, 2, 3 to cycle between weapons.
 
-## Game Pausing
+### Game Pausing
 - **Keyboard:** Escape key to to pause the game
 
 ## Menu Flowchart

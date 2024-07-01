@@ -197,5 +197,8 @@ MonoBehaviour:
   explosion: {fileID: 7903881982904106933, guid: ca6dcf1f1ecb18c4480198f4abe8e1e3, type: 3}
   coinPrefab: {fileID: 8308779161561762033, guid: 79a94a20ca069f14a8cccf2be12f4c1a, type: 3}
   tokenPrefab: {fileID: 7812099448907868456, guid: ba5ffafaec2388749b09e79f5e59b650, type: 3}
-  fireInterval: 0
-  bulletSpeed: 0
+  powerupPrefabs:
+  - {fileID: 4067199002600538791, guid: feb1a8a4a22944a96b22bd666ce20f48, type: 3}
+  - {fileID: 6441774834541697523, guid: f139037c77c7145c3ab369bc5d2bb8b6, type: 3}
+  - {fileID: 9167055751797416062, guid: ea04f10236e024aec87ba6a5ab97bc51, type: 3}
+  - {fileID: 1014076423861209352, guid: b52b65edb29e0446994a354fe4c2bf55, type: 3}

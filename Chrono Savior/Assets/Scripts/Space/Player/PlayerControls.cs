@@ -16,11 +16,11 @@ public class PlayerControls : MonoBehaviour
     float health;
     float shield;
     [SerializeField] private HealthBar healthBar;
-    [SerializeField] private AudioClip explosionSound; // Explosion sound clip
     [SerializeField] private AudioClip bulletSound; //bullet picking up sound clip
     [SerializeField] private AudioClip tokenPickupSound; //token picking up sound clip
     [SerializeField] private AudioClip coinPickupSound; //coin picking up sound clip
     private AudioSource audioSource; // AudioSource component
+
 
 
 

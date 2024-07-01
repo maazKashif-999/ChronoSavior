@@ -245,11 +245,6 @@ public class PlayerControls : MonoBehaviour
             GameObject explosionObject = Instantiate(explosion, transform.position, Quaternion.identity);
         }
 
-        if (audioSource != null && explosionSound != null)
-        {
-            audioSource.PlayOneShot(explosionSound);
-        }
-
         else
         {
             Debug.LogWarning("Explosion prefab is not assigned.");

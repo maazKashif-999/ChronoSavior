@@ -1646,11 +1646,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 532103280}
-  - component: {fileID: 532103279}
-  - component: {fileID: 532103281}
-  - component: {fileID: 532103283}
-  - component: {fileID: 532103282}
-  - component: {fileID: 532103284}
+  - component: {fileID: 532103285}
   m_Layer: 0
   m_Name: PoolManager
   m_TagString: Untagged
@@ -1658,21 +1654,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &532103279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532103278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c24efb7af1e744d47a026b950025d49a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pooledObjects: []
-  objectToPool: {fileID: 8650246631434452996, guid: 898c8dc2f7c77467c8bc98c62429b712, type: 3}
-  amountToPool: 15
 --- !u!4 &532103280
 Transform:
   m_ObjectHideFlags: 0
@@ -1688,7 +1669,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &532103281
+--- !u!114 &532103285
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1697,57 +1678,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 532103278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef33d6fa66260411a9a33035031c3047, type: 3}
+  m_Script: {fileID: 11500000, guid: 93860439a2b124c30821c732f89eb13a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pooledObjects: []
-  objectToPool: {fileID: 8650246631434452996, guid: f45e69970b42c4d4eb2403b469eac0df, type: 3}
-  amountToPool: 25
---- !u!114 &532103282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532103278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca1ea2a50ccf54026953a8e6c9b4d117, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pooledObjects: []
-  objectToPool: {fileID: 8650246631434452996, guid: e505cef1179664f12954921f88121659, type: 3}
-  amountToPool: 6
---- !u!114 &532103283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532103278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0617d11d34fb4939aeaae44d7eb42fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pooledObjects: []
-  objectToPool: {fileID: 8650246631434452996, guid: 95341120a570841c58aefee1e27ca39a, type: 3}
-  amountToPool: 3
---- !u!114 &532103284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532103278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb17f5dda073c4cbaa59073b100747c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pooledObjects: []
-  objectToPool: {fileID: 8650246631434452996, guid: ded7880ae41a34153b807599da73108d, type: 3}
-  amountToPool: 5
+  amountsToPool: 060000000f000000030000001400000005000000
+  objectsToPool:
+  - {fileID: 8650246631434452996, guid: e505cef1179664f12954921f88121659, type: 3}
+  - {fileID: 8650246631434452996, guid: 898c8dc2f7c77467c8bc98c62429b712, type: 3}
+  - {fileID: 8650246631434452996, guid: 95341120a570841c58aefee1e27ca39a, type: 3}
+  - {fileID: 8650246631434452996, guid: f45e69970b42c4d4eb2403b469eac0df, type: 3}
+  - {fileID: 8650246631434452996, guid: ded7880ae41a34153b807599da73108d, type: 3}
 --- !u!1 &544757515
 GameObject:
   m_ObjectHideFlags: 0
@@ -2002,7 +1942,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &573839097
 Transform:
   m_ObjectHideFlags: 0
@@ -21820,7 +21760,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &947189225
 Transform:
   m_ObjectHideFlags: 0
@@ -24272,7 +24212,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1346327757
 Transform:
   m_ObjectHideFlags: 0
@@ -24756,7 +24696,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1481425197
 Transform:
   m_ObjectHideFlags: 0

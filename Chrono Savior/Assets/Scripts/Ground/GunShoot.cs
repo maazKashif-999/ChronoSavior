@@ -25,6 +25,12 @@ public class GunShoot : MonoBehaviour
     private const string PISTOL = "Pistol";
     private const string SHOTGUN = "Shotgun";
     private const string SNIPER = "Sniper";
+    private const int PISTOL_INDEX = 0;
+    private const int AR_INDEX = 1;
+    private const int SNIPER_INDEX = 2;
+    private const int SMG_INDEX = 3;
+    private const int SHOTGUN_INDEX = 4;
+    
 
     // Update is called once per frame
     void Start()
@@ -70,29 +76,28 @@ public class GunShoot : MonoBehaviour
 
             GameObject bullet = null;
 
-            if(gunType == AR && ARBulletPool.SharedInstance != null)
+            if(BulletPool.SharedInstance != null)
             {
-                bullet = ARBulletPool.SharedInstance.GetPooledObject(); 
-            }
-            else if(gunType == SMG && SMGBulletPool.SharedInstance != null)
-            {
-                bullet = SMGBulletPool.SharedInstance.GetPooledObject(); 
-            }
-            else if(gunType == PISTOL && PistolBulletPool.SharedInstance != null)
-            {
-                bullet = PistolBulletPool.SharedInstance.GetPooledObject(); 
-            }
-            else if(gunType == SNIPER && SniperBulletPool.SharedInstance != null)
-            {
-                bullet = SniperBulletPool.SharedInstance.GetPooledObject(); 
-            }
-            else if(gunType == SHOTGUN && ShotgunBulletPool.SharedInstance != null)
-            {
-                bullet = ShotgunBulletPool.SharedInstance.GetPooledObject(); 
-            }
-            else
-            {
-                Debug.LogError("Bullet Pool not found in GunShoot.");
+                if(gunType == PISTOL)
+                {
+                    bullet = BulletPool.SharedInstance.GetPooledBullet(PISTOL_INDEX); 
+                }
+                else if(gunType == AR)
+                {
+                    bullet = BulletPool.SharedInstance.GetPooledBullet(AR_INDEX); 
+                }
+                else if(gunType == SNIPER)
+                {
+                    bullet = BulletPool.SharedInstance.GetPooledBullet(SNIPER_INDEX); 
+                }
+                else if(gunType == SMG)
+                {
+                    bullet = BulletPool.SharedInstance.GetPooledBullet(SMG_INDEX); 
+                }
+                else if(gunType == SHOTGUN)
+                {
+                    bullet = BulletPool.SharedInstance.GetPooledBullet(SHOTGUN_INDEX); 
+                }
             }
             
             if (bullet != null) 
@@ -100,6 +105,10 @@ public class GunShoot : MonoBehaviour
                 bullet.transform.position = bulletTransform.position;
                 bullet.transform.rotation = Quaternion.identity;
                 bullet.SetActive(true);
+            }
+            else
+            {
+                Debug.LogError("Bullet Pool not found in GunShoot.");
             }
             currentTotalAmmo--;
             currentCapacity--;

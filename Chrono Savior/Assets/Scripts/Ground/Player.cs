@@ -98,12 +98,12 @@ public class Player : MonoBehaviour
 
         if (playerBlue != null && playerRed != null && mainCamera != null)
         {
-            if (horizontalInput > 0 || (rotationZ > -90 && rotationZ < 90))
+            if (rotationZ > -90 && rotationZ < 90) // || horizontalInput > 0 
             {
                 playerBlue.transform.rotation = Quaternion.Euler(0, 0, 0);
                 playerRed.transform.rotation = Quaternion.Euler(0, 0, 0);
             }
-            else if (horizontalInput < 0 || (rotationZ >= 90 && rotationZ <= 180) || (rotationZ <= -90 && rotationZ >= -180))
+            else if ((rotationZ >= 90 && rotationZ <= 180) || (rotationZ <= -90 && rotationZ >= -180)) // (horizontalInput < 0)
             {
                 playerBlue.transform.rotation = Quaternion.Euler(0, -180, 0);
                 playerRed.transform.rotation = Quaternion.Euler(0, -180, 0);

@@ -8,8 +8,6 @@ public class GameTimer : MonoBehaviour
 
     private float startTime;
     private float pausedTime;
-    private bool isPaused = false;
-
     private static float highScore = 0;
     private float lastUpdateTime = 0;
 

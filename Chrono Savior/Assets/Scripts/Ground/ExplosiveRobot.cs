@@ -6,7 +6,6 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
 {
     [SerializeField] private List<OnPowerupInteract> powerUps = new List<OnPowerupInteract>();
     [SerializeField] private float MAX_HEALTH = 30f;
-    [SerializeField] private bool isShielded = false;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject explosion;
     [SerializeField] private float movementSpeed;

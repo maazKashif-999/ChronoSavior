@@ -3,18 +3,19 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    [SerializeField] private Image health;
+    [SerializeField] private Image healthImage; 
+    [SerializeField] private Sprite[] healthSprites; 
+
     public void SetHealth(float amount)
     {
-        if (health != null)
+        int index = Mathf.Clamp(Mathf.CeilToInt(amount * (healthSprites.Length - 1)), 0, healthSprites.Length - 1);
+        if (healthImage != null)
         {
-            health.fillAmount = amount;
+            healthImage.sprite = healthSprites[index];
         }
         else
         {
             Debug.LogWarning("Health image is not assigned.");
         }
     }
-   
-
 }

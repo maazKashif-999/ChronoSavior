@@ -316,4 +316,13 @@ public class PlayerControls : MonoBehaviour
             Debug.LogWarning("Game manager is not assigned.");
         }
     }
+    public float GetCurrentHealth()
+    {
+        return health;
+    }
+
+    public float GetCurrentShield()
+    {
+        return shield;
+    }
 }

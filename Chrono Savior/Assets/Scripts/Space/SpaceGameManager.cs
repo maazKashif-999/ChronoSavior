@@ -12,7 +12,9 @@ public class SpaceGameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
 
     [SerializeField] private GameObject coinsCollected,tokensCollected;
-
+    private const string HIGH_SCORE_KEY = "SpaceHighScore";
+    private const string COINS_KEY = "Coins"; 
+    private const string TOKENS_KEY = "Tokens";
 
     private EnemyWaveManager enemyWaveManager;
 
@@ -27,15 +29,20 @@ public class SpaceGameManager : MonoBehaviour
     private GameManagerState GMState;
 
     [SerializeField] private Text timerText;
+    [SerializeField] private Text highestScoreText;
     private float elapsedTime;
     private bool isRunning;
     void UpdateTimerUI()
     {
-        int minutes = Mathf.FloorToInt(elapsedTime / 60F);
-        int seconds = Mathf.FloorToInt(elapsedTime - minutes * 60);
-        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        timerText.text = "Score: " + FormatTime(elapsedTime);
     }
 
+    string FormatTime(float time)
+    {
+        int minutes = Mathf.FloorToInt(time / 60F);
+        int seconds = Mathf.FloorToInt(time % 60F);
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
 
     // private void Awake()
     // {
@@ -149,6 +156,16 @@ public class SpaceGameManager : MonoBehaviour
                 if (player != null)
                 {
                     player.SetActive(false);
+                    PlayerControls playerControls = player.GetComponent<PlayerControls>();
+                    if(playerControls != null)
+                    {
+                        int coins_gained = playerControls.GetCoins();
+
+                        int current_coins = PlayerPrefs.GetInt(COINS_KEY, 0);
+                        current_coins += coins_gained;
+                        PlayerPrefs.SetInt(COINS_KEY, current_coins);
+
+                    }
                 }
                 else
                 {
@@ -176,6 +193,21 @@ public class SpaceGameManager : MonoBehaviour
 
             case GameManagerState.gamewon:
                 // Implement what happens when the game is won
+                if(player != null)
+                {
+                    PlayerControls playerControls = player.GetComponent<PlayerControls>();
+                    if(playerControls != null)
+                    {
+                        int coins_gained = playerControls.GetCoins();
+                        int tokens_gained = playerControls.GetTokens();
+
+                        int current_coins = PlayerPrefs.GetInt(COINS_KEY, 0);
+                        current_coins += coins_gained;
+                        PlayerPrefs.SetInt(COINS_KEY, current_coins);
+
+                        PlayerPrefs.SetInt(TOKENS_KEY, tokens_gained);
+                    }
+                }
                 break;
         }
     }
@@ -191,6 +223,7 @@ public class SpaceGameManager : MonoBehaviour
         coinsCollected.SetActive(true);
         tokensCollected.SetActive(true);
         timerText.gameObject.SetActive(false);
+        highestScoreText.gameObject.SetActive(false);
         SetGMState(GameManagerState.playing);
     }
 
@@ -199,6 +232,8 @@ public class SpaceGameManager : MonoBehaviour
         isRunning = true;
         elapsedTime = 0f;
         timerText.gameObject.SetActive(true);
+        highestScoreText.gameObject.SetActive(true);
+        highestScoreText.text = "Highest Score: " + FormatTime(PlayerPrefs.GetFloat(HIGH_SCORE_KEY, 0));
         SetGMState(GameManagerState.infinity);
     }
 
@@ -206,6 +241,11 @@ public class SpaceGameManager : MonoBehaviour
     {
         isRunning = false;
         timerText.gameObject.SetActive(false);
+        float highestScore = PlayerPrefs.GetFloat(HIGH_SCORE_KEY, 0);
+        if(elapsedTime > highestScore)
+        {
+            PlayerPrefs.SetFloat(HIGH_SCORE_KEY, elapsedTime);
+        }
         SetGMState(GameManagerState.gameover);
     }
 

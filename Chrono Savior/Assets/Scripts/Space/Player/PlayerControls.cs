@@ -23,7 +23,6 @@ public class PlayerControls : MonoBehaviour
 
 
 
-
     [SerializeField] private ShieldBar shieldBar;
     const int MAX_HEALTH = 100;
     const int MAX_SHIELD = 50;
@@ -33,7 +32,7 @@ public class PlayerControls : MonoBehaviour
     private SpaceGameManager gameManager; // Reference to the GameManager
     private int coins = 0; // Variable to keep track of collected coins
     private int token = 0;
-
+    
     private float fireRate,fireTimer;
     const int MULTIPLIER = 20;
 
@@ -324,5 +323,15 @@ public class PlayerControls : MonoBehaviour
     public float GetCurrentShield()
     {
         return shield;
+    }
+
+    public int GetCoins()
+    {
+        return coins;
+    }
+
+    public int GetTokens()
+    {
+        return token;
     }
 }

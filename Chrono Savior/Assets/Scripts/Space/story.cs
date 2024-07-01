@@ -20,11 +20,14 @@ public class EnemyWaveManager : MonoBehaviour
     private List<GameObject> spawnedEnemies = new List<GameObject>(); // List to keep track of spawned enemies
     private Coroutine asteroidSpawner; // Coroutine for spawning asteroids
     private Coroutine enemiesSpawner;
+    private SpaceGameManager gameManager; 
+
     float minY,maxY,shipSize,aesterpodSize;
 
     private void Start()
     {
         Camera mainCamera = Camera.main;
+        gameManager = FindObjectOfType<SpaceGameManager>();
         if (mainCamera != null)
         {
             
@@ -72,6 +75,14 @@ public class EnemyWaveManager : MonoBehaviour
             {
                 waveText.gameObject.SetActive(true);
                 waveText.text = "All waves cleared!";
+                if (gameManager != null)
+                {
+                    gameManager.WinGame();
+                }
+                else
+                {
+                    Debug.LogWarning("GameManager not found.");
+                }
             }
             break;
             case MainMenu.Mode.Infinity:
@@ -155,7 +166,8 @@ public class EnemyWaveManager : MonoBehaviour
         {
             validPosition = true;
             float spawnX = 8.0f;
-            float spawnY = Random.Range(minY+shipSize, maxY-shipSize);
+            float offsetFromUI = 0.5f;
+            float spawnY = Random.Range(minY+shipSize, maxY-shipSize - offsetFromUI);
             spawnPosition = new Vector3(spawnX, spawnY, 0f);
             // Check if the new spawn position is too close to any existing positions
             foreach (Vector3 pos in spawnedPositions)

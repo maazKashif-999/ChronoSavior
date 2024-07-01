@@ -138,6 +138,9 @@ public class EnemyShip : MonoBehaviour
         {
             // Randomly select a powerup from the list
             int randomIndex = Random.Range(0, powerupPrefabs.Count);
+            while (randomIndex == 1 && MainMenu.mode != MainMenu.Mode.Campaign){
+                randomIndex = Random.Range(0, powerupPrefabs.Count);
+            }
             GameObject selectedPowerup = powerupPrefabs[randomIndex];
 
             // Instantiate the selected powerup at the given position

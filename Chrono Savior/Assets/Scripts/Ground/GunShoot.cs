@@ -30,9 +30,8 @@ public class GunShoot : MonoBehaviour
     private const int SNIPER_INDEX = 2;
     private const int SMG_INDEX = 3;
     private const int SHOTGUN_INDEX = 4;
-
     [SerializeField] private AudioSource myaudio;
-    public AudioClip bulletSound;
+    [SerializeField] private AudioClip bulletSound;
 
     
 
@@ -104,15 +103,7 @@ public class GunShoot : MonoBehaviour
                 }
             }
 
-            if(bullet!=null && myaudio!=null && bulletSound!=null)
-            {
-                myaudio.PlayOneShot(bulletSound);
-            }
-
-            else
-            {
-                Debug.LogWarning("Audio source or explosion sound clip is not assigned.");
-            }
+            
 
             if (bullet != null) 
             {
@@ -123,6 +114,15 @@ public class GunShoot : MonoBehaviour
             else
             {
                 Debug.LogError("Bullet Pool not found in GunShoot.");
+            }
+
+            if(bullet!=null && myaudio!=null && bulletSound!=null)
+            {
+                myaudio.PlayOneShot(bulletSound);
+            }
+            else
+            {
+                Debug.LogWarning("Audio source or explosion sound clip is not assigned.");
             }
             currentTotalAmmo--;
             currentCapacity--;

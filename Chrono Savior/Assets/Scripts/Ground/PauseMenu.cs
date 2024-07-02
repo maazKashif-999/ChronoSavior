@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GameIsPaused = false;
+    public static bool gameIsPaused = false;
     public GameObject pauseMenuUI;
 
     void Start()
@@ -22,7 +22,7 @@ public class PauseMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("Escape key pressed");
-            if (GameIsPaused)
+            if (gameIsPaused)
             {
                 Resume();
             }
@@ -39,7 +39,7 @@ public class PauseMenu : MonoBehaviour
         {
             pauseMenuUI.SetActive(false);
             Time.timeScale = 1f;
-            GameIsPaused = false;
+            gameIsPaused = false;
         }
     }
 
@@ -49,7 +49,7 @@ public class PauseMenu : MonoBehaviour
         {
             pauseMenuUI.SetActive(true);
             Time.timeScale = 0f;
-            GameIsPaused = true;
+            gameIsPaused = true;
         }
     }
 

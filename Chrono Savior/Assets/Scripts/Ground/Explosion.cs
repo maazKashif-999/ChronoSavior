@@ -7,12 +7,31 @@ public class Explosion : MonoBehaviour
     [SerializeField] private float attackDamage = 75f;
     [SerializeField] private float attackRadius = 1f;
     [SerializeField] private LayerMask playerLayer;
+    private SpriteRenderer spriteRenderer;
+    void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
     void Start()
     {
         Explode();
-        Destroy(gameObject, 0.5f);
+        StartCoroutine(RemoveVisibility());
+        Destroy(gameObject, 1.5f);
     }
 
+    IEnumerator RemoveVisibility()
+    {
+        yield return new WaitForSeconds(0.5f);
+        if(spriteRenderer != null)
+        {
+            spriteRenderer.enabled = false;
+        }
+        else
+        {
+            Debug.LogError("SpriteRenderer is null in TurretDeathScript.");
+        }
+
+    }
     public void Explode()
     {
         Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(transform.position, attackRadius,playerLayer);
@@ -20,7 +39,11 @@ public class Explosion : MonoBehaviour
         {
             if(player != null) //is this even necessary? what am i even doing smh help
             {
-                player.GetComponent<Player>().TakeDamage(attackDamage);
+                Player playerFound = player.GetComponent<Player>();
+                if(playerFound != null)
+                {
+                    playerFound.TakeDamage(attackDamage);
+                }
             }
         }
     }

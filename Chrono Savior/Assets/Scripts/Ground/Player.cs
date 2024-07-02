@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (PauseMenu.GameIsPaused)
+        if (PauseMenu.gameIsPaused)
         {
             return;
         }

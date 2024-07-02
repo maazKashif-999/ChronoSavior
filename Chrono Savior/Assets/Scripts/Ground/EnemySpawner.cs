@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,7 +37,9 @@ public class EnemySpawner : MonoBehaviour
 
     private int CalculateEnemiesToSpawn(int wave)
     {
-        return (wave * (wave + 1)) / 2; // currently triangularly increasing
+        float funcValue = wave * (wave + 1) / 4.0f;
+        int enemies = (int) Math.Ceiling(funcValue);
+        return enemies; // currently triangularly increasing
     }
 
     private void SpawnEnemiesForWave(int wave)
@@ -89,15 +92,15 @@ public class EnemySpawner : MonoBehaviour
     {
         foreach (GameObject enemy in enemies)
         {
-            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+            Transform spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
             Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
         }
 
         if (securityTurretPrefab != null)
         {
-            if(Random.value > 0.5f)
+            if(UnityEngine.Random.value > 0.5f)
             {
-                Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+                Transform spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
                 Instantiate(securityTurretPrefab, spawnPoint.position, spawnPoint.rotation);
             }
         }

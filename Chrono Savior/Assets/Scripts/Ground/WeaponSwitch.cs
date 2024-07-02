@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
+using System;
 using UnityEngine;
 
 public class WeaponSwitch : MonoBehaviour
 {
+    public event EventHandler OnWeaponSet;
     [SerializeField] private AmmoUIController ammoUIController; 
     private Camera mainCamera;
     private Vector3 mousePosition;
     private Player player;
     private int selectedWeaponIndex = 0;
+    private int[] weaponIndex = new int[] {0, 3, 2};
+
 
     // Start is called before the first frame update
     
@@ -22,7 +27,7 @@ public class WeaponSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PauseMenu.GameIsPaused)
+        if (PauseMenu.gameIsPaused)
         {
             return;
         }
@@ -46,34 +51,93 @@ public class WeaponSwitch : MonoBehaviour
         {
             transform.localScale = new Vector3(1, 1, 1);
         }
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SelectedWeapon(0);
+            selectedWeaponIndex = 0;
+            SelectedWeapon(weaponIndex[selectedWeaponIndex]);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SelectedWeapon(1);
+            selectedWeaponIndex = 1;
+            SelectedWeapon(weaponIndex[selectedWeaponIndex]);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            SelectedWeapon(2);
+            selectedWeaponIndex = 2;
+            SelectedWeapon(weaponIndex[selectedWeaponIndex]);
         }
+        else if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            selectedWeaponIndex = (selectedWeaponIndex + 1) % weaponIndex.Length;
+            SelectedWeapon(weaponIndex[selectedWeaponIndex]);
+        }
+        
     }
 
+    
     void SelectedWeapon(int selectedWeapon)
     {
-        selectedWeaponIndex = selectedWeapon;
         for (int i = 0; i < transform.childCount; i++)
         {
+            Transform currentWeapon = transform.GetChild(i);
             if (i == selectedWeapon)
             {
-                transform.GetChild(i).gameObject.SetActive(true);
-                ammoUIController.SetCurrentGun(transform.GetChild(i).GetComponent<GunShoot>());
+                currentWeapon.gameObject.SetActive(true);
+                GunShoot gunShoot = currentWeapon.GetComponent<GunShoot>();
+                if(gunShoot != null)
+                {
+                    if(ammoUIController != null)
+                    {
+                        ammoUIController.SetCurrentGun(gunShoot);
+                    }
+                    else
+                    {
+                        Debug.LogError("AmmoUIController not found in WeaponSwitch.");
+                    }
+                    
+                }
+                else
+                {
+                    Debug.LogError("GunShoot component not found in WeaponSwitch.");
+                }
+                
             }
             else
             {
-                transform.GetChild(i).gameObject.SetActive(false);
+                currentWeapon.gameObject.SetActive(false);
             }
         }
+    }
+
+    public void SetSecondWeapon(int selectedWeapon)
+    {
+        weaponIndex[1] = selectedWeapon;
+
+        while(weaponIndex[1] == weaponIndex[2])
+        {
+            weaponIndex[2] = UnityEngine.Random.Range(1,5);
+        }
+        OnWeaponSet?.Invoke(this,EventArgs.Empty);
+    }
+
+    public void SetThirdWeapon(int selectedWeapon)
+    {
+        weaponIndex[2] = selectedWeapon;
+        while(weaponIndex[1] == weaponIndex[2])
+        {
+            weaponIndex[1] = UnityEngine.Random.Range(1,5);
+        }
+        OnWeaponSet?.Invoke(this,EventArgs.Empty);
+    }
+
+    public string GetSecondWeaponName()
+    {
+        return transform.GetChild(weaponIndex[1]).name;
+    }
+
+    public string GetThirdWeaponName()
+    {
+        return transform.GetChild(weaponIndex[2]).name;
     }
 }

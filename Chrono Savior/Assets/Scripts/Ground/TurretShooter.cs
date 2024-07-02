@@ -21,8 +21,22 @@ public class TurretShooter : MonoBehaviour, IEnemy
     {
         player = Player.Instance;
         currentHealth = MAX_HEALTH;
-        idle.SetActive(true);
-        active.SetActive(false);
+        if(idle != null)
+        {
+            idle.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("Idle is null in TurretShooter");
+        }
+        if(active != null)
+        {
+            active.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("Active is null in TurretShooter");
+        }
     }
     
     // Update is called once per frame

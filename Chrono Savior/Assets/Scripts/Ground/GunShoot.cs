@@ -83,7 +83,7 @@ public class GunShoot : MonoBehaviour
                 Debug.Log("Player is null");
                 return;
             }
-            if(!Player.Instance.IsAlive() || PauseMenu.GameIsPaused) return;
+            if(!Player.Instance.IsAlive() || PauseMenu.gameIsPaused) return;
             
             if(BulletPool.SharedInstance != null)
             {

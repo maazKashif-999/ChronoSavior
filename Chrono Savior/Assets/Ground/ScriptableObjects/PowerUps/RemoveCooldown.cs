@@ -9,4 +9,5 @@ public class RemoveCooldown : PowerUp
     {
         Player.Instance.RemoveCooldown();
     }
+
 }

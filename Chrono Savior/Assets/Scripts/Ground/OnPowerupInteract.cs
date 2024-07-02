@@ -1,21 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OnPowerupInteract : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField] private PowerUp powerup;
-    private void OnTriggerEnter2D(Collider2D other)
+    [SerializeField] private float messageDuration = 1f; // currently doesnt work for some reason
+
+    private Text messageText;
+
+    private void Start()
     {
-        if(other != null)
+        GameObject messageObject = GameObject.FindGameObjectWithTag("PowerUpMessage");
+        if (messageObject != null)
         {
-            if(other.CompareTag("Player"))
-            {
-                powerup.UsePowerUp(other.gameObject);
-                Destroy(gameObject);
-            }
+            messageText = messageObject.GetComponent<Text>();
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other != null && other.CompareTag("Player"))
+        {
+            powerup.UsePowerUp(other.gameObject);
+            string powerUpName = FormatPowerUpName(gameObject.name.Replace("(Clone)", "").Trim());
+            ShowMessage(powerUpName + " Activated");
+            Destroy(gameObject);
+        }
+    }
+
+    private void ShowMessage(string message)
+    {
+        if (messageText != null)
+        {
+            StartCoroutine(DisplayMessage(message));
+        }
+    }
+
+    private IEnumerator DisplayMessage(string message)
+    {
+        messageText.text = message;
+        messageText.enabled = true;
+        yield return new WaitForSeconds(messageDuration);
+        messageText.enabled = false;
+    }
+
+    private string FormatPowerUpName(string name)
+    {
+        string formattedName = Regex.Replace(name, "(\\B[A-Z])", " $1");
+        return formattedName.Replace("Power Up", "").Trim();
+    }
 }

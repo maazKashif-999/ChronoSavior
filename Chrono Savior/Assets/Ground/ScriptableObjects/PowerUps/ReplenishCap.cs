@@ -14,5 +14,6 @@ public class ReplenishCap : PowerUp
             weaponManager.transform.GetChild(i).gameObject.GetComponent<GunShoot>().ReplenishAmmo();
         }
     }
+
 }
  

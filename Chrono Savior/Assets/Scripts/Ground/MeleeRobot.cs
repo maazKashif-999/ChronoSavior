@@ -165,21 +165,20 @@ public class MeleeRobot : MonoBehaviour, IEnemy
     }
     private void Die()
     {
-        // if(MAX_HEALTH == 60)
-        // {
-        //     if(Random.Range(0,6) == 0)
-        //     {
-        //         SpawnPowerUp();
-        //     }
-        // }
-        // else if(MAX_HEALTH == 50)
-        // {
-        //     if(Random.Range(0,9) == 0)
-        //     {
-        //         SpawnPowerUp();
-        //     }
-        // }
-        SpawnPowerUp();
+        if(MAX_HEALTH == 60)
+        {
+            if(Random.Range(0,6) == 0)
+            {
+                SpawnPowerUp();
+            }
+        }
+        else if(MAX_HEALTH == 50)
+        {
+            if(Random.Range(0,9) == 0)
+            {
+                SpawnPowerUp();
+            }
+        }
         Destroy(gameObject);
     }
 

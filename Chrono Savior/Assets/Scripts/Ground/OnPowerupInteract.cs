@@ -27,7 +27,16 @@ public class OnPowerupInteract : MonoBehaviour
             powerup.UsePowerUp(other.gameObject);
             string powerUpName = FormatPowerUpName(gameObject.name.Replace("(Clone)", "").Trim());
             ShowMessage(powerUpName + " Activated");
-            Destroy(gameObject);
+            if(PowerupPoolingAPI.SharedInstance != null)
+            {
+                // PowerupPoolingAPI.SharedInstance.ReleasePowerup(this, powerup.GameObject.name);
+                gameObject.SetActive(false);
+                
+            }
+            else
+            {
+                Debug.LogError("PowerupPoolingAPI is null in OnPowerupInteract");
+            }
         }
     }
 

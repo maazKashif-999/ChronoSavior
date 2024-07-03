@@ -118,13 +118,30 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
 
     private void SpawnPowerUp()
     {
+        // int index = Random.Range(0, powerUps.Count);
+        // if(powerUps[index] == null)
+        // {
+        //     Debug.LogError("PowerUp is null in ExplosiveRobot");
+        //     return;
+        // }
+        // Instantiate(powerUps[index], transform.position, Quaternion.identity);
         int index = Random.Range(0, powerUps.Count);
         if(powerUps[index] == null)
         {
-            Debug.LogError("PowerUp is null in ExplosiveRobot");
+            Debug.LogError("PowerUp is null in GunRobot");
             return;
         }
-        Instantiate(powerUps[index], transform.position, Quaternion.identity);
+        if(PowerupPoolingAPI.SharedInstance != null)
+        {
+            OnPowerupInteract powerup = PowerupPoolingAPI.SharedInstance.GetPooledPowerup(index);
+            powerup.transform.position = transform.position;
+            powerup.gameObject.SetActive(true);
+            //  Instantiate(powerUps[index], transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogError("PowerupPoolingAPI is null in GunRobot");
+        }
     }
     private void Die()
     {

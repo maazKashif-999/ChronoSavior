@@ -144,32 +144,50 @@ public class MeleeRobot : MonoBehaviour, IEnemy
             
         }
     }
-    private void SpawnPowerUp()
+    private void SpawnPowerUp() // try making this a global function
     {
+        // int index = Random.Range(0, powerUps.Count);
+        // if(powerUps[index] == null)
+        // {
+        //     Debug.LogError("PowerUp is null in MeleeRobot");
+        //     return;
+        // }
+        // Instantiate(powerUps[index], transform.position, Quaternion.identity);
         int index = Random.Range(0, powerUps.Count);
         if(powerUps[index] == null)
         {
-            Debug.LogError("PowerUp is null in MeleeRobot");
+            Debug.LogError("PowerUp is null in GunRobot");
             return;
         }
-        Instantiate(powerUps[index], transform.position, Quaternion.identity);
+        if(PowerupPoolingAPI.SharedInstance != null)
+        {
+            OnPowerupInteract powerup = PowerupPoolingAPI.SharedInstance.GetPooledPowerup(index);
+            powerup.transform.position = transform.position;
+            powerup.gameObject.SetActive(true);
+            //  Instantiate(powerUps[index], transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogError("PowerupPoolingAPI is null in GunRobot");
+        }
     }
     private void Die()
     {
-        if(MAX_HEALTH == 60)
-        {
-            if(Random.Range(0,6) == 0)
-            {
-                SpawnPowerUp();
-            }
-        }
-        else if(MAX_HEALTH == 50)
-        {
-            if(Random.Range(0,9) == 0)
-            {
-                SpawnPowerUp();
-            }
-        }
+        // if(MAX_HEALTH == 60)
+        // {
+        //     if(Random.Range(0,6) == 0)
+        //     {
+        //         SpawnPowerUp();
+        //     }
+        // }
+        // else if(MAX_HEALTH == 50)
+        // {
+        //     if(Random.Range(0,9) == 0)
+        //     {
+        //         SpawnPowerUp();
+        //     }
+        // }
+        SpawnPowerUp();
         Destroy(gameObject);
     }
 

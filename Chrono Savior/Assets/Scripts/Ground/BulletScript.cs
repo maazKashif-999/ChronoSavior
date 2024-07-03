@@ -10,11 +10,26 @@ public class BulletScript : MonoBehaviour
     private Rigidbody2D rb;
     private const int PLAYER_LAYER = 6;
     private const int POWERUP_LAYER = 11;
-    void OnEnable()
+    private const string AR = "AR";
+    private const string SMG = "SMG";
+    private const string PISTOL = "Pistol";
+    private const string SHOTGUN = "Shotgun";
+    private const string SNIPER = "Sniper";
+    private const int PISTOL_INDEX = 0;
+    private const int AR_INDEX = 1;
+    private const int SNIPER_INDEX = 2;
+    private const int SMG_INDEX = 3;
+    private const int SHOTGUN_INDEX = 4;
+    
+    void Awake()
     {
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody2D>();
-        //is this fine as a null check?
+        //is this fine as a null check
+       
+    }
+    void OnEnable()
+    {
         if(mainCamera != null && rb != null)
         {
             mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -40,7 +55,34 @@ public class BulletScript : MonoBehaviour
             enemy.TakeDamage(currentDamage);
         }
         
-        gameObject.SetActive(false);
+        // gameObject.SetActive(false);
+        if(BulletPool.SharedInstance != null)
+        {
+            if(bulletType == PISTOL)
+            {
+                BulletPoolingAPI.SharedInstance.ReleaseBullet(this,PISTOL_INDEX);
+            }
+            else if(bulletType == AR)
+            {
+                BulletPoolingAPI.SharedInstance.ReleaseBullet(this,AR_INDEX);
+            }
+            else if(bulletType == SNIPER)
+            {
+                BulletPoolingAPI.SharedInstance.ReleaseBullet(this,SNIPER_INDEX);
+            }
+            else if(bulletType == SMG)
+            {
+                BulletPoolingAPI.SharedInstance.ReleaseBullet(this,SMG_INDEX);
+            }
+            else if(bulletType == SHOTGUN)
+            {
+                BulletPoolingAPI.SharedInstance.ReleaseBullet(this,SHOTGUN_INDEX);
+            }
+        }
+        else
+        {
+            Debug.LogError("BulletPool is null in BulletScript");
+        }
         
     }
 }

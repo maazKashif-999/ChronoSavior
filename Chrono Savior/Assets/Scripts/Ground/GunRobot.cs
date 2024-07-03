@@ -172,7 +172,18 @@ public class GunRobot : MonoBehaviour, IEnemy
             Debug.LogError("PowerUp is null in GunRobot");
             return;
         }
-        Instantiate(powerUps[index], transform.position, Quaternion.identity);
+        if(PowerupPoolingAPI.SharedInstance != null)
+        {
+            OnPowerupInteract powerup = PowerupPoolingAPI.SharedInstance.GetPooledPowerup(index);
+            powerup.transform.position = transform.position;
+            powerup.gameObject.SetActive(true);
+            //  Instantiate(powerUps[index], transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogError("PowerupPoolingAPI is null in GunRobot");
+        }
+        
     }
 
     private void Die()

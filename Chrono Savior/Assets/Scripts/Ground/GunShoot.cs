@@ -77,7 +77,8 @@ public class GunShoot : MonoBehaviour
                 return;
             }
 
-            GameObject bullet = null;
+            // GameObject bullet = null;
+            BulletScript bullet = null;
             if(Player.Instance == null)
             {
                 Debug.Log("Player is null");
@@ -85,27 +86,50 @@ public class GunShoot : MonoBehaviour
             }
             if(!Player.Instance.IsAlive() || PauseMenu.gameIsPaused) return;
             
-            if(BulletPool.SharedInstance != null)
+            // if(BulletPool.SharedInstance != null)
+            // {
+            //     if(gunType == PISTOL)
+            //     {
+            //         bullet = BulletPool.SharedInstance.GetPooledBullet(PISTOL_INDEX); 
+            //     }
+            //     else if(gunType == AR)
+            //     {
+            //         bullet = BulletPool.SharedInstance.GetPooledBullet(AR_INDEX); 
+            //     }
+            //     else if(gunType == SNIPER)
+            //     {
+            //         bullet = BulletPool.SharedInstance.GetPooledBullet(SNIPER_INDEX); 
+            //     }
+            //     else if(gunType == SMG)
+            //     {
+            //         bullet = BulletPool.SharedInstance.GetPooledBullet(SMG_INDEX); 
+            //     }
+            //     else if(gunType == SHOTGUN)
+            //     {
+            //         bullet = BulletPool.SharedInstance.GetPooledBullet(SHOTGUN_INDEX); 
+            //     }
+            // }
+            if(BulletPoolingAPI.SharedInstance != null)
             {
                 if(gunType == PISTOL)
                 {
-                    bullet = BulletPool.SharedInstance.GetPooledBullet(PISTOL_INDEX); 
+                    bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(PISTOL_INDEX); 
                 }
                 else if(gunType == AR)
                 {
-                    bullet = BulletPool.SharedInstance.GetPooledBullet(AR_INDEX); 
+                    bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(AR_INDEX); 
                 }
                 else if(gunType == SNIPER)
                 {
-                    bullet = BulletPool.SharedInstance.GetPooledBullet(SNIPER_INDEX); 
+                    bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(SNIPER_INDEX); 
                 }
                 else if(gunType == SMG)
                 {
-                    bullet = BulletPool.SharedInstance.GetPooledBullet(SMG_INDEX); 
+                    bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(SMG_INDEX); 
                 }
                 else if(gunType == SHOTGUN)
                 {
-                    bullet = BulletPool.SharedInstance.GetPooledBullet(SHOTGUN_INDEX); 
+                    bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(SHOTGUN_INDEX); 
                 }
             }
 
@@ -115,7 +139,7 @@ public class GunShoot : MonoBehaviour
             {
                 bullet.transform.position = bulletTransform.position;
                 bullet.transform.rotation = Quaternion.identity;
-                bullet.SetActive(true);
+                bullet.gameObject.SetActive(true);
             }
             else
             {

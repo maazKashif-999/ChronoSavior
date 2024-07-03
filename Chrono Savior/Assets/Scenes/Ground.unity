@@ -2436,6 +2436,8 @@ GameObject:
   m_Component:
   - component: {fileID: 532103280}
   - component: {fileID: 532103285}
+  - component: {fileID: 532103286}
+  - component: {fileID: 532103287}
   m_Layer: 0
   m_Name: PoolManager
   m_TagString: Untagged
@@ -2465,18 +2467,58 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 532103278}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93860439a2b124c30821c732f89eb13a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountsToPool: 060000000f000000030000001400000005000000
+  amountsToPool: 0c0000001e000000070000001e00000009000000
   objectsToPool:
   - {fileID: 8650246631434452996, guid: e505cef1179664f12954921f88121659, type: 3}
   - {fileID: 8650246631434452996, guid: 898c8dc2f7c77467c8bc98c62429b712, type: 3}
   - {fileID: 8650246631434452996, guid: 95341120a570841c58aefee1e27ca39a, type: 3}
   - {fileID: 8650246631434452996, guid: f45e69970b42c4d4eb2403b469eac0df, type: 3}
   - {fileID: 8650246631434452996, guid: ded7880ae41a34153b807599da73108d, type: 3}
+--- !u!114 &532103286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532103278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1438da25f4dab40e79a53cba14a14994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountsToPool: 060000000f000000030000001400000005000000
+  bulletsToPool:
+  - {fileID: 6670453541419266113, guid: e505cef1179664f12954921f88121659, type: 3}
+  - {fileID: 6670453541419266113, guid: 898c8dc2f7c77467c8bc98c62429b712, type: 3}
+  - {fileID: 6670453541419266113, guid: 95341120a570841c58aefee1e27ca39a, type: 3}
+  - {fileID: 6670453541419266113, guid: f45e69970b42c4d4eb2403b469eac0df, type: 3}
+  - {fileID: 6670453541419266113, guid: ded7880ae41a34153b807599da73108d, type: 3}
+--- !u!114 &532103287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532103278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4493e8a9fe08b46748fc1abd66a09e71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountToPool: 5
+  powerupsToPool:
+  - {fileID: 976909326161745677, guid: a98594d1409494fccbbb03ec19b7becb, type: 3}
+  - {fileID: 1627308496138372708, guid: 4a1ba7097ec7d4604a797bde24e948d2, type: 3}
+  - {fileID: 7183897437173459608, guid: ef17ddda011ff4e4eae39b71583cf75d, type: 3}
+  - {fileID: 4761433444504320468, guid: e7f8b1e69056d4948b519420023ab762, type: 3}
+  - {fileID: 12969924498879786, guid: 9250e464cc2464467ab5d4d238769901, type: 3}
+  - {fileID: 174020423528988992, guid: 004eff954096f41e88a4677f2038e314, type: 3}
+  - {fileID: 4295490718298145660, guid: 3a15dc2e31dda4c169b6253dab4343de, type: 3}
 --- !u!1 &544757515
 GameObject:
   m_ObjectHideFlags: 0

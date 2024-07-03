@@ -77,7 +77,6 @@ public class GunShoot : MonoBehaviour
                 return;
             }
 
-            // GameObject bullet = null;
             BulletScript bullet = null;
             if(Player.Instance == null)
             {
@@ -86,29 +85,6 @@ public class GunShoot : MonoBehaviour
             }
             if(!Player.Instance.IsAlive() || PauseMenu.gameIsPaused) return;
             
-            // if(BulletPool.SharedInstance != null)
-            // {
-            //     if(gunType == PISTOL)
-            //     {
-            //         bullet = BulletPool.SharedInstance.GetPooledBullet(PISTOL_INDEX); 
-            //     }
-            //     else if(gunType == AR)
-            //     {
-            //         bullet = BulletPool.SharedInstance.GetPooledBullet(AR_INDEX); 
-            //     }
-            //     else if(gunType == SNIPER)
-            //     {
-            //         bullet = BulletPool.SharedInstance.GetPooledBullet(SNIPER_INDEX); 
-            //     }
-            //     else if(gunType == SMG)
-            //     {
-            //         bullet = BulletPool.SharedInstance.GetPooledBullet(SMG_INDEX); 
-            //     }
-            //     else if(gunType == SHOTGUN)
-            //     {
-            //         bullet = BulletPool.SharedInstance.GetPooledBullet(SHOTGUN_INDEX); 
-            //     }
-            // }
             if(BulletPoolingAPI.SharedInstance != null)
             {
                 if(gunType == PISTOL)

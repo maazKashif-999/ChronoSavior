@@ -146,13 +146,6 @@ public class MeleeRobot : MonoBehaviour, IEnemy
     }
     private void SpawnPowerUp() // try making this a global function
     {
-        // int index = Random.Range(0, powerUps.Count);
-        // if(powerUps[index] == null)
-        // {
-        //     Debug.LogError("PowerUp is null in MeleeRobot");
-        //     return;
-        // }
-        // Instantiate(powerUps[index], transform.position, Quaternion.identity);
         int index = Random.Range(0, powerUps.Count);
         if(powerUps[index] == null)
         {
@@ -164,7 +157,6 @@ public class MeleeRobot : MonoBehaviour, IEnemy
             OnPowerupInteract powerup = PowerupPoolingAPI.SharedInstance.GetPooledPowerup(index);
             powerup.transform.position = transform.position;
             powerup.gameObject.SetActive(true);
-            //  Instantiate(powerUps[index], transform.position, Quaternion.identity);
         }
         else
         {

@@ -10,6 +10,15 @@ public class OnPowerupInteract : MonoBehaviour
     [SerializeField] private float messageDuration = 1f; // currently doesnt work for some reason
 
     private Text messageText;
+    private const string DAMAGE_POWERUP = "DamagePowerUp";
+    private const string HEALTH_POWERUP = "HealthPowerUp";
+    private const string ONESHOT_POWERUP = "OneShotPowerUp";
+    private const string REMOVECOOLDOWN_POWERUP = "RemoveCooldownPowerUp";
+    private const string REPLENISHCAP_POWERUP = "ReplenishCapPowerUp";
+    private const string SHIELD_POWERUP = "ShieldPowerUp";
+    private const string SPEED_POWERUP = "SpeedPowerUp";
+    
+
 
     private void Start()
     {
@@ -29,9 +38,37 @@ public class OnPowerupInteract : MonoBehaviour
             ShowMessage(powerUpName + " Activated");
             if(PowerupPoolingAPI.SharedInstance != null)
             {
-                // PowerupPoolingAPI.SharedInstance.ReleasePowerup(this, powerup.GameObject.name);
-                gameObject.SetActive(false);
-                
+                int index = -1;
+                string name = powerup.name;
+                if(name == DAMAGE_POWERUP)
+                {
+                    index = 0;
+                }
+                else if(name == HEALTH_POWERUP)
+                {
+                    index = 1;
+                }
+                else if(name == ONESHOT_POWERUP)
+                {
+                    index = 2;
+                }
+                else if(name == REMOVECOOLDOWN_POWERUP)
+                {   
+                    index = 3;
+                }
+                else if(name == REPLENISHCAP_POWERUP)
+                {
+                    index = 4;
+                }
+                else if(name == SHIELD_POWERUP)
+                {
+                    index = 5;
+                }
+                else if(name == SPEED_POWERUP)
+                {
+                    index = 6;
+                }
+                PowerupPoolingAPI.SharedInstance.ReleasePowerup(this, index);
             }
             else
             {

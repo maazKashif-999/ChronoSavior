@@ -32,11 +32,6 @@ public class PowerupPoolingAPI : MonoBehaviour
         return powerup;
     }
 
-    // private void OnTakePowerupFromPool(OnPowerupInteract bullet)
-    // {
-    //     // bullet.transform.position = bulletTransforms[bulletsToPool.IndexOf(bullet)].transform.position;
-    // }
-
     private void OnReleaseFromPool(OnPowerupInteract powerup)
     {
         powerup.gameObject.SetActive(false);

@@ -56,7 +56,8 @@ public class BulletScript : MonoBehaviour
         }
         
         // gameObject.SetActive(false);
-        if(BulletPool.SharedInstance != null)
+        if (!gameObject.activeInHierarchy) return;
+        if(BulletPoolingAPI.SharedInstance != null)
         {
             if(bulletType == PISTOL)
             {

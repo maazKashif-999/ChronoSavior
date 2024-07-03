@@ -177,7 +177,6 @@ public class GunRobot : MonoBehaviour, IEnemy
             OnPowerupInteract powerup = PowerupPoolingAPI.SharedInstance.GetPooledPowerup(index);
             powerup.transform.position = transform.position;
             powerup.gameObject.SetActive(true);
-            //  Instantiate(powerUps[index], transform.position, Quaternion.identity);
         }
         else
         {

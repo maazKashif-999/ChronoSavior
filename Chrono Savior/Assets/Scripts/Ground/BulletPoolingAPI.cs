@@ -57,7 +57,8 @@ public class BulletPoolingAPI : MonoBehaviour
     public void ReleaseBullet(BulletScript bullet, int gunIndex)
     {
         if (gunIndex >= bulletsToPool.Count || gunIndex < 0) return;
-
+        if (!bullet.gameObject.activeInHierarchy) return;
+        
         pooledObjects[gunIndex].Release(bullet);
     }
     

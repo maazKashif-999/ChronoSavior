@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class EnemyShip : MonoBehaviour
 {
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor;
     protected float speed; // Speed of the enemy ship
     protected float limitXPosition; // X position where the ship stops
     [SerializeField] private GameObject bulletPrefab; // Prefab of the bullet
@@ -34,6 +36,10 @@ public class EnemyShip : MonoBehaviour
 
         enemyWaveManager = FindObjectOfType<EnemyWaveManager>();
         player = FindObjectOfType<PlayerControls>();
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
+
 
 
     }
@@ -78,10 +84,19 @@ public class EnemyShip : MonoBehaviour
             if (bullet != null)
             {
                 TakeDamage(bullet.Damage);
+
                 other.gameObject.SetActive(false);
+                Destroy(other.gameObject);
+                spriteRenderer.color = Color.red;
+                Invoke("ResetColor", 0.5f);
+
 
             }
         }
+    }
+    void ResetColor()
+    {
+        spriteRenderer.color = originalColor;
     }
 
     public virtual void TakeDamage(int damage)
@@ -127,6 +142,7 @@ public class EnemyShip : MonoBehaviour
                 Instantiate(tokenPrefab, transform.position, Quaternion.identity);
             }
         }
+
         else
         {
             SpawnPowerup();
@@ -136,14 +152,11 @@ public class EnemyShip : MonoBehaviour
     {
         if (powerupPrefabs.Count > 0)
         {
-            // Randomly select a powerup from the list
             int randomIndex = Random.Range(0, powerupPrefabs.Count);
             while (randomIndex == 1 && MainMenu.mode != MainMenu.Mode.Campaign){
                 randomIndex = Random.Range(0, powerupPrefabs.Count);
             }
             GameObject selectedPowerup = powerupPrefabs[randomIndex];
-
-            // Instantiate the selected powerup at the given position
             Instantiate(selectedPowerup,transform.position, Quaternion.identity);
         }
     }

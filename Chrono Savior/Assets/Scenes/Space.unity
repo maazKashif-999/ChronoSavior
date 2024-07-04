@@ -2413,7 +2413,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -497, y: -60.6}
+  m_AnchoredPosition: {x: -497, y: -60.600006}
   m_SizeDelta: {x: 381.27, y: 32.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &850414848
@@ -3886,7 +3886,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -125.3, y: -218.2}
+  m_AnchoredPosition: {x: -125.29999, y: -218.20001}
   m_SizeDelta: {x: 233.4, y: 38.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1440799688
@@ -4310,7 +4310,7 @@ MonoBehaviour:
     prefab: {fileID: 3613634235533893083, guid: 9982b0a141a2d8246bc26fd6d910ca70, type: 3}
     size: 30
   - tag: Aesteroid
-    prefab: {fileID: 8957302797035069460, guid: 96d78e3309fc5b0459cd3556c4a71221, type: 3}
+    prefab: {fileID: 8709522368479257947, guid: 7c5349399da9f3b46b28583753180a34, type: 3}
     size: 10
 --- !u!4 &1551619782
 Transform:

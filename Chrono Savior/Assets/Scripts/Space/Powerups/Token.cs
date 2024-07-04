@@ -9,7 +9,7 @@ public class Token : PowerUpEffect
         PlayerControls playerControls = target.GetComponent<PlayerControls>();
         if (playerControls != null)
         {
-            playerControls.UpdateToekn();
+            playerControls.UpdateToken();
         }
     }
 }

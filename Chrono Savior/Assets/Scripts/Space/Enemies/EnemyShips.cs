@@ -1,26 +1,22 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class EnemyShip : MonoBehaviour
 {
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor;
     protected float speed; // Speed of the enemy ship
     protected float limitXPosition; // X position where the ship stops
-    [SerializeField] private GameObject bulletPrefab; // Prefab of the bullet
-    [SerializeField] private GameObject explosion; // Prefab of the explosion
-    [SerializeField] private GameObject coinPrefab; // Prefab of the coins
-    [SerializeField] private GameObject tokenPrefab;
-    [SerializeField] private List<GameObject> powerupPrefabs;
-    protected float fireInterval; // Interval between consecutive bullet fires
-    protected float bulletSpeed; // Speed of the fired bullets
-    protected int health;
+    public GameObject bulletPrefab; // Prefab of the bullet
+    public GameObject explosion; // Prefab of the explosion
+    public GameObject coinPrefab; // Prefab of the coins
+    public GameObject tokenPrefab;
+    public float fireInterval; // Interval between consecutive bullet fires
+    public float bulletSpeed; // Speed of the fired bullets
+    protected int health = 10;
     protected int damage;
     private EnemyWaveManager enemyWaveManager;
     protected float angle;
     protected float coinDroppingProbability;
-    protected float tokenDroppingProbability;
-
-    protected float powerUpDroppingProbability;
-
     private PlayerControls player;
     protected float nextFireTime; // Time when the ship can fire next
 
@@ -34,7 +30,13 @@ public class EnemyShip : MonoBehaviour
 
         enemyWaveManager = FindObjectOfType<EnemyWaveManager>();
         player = FindObjectOfType<PlayerControls>();
+<<<<<<< Updated upstream
+        
+=======
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
 
+>>>>>>> Stashed changes
 
     }
 
@@ -78,10 +80,20 @@ public class EnemyShip : MonoBehaviour
             if (bullet != null)
             {
                 TakeDamage(bullet.Damage);
+<<<<<<< Updated upstream
+                Destroy(other.gameObject);
+=======
                 other.gameObject.SetActive(false);
+                spriteRenderer.color = Color.red;
+                Invoke("ResetColor", 0.5f);
 
+>>>>>>> Stashed changes
             }
         }
+    }
+    void ResetColor()
+    {
+        spriteRenderer.color = originalColor;
     }
 
     public virtual void TakeDamage(int damage)
@@ -117,16 +129,13 @@ public class EnemyShip : MonoBehaviour
             {
                 Instantiate(coinPrefab, transform.position, Quaternion.identity);
             }
-            else if (randomValue <= powerUpDroppingProbability)
-            {
-                SpawnPowerup();
-            }
-
-            else 
+            else
             {
                 Instantiate(tokenPrefab, transform.position, Quaternion.identity);
             }
         }
+<<<<<<< Updated upstream
+=======
         else
         {
             SpawnPowerup();
@@ -136,15 +145,13 @@ public class EnemyShip : MonoBehaviour
     {
         if (powerupPrefabs.Count > 0)
         {
-            // Randomly select a powerup from the list
             int randomIndex = Random.Range(0, powerupPrefabs.Count);
             while (randomIndex == 1 && MainMenu.mode != MainMenu.Mode.Campaign){
                 randomIndex = Random.Range(0, powerupPrefabs.Count);
             }
             GameObject selectedPowerup = powerupPrefabs[randomIndex];
-
-            // Instantiate the selected powerup at the given position
             Instantiate(selectedPowerup,transform.position, Quaternion.identity);
         }
+>>>>>>> Stashed changes
     }
 }

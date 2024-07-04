@@ -23,7 +23,7 @@ public class PlayerBullet : MonoBehaviour
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle))*rotation;
-
+        //transform.rotation = rotation;
     }
 
     void Update()
@@ -34,7 +34,7 @@ public class PlayerBullet : MonoBehaviour
             Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
             if (screenPosition.x < 0 || screenPosition.x > Screen.width || screenPosition.y < 0 || screenPosition.y > Screen.height)
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
         else
@@ -42,8 +42,6 @@ public class PlayerBullet : MonoBehaviour
             Debug.LogWarning("Main camera is not assigned.");
         }
     }
-<<<<<<< Updated upstream
-=======
 
     void OnDisable()
     {
@@ -57,6 +55,12 @@ public class PlayerBullet : MonoBehaviour
         }
         
     }
-     
->>>>>>> Stashed changes
+    private void OnDestroy() {
+        if (gameObject.CompareTag("PlayerBullets"))
+
+        {
+            Debug.Log("Bullet destroyed");
+        }
+        // 
+    }   
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -9,32 +10,30 @@ public class PlayerControls : MonoBehaviour
     float speed = 5f; 
     float minY; // Minimum Y position
     float maxY; // Maximum Y position
-<<<<<<< Updated upstream
-    public GameObject explosion;
-    public TextMeshProUGUI coinCount; // Reference to the TextMeshPro text element for displaying coin count
-    public TextMeshProUGUI tokenCount;
-=======
-
-    private SpriteRenderer spriteRenderer;
-    private Color originalColor;
     [SerializeField] private GameObject explosion;
     [SerializeField] private Text coinCount; // Reference to the TextMeshPro text element for displaying coin count
     [SerializeField] private Text tokenCount;
->>>>>>> Stashed changes
     float health;
     float shield;
-    public HealthBar healthBar;
+    [SerializeField] private HealthBar healthBar;
+    [SerializeField] private AudioClip bulletSound; //bullet picking up sound clip
+    [SerializeField] private AudioClip tokenPickupSound; //token picking up sound clip
+    [SerializeField] private AudioClip coinPickupSound; //coin picking up sound clip
+    private AudioSource audioSource; // AudioSource component
 
-    public ShieldBar shieldBar;
+
+
+    [SerializeField] private ShieldBar shieldBar;
     const int MAX_HEALTH = 100;
     const int MAX_SHIELD = 50;
     float bulletSpeed = 6.0f;
     int damage ;
-    public GameObject playerBulletPrefab; // Prefab of the player bullet
+    [SerializeField] private GameObject playerBulletPrefab; // Prefab of the player bullet
     private SpaceGameManager gameManager; // Reference to the GameManager
     private int coins = 0; // Variable to keep track of collected coins
     private int token = 0;
-
+    
+    private float fireRate,fireTimer;
     const int MULTIPLIER = 20;
 
     int multi;
@@ -57,7 +56,8 @@ public class PlayerControls : MonoBehaviour
 
     public int Health
     {
-        set { health = MAX_HEALTH; }
+        set { health = MAX_HEALTH;
+        UpdateHealth(); }
     }
     public int Damage
     {
@@ -66,18 +66,15 @@ public class PlayerControls : MonoBehaviour
     }
     public int Shield
     {
-        set { shield = MAX_SHIELD; }
+        set { 
+            shield = MAX_SHIELD;
+            UpdateShield(); }
     }
  
     private void Start()
     {
         gameManager = FindObjectOfType<SpaceGameManager>(); // Find the GameManager in the scene
-<<<<<<< Updated upstream
-=======
         audioSource = GetComponent<AudioSource>(); // Get the AudioSource component
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        originalColor = spriteRenderer.color;
->>>>>>> Stashed changes
     }
 
     public void Init()
@@ -89,6 +86,8 @@ public class PlayerControls : MonoBehaviour
         multi = MULTIPLIER;
         coins = 0; // Reset coin count
         token = 0; 
+        fireRate = 0.2f;
+        fireTimer = 0f;
         UpdateHealth();
         UpdateShield();
 
@@ -106,12 +105,10 @@ public class PlayerControls : MonoBehaviour
         if (mainCamera != null)
         {
             float playerHeight = GetComponent<SpriteRenderer>().bounds.size.y;
-
+            float playerHeightX = GetComponent<SpriteRenderer>().bounds.size.x+0.1f;
             minY = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + playerHeight / 2;
             maxY = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, 0)).y - playerHeight / 2;
-        
-            
-            transform.position = new Vector3(mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + 0.3f, 0, 0);
+            transform.position = new Vector3(mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x+playerHeightX, 0, 0);
         }
         else
         {
@@ -125,10 +122,24 @@ public class PlayerControls : MonoBehaviour
     void Update()
     {
         // Fire bullet when user clicks left mouse button or touches screen
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
-            FireBullet();
+            fireTimer += Time.deltaTime;
+
+            if (fireTimer >= fireRate)
+            {
+                FireBullet();
+                fireTimer = 0f; // Reset the timer
+            }
         }
+        else
+        {
+            // Reset the timer when the mouse button is released to avoid immediate firing when pressed again
+            fireTimer = fireRate;
+        }
+
+
+
         RotateTowardsMouse();
         
         Move();
@@ -162,9 +173,10 @@ public class PlayerControls : MonoBehaviour
 
     void FireBullet()
     {
+        if(PauseMenu.gameIsPaused) return;
         if (playerBulletPrefab != null)
         {
-            GameObject bulletObject = Instantiate(playerBulletPrefab, transform.position, Quaternion.identity);
+            GameObject bulletObject = PoolManager.Instance.SpawnFromPool("PlayerBullet", transform.position, Quaternion.identity);
             Camera mainCamera = Camera.main;
             if (mainCamera != null)
             {
@@ -175,6 +187,11 @@ public class PlayerControls : MonoBehaviour
                 {
                     bulletScript.Initialize(mousePosition, bulletSpeed, damage, Quaternion.Euler(0, 0, 0));
                 }
+                if (audioSource != null && bulletSound != null)
+                {
+                    audioSource.PlayOneShot(bulletSound);
+                }
+
             }
             else
             {
@@ -198,35 +215,8 @@ public class PlayerControls : MonoBehaviour
             {
                 TakeDamage(bullet.Damage);
                 Destroy(other.gameObject);
-                spriteRenderer.color = Color.red;
-                Invoke("ResetColor", 0.5f);
             }
         }
-        // else if (other.CompareTag("coins"))
-        // {
-        //     coins++;
-        //     Debug.Log(coins);
-
-        //     if (coinCount != null)
-        //     {
-        //         coinCount.text = coins.ToString();
-        //     }
-        //     Destroy(other.gameObject);
-        // }
-        // else if (other.CompareTag("token"))
-        // {
-        //     token += multi;
-
-        //     if (tokenCount != null)
-        //     {
-        //         tokenCount.text = token.ToString();
-        //     }
-        //     Destroy(other.gameObject);
-        // }
-    }
-    void ResetColor()
-    {
-        spriteRenderer.color = originalColor;
     }
     public void TakeDamage(int damage)
     {
@@ -254,6 +244,7 @@ public class PlayerControls : MonoBehaviour
         {
             GameObject explosionObject = Instantiate(explosion, transform.position, Quaternion.identity);
         }
+
         else
         {
             Debug.LogWarning("Explosion prefab is not assigned.");
@@ -284,7 +275,7 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    public void UpdateToken()
+    public void UpdateToekn()
     {
         token += multi;
 
@@ -292,7 +283,13 @@ public class PlayerControls : MonoBehaviour
         {
             tokenCount.text = token.ToString();
         }
+
+        if (audioSource != null && tokenPickupSound != null)
+        {
+            audioSource.PlayOneShot(tokenPickupSound);
+        }
     }
+
 
     public void UpdateCoin()
     {
@@ -300,6 +297,11 @@ public class PlayerControls : MonoBehaviour
         if (coinCount != null)
         {
             coinCount.text = coins.ToString();
+        }
+
+        if (audioSource != null && coinPickupSound != null)
+        {
+            audioSource.PlayOneShot(coinPickupSound);
         }
     }
     IEnumerator WaitAndEndGame(float waitTime)
@@ -313,5 +315,24 @@ public class PlayerControls : MonoBehaviour
         {
             Debug.LogWarning("Game manager is not assigned.");
         }
+    }
+    public float GetCurrentHealth()
+    {
+        return health;
+    }
+
+    public float GetCurrentShield()
+    {
+        return shield;
+    }
+
+    public int GetCoins()
+    {
+        return coins;
+    }
+
+    public int GetTokens()
+    {
+        return token;
     }
 }

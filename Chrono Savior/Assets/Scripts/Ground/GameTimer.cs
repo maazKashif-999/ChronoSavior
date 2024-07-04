@@ -10,12 +10,19 @@ public class GameTimer : MonoBehaviour
     private float pausedTime;
     private static float highScore = 0;
     private float lastUpdateTime = 0;
-    private const string HIGH_SCORE_KEY = "GroundHighScore";
+    
 
     void Start()
     {
         startTime = Time.time;
-        highScore = PlayerPrefs.GetFloat(HIGH_SCORE_KEY,0);
+        if(StateManagement.Instance != null)
+        {
+            highScore = StateManagement.Instance.GetGroundHighestScore();
+        }
+        else
+        {
+            Debug.LogError("StateManagement is not assigned.");
+        }
         UpdateHighScoreText();
         UpdateTimerText(0);
     }
@@ -43,7 +50,14 @@ public class GameTimer : MonoBehaviour
         if (finalTime > highScore)
         {
             highScore = finalTime;
-            PlayerPrefs.SetFloat(HIGH_SCORE_KEY, highScore);
+            if(StateManagement.Instance != null)
+            {   
+                StateManagement.Instance.SetGroundHighestScore(highScore);
+            }
+            else
+            {
+                Debug.LogError("StateManagement is not assigned.");
+            }
             UpdateHighScoreText();
             
         }

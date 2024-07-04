@@ -5,6 +5,8 @@ public class BulletScript : MonoBehaviour
     [SerializeField] private string bulletType;
     [SerializeField] private float force;
     [SerializeField] private float bulletDamage;
+    private float[] multipler = {1.0f,1.1f,1.2f,1.3f,1.4f,1.5f};
+    private int multiplerIndex = 0;
     private Vector3 mousePosition;
     private Camera mainCamera;
     private Rigidbody2D rb;
@@ -27,6 +29,23 @@ public class BulletScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         //is this fine as a null check
        
+    }
+
+    void Start()
+    {
+        if(StateManagement.Instance != null)
+        {
+            multiplerIndex = StateManagement.Instance.GetUpgradeIndex(bulletType);
+            if(bulletType == SMG)
+            {
+                Debug.Log(multiplerIndex);
+            }
+            
+        }
+        else
+        {
+            Debug.LogError("Player is null in BulletScript");
+        }
     }
     void OnEnable()
     {
@@ -51,7 +70,7 @@ public class BulletScript : MonoBehaviour
         IEnemy enemy = collision.GetComponent<IEnemy>();
         if(enemy != null)
         {
-            float currentDamage = bulletDamage * Player.Instance.GetDamageMultipler();
+            float currentDamage = bulletDamage * Player.Instance.GetDamageMultipler() * multipler[multiplerIndex];
             enemy.TakeDamage(currentDamage);
         }
         

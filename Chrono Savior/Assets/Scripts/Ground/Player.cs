@@ -42,23 +42,33 @@ public class Player : MonoBehaviour
             Debug.LogError("GameOverController not found in the scene.");
         }
 
-        if (playerBlue != null && playerRed != null)
+        
+    }
+
+    void Start()
+    {
+        if(StateManagement.Instance != null)
         {
-            if (redSkinEquipped)
+            redSkinEquipped = StateManagement.Instance.IsRedSkinEquipped();
+            if (playerBlue != null && playerRed != null)
             {
-                playerBlue.SetActive(false);
-                playerRed.SetActive(true);
+                if (redSkinEquipped)
+                {
+                    playerBlue.SetActive(false);
+                    playerRed.SetActive(true);
+                }
+                else
+                {
+                    playerBlue.SetActive(true);
+                    playerRed.SetActive(false);
+                }
             }
             else
             {
-                playerBlue.SetActive(true);
-                playerRed.SetActive(false);
+                Debug.LogError("PlayerBlue or PlayerRed not found in Player.");
             }
         }
-        else
-        {
-            Debug.LogError("PlayerBlue or PlayerRed not found in Player.");
-        }
+        
     }
 
     void Update()

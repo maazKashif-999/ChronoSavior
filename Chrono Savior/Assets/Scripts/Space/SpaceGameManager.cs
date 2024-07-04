@@ -12,9 +12,6 @@ public class SpaceGameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
 
     [SerializeField] private GameObject coinsCollected,tokensCollected;
-    private const string HIGH_SCORE_KEY = "SpaceHighScore";
-    private const string COINS_KEY = "Coins"; 
-    private const string TOKENS_KEY = "Tokens";
 
     private EnemyWaveManager enemyWaveManager;
 
@@ -160,10 +157,17 @@ public class SpaceGameManager : MonoBehaviour
                     if(playerControls != null)
                     {
                         int coins_gained = playerControls.GetCoins();
-
-                        int current_coins = PlayerPrefs.GetInt(COINS_KEY, 0);
-                        current_coins += coins_gained;
-                        PlayerPrefs.SetInt(COINS_KEY, current_coins);
+                        if(StateManagement.Instance != null)
+                        {
+                            int current_coins = StateManagement.Instance.GetCoins();
+                            current_coins += coins_gained;
+                            StateManagement.Instance.SetCoins(coins_gained);
+                        }
+                        else
+                        {
+                            Debug.LogError("StateManagement is not assigned.");
+                        }
+                        
 
                     }
                 }
@@ -201,11 +205,17 @@ public class SpaceGameManager : MonoBehaviour
                         int coins_gained = playerControls.GetCoins();
                         int tokens_gained = playerControls.GetTokens();
 
-                        int current_coins = PlayerPrefs.GetInt(COINS_KEY, 0);
-                        current_coins += coins_gained;
-                        PlayerPrefs.SetInt(COINS_KEY, current_coins);
-
-                        PlayerPrefs.SetInt(TOKENS_KEY, tokens_gained);
+                        if(StateManagement.Instance != null)
+                        {
+                            int current_coins = StateManagement.Instance.GetCoins();
+                            current_coins += coins_gained;
+                            StateManagement.Instance.SetCoins(current_coins);
+                            StateManagement.Instance.SetTokens(tokens_gained);
+                        }
+                        else
+                        {
+                            Debug.LogError("StateManagement is not assigned.");
+                        }
                     }
                 }
                 break;
@@ -233,7 +243,15 @@ public class SpaceGameManager : MonoBehaviour
         elapsedTime = 0f;
         timerText.gameObject.SetActive(true);
         highestScoreText.gameObject.SetActive(true);
-        highestScoreText.text = "Highest Score: " + FormatTime(PlayerPrefs.GetFloat(HIGH_SCORE_KEY, 0));
+        if(StateManagement.Instance != null)
+        {
+            highestScoreText.text = "Highest Score: " + FormatTime(StateManagement.Instance.GetSpaceHighestScore());
+        }
+        else
+        {
+            Debug.LogError("StateManagement is not assigned.");
+        }
+        
         SetGMState(GameManagerState.infinity);
     }
 
@@ -241,11 +259,22 @@ public class SpaceGameManager : MonoBehaviour
     {
         isRunning = false;
         timerText.gameObject.SetActive(false);
-        float highestScore = PlayerPrefs.GetFloat(HIGH_SCORE_KEY, 0);
-        if(elapsedTime > highestScore)
+        
+
+        if(StateManagement.Instance != null)
         {
-            PlayerPrefs.SetFloat(HIGH_SCORE_KEY, elapsedTime);
+            float highestScore = StateManagement.Instance.GetSpaceHighestScore();
+            if(elapsedTime > highestScore)
+            {
+                StateManagement.Instance.SetSpaceHighestScore(elapsedTime);
+            }
         }
+        else
+        {
+            Debug.LogError("StateManagement is not assigned.");
+            
+        }
+
         SetGMState(GameManagerState.gameover);
     }
 

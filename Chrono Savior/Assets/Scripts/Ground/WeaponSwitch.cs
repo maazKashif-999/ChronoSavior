@@ -1,5 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+<<<<<<< Updated upstream
+=======
+//using UnityEditor.PackageManager;
+using System;
+>>>>>>> Stashed changes
 using UnityEngine;
 
 public class WeaponSwitch : MonoBehaviour

@@ -9,9 +9,18 @@ public class PlayerControls : MonoBehaviour
     float speed = 5f; 
     float minY; // Minimum Y position
     float maxY; // Maximum Y position
+<<<<<<< Updated upstream
     public GameObject explosion;
     public TextMeshProUGUI coinCount; // Reference to the TextMeshPro text element for displaying coin count
     public TextMeshProUGUI tokenCount;
+=======
+
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor;
+    [SerializeField] private GameObject explosion;
+    [SerializeField] private Text coinCount; // Reference to the TextMeshPro text element for displaying coin count
+    [SerializeField] private Text tokenCount;
+>>>>>>> Stashed changes
     float health;
     float shield;
     public HealthBar healthBar;
@@ -63,6 +72,12 @@ public class PlayerControls : MonoBehaviour
     private void Start()
     {
         gameManager = FindObjectOfType<SpaceGameManager>(); // Find the GameManager in the scene
+<<<<<<< Updated upstream
+=======
+        audioSource = GetComponent<AudioSource>(); // Get the AudioSource component
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
+>>>>>>> Stashed changes
     }
 
     public void Init()
@@ -183,6 +198,8 @@ public class PlayerControls : MonoBehaviour
             {
                 TakeDamage(bullet.Damage);
                 Destroy(other.gameObject);
+                spriteRenderer.color = Color.red;
+                Invoke("ResetColor", 0.5f);
             }
         }
         // else if (other.CompareTag("coins"))
@@ -206,6 +223,10 @@ public class PlayerControls : MonoBehaviour
         //     }
         //     Destroy(other.gameObject);
         // }
+    }
+    void ResetColor()
+    {
+        spriteRenderer.color = originalColor;
     }
     public void TakeDamage(int damage)
     {
@@ -263,7 +284,7 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    public void UpdateToekn()
+    public void UpdateToken()
     {
         token += multi;
 

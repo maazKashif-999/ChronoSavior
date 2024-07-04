@@ -23,7 +23,7 @@ public class PlayerBullet : MonoBehaviour
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle))*rotation;
-        //transform.rotation = rotation;
+
     }
 
     void Update()
@@ -42,4 +42,21 @@ public class PlayerBullet : MonoBehaviour
             Debug.LogWarning("Main camera is not assigned.");
         }
     }
+<<<<<<< Updated upstream
+=======
+
+    void OnDisable()
+    {
+        if (gameObject.CompareTag("PlayerBullets"))
+
+        {
+            PoolManager.Instance.ReturnToPool("PlayerBullet", gameObject);
+        }
+        else{
+            Destroy(gameObject);
+        }
+        
+    }
+     
+>>>>>>> Stashed changes
 }

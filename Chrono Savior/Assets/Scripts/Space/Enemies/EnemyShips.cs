@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EnemyShip : MonoBehaviour
 {
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor;
     protected float speed; // Speed of the enemy ship
     protected float limitXPosition; // X position where the ship stops
     public GameObject bulletPrefab; // Prefab of the bullet
@@ -28,7 +30,13 @@ public class EnemyShip : MonoBehaviour
 
         enemyWaveManager = FindObjectOfType<EnemyWaveManager>();
         player = FindObjectOfType<PlayerControls>();
+<<<<<<< Updated upstream
         
+=======
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
+
+>>>>>>> Stashed changes
 
     }
 
@@ -72,9 +80,20 @@ public class EnemyShip : MonoBehaviour
             if (bullet != null)
             {
                 TakeDamage(bullet.Damage);
+<<<<<<< Updated upstream
                 Destroy(other.gameObject);
+=======
+                other.gameObject.SetActive(false);
+                spriteRenderer.color = Color.red;
+                Invoke("ResetColor", 0.5f);
+
+>>>>>>> Stashed changes
             }
         }
+    }
+    void ResetColor()
+    {
+        spriteRenderer.color = originalColor;
     }
 
     public virtual void TakeDamage(int damage)
@@ -115,5 +134,24 @@ public class EnemyShip : MonoBehaviour
                 Instantiate(tokenPrefab, transform.position, Quaternion.identity);
             }
         }
+<<<<<<< Updated upstream
+=======
+        else
+        {
+            SpawnPowerup();
+        }
+    }
+    public void SpawnPowerup()
+    {
+        if (powerupPrefabs.Count > 0)
+        {
+            int randomIndex = Random.Range(0, powerupPrefabs.Count);
+            while (randomIndex == 1 && MainMenu.mode != MainMenu.Mode.Campaign){
+                randomIndex = Random.Range(0, powerupPrefabs.Count);
+            }
+            GameObject selectedPowerup = powerupPrefabs[randomIndex];
+            Instantiate(selectedPowerup,transform.position, Quaternion.identity);
+        }
+>>>>>>> Stashed changes
     }
 }

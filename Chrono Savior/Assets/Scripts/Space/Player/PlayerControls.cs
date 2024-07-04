@@ -18,10 +18,6 @@ public class PlayerControls : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
-    [SerializeField] private GameObject explosion;
-    [SerializeField] private Text coinCount; // Reference to the TextMeshPro text element for displaying coin count
-    [SerializeField] private Text tokenCount;
-
     float health;
     float shield;
     [SerializeField] private HealthBar healthBar;

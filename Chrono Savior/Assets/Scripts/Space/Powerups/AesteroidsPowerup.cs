@@ -5,6 +5,7 @@ using UnityEngine;
 public class AesteroidPowerup : MonoBehaviour
 {
     [SerializeField] private PowerUpEffect powerUpEffect;
+     [SerializeField] private GameObject explosionPrefab;
     private float screenEdgeX;
 
     private void Start()
@@ -27,7 +28,9 @@ public class AesteroidPowerup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             powerUpEffect.Apply(other.gameObject);
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             gameObject.SetActive(false);
+
         }
         else if (other.CompareTag("PlayerBullets") || other.CompareTag("EnemyBullets"))
         {

@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -147,7 +147,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: set-bomb-explosion-effects_0
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 1030
+        width: 896
+        height: 850
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c8e7425c12b3de4fb05836f41ebfbb8
+      internalID: -69782912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: set-bomb-explosion-effects_1
+      rect:
+        serializedVersion: 2
+        x: 1016
+        y: 1030
+        width: 896
+        height: 850
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9b3db7fb2d30eb45a12f3b0ac6cced9
+      internalID: -1021124087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: set-bomb-explosion-effects_2
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 180
+        width: 896
+        height: 850
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37c3b750b0e8d7145974bcdb1fe7ab8d
+      internalID: 1607549844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: set-bomb-explosion-effects_3
+      rect:
+        serializedVersion: 2
+        x: 1016
+        y: 180
+        width: 896
+        height: 850
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e317d4a1fa9023844971df52b645d37b
+      internalID: 374442886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -158,7 +242,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      set-bomb-explosion-effects_0: -69782912
+      set-bomb-explosion-effects_1: -1021124087
+      set-bomb-explosion-effects_2: 1607549844
+      set-bomb-explosion-effects_3: 374442886
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -162,7 +162,7 @@ public class PlayerControls : MonoBehaviour
 
             // Calculate direction towards mouse
             Vector2 direction = (mousePosition - transform.position).normalized;
-
+            if (direction.x < 0) return;
             // Calculate angle to rotate towards mouse
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
@@ -183,12 +183,15 @@ public class PlayerControls : MonoBehaviour
         if(PauseMenu.gameIsPaused) return;
         if (playerBulletPrefab != null)
         {
-            GameObject bulletObject = PoolManager.Instance.SpawnFromPool("PlayerBullet", transform.position, Quaternion.identity);
             Camera mainCamera = Camera.main;
             if (mainCamera != null)
             {
                 Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+                if (mousePosition.x < transform.position.x){
+                    return;
+                }
                 mousePosition.z = 0f;
+                GameObject bulletObject = PoolManager.Instance.SpawnFromPool("PlayerBullet", transform.position, Quaternion.identity);
                 PlayerBullet bulletScript = bulletObject.GetComponent<PlayerBullet>();
                 if (bulletScript != null)
                 {
@@ -222,8 +225,6 @@ public class PlayerControls : MonoBehaviour
             {
                 TakeDamage(bullet.Damage);
                 Destroy(other.gameObject);
-                spriteRenderer.color = Color.red;
-                Invoke("ResetColor", 0.5f);
             }
         }
     }
@@ -244,7 +245,8 @@ public class PlayerControls : MonoBehaviour
             health = Mathf.Clamp(health, 0, MAX_HEALTH);
             UpdateHealth();
         }
-        
+        spriteRenderer.color = Color.red;
+        Invoke("ResetColor", 0.5f);
         if (health <= 0)
         {
             Explode();

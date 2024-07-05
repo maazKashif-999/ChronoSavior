@@ -5,7 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "PowerUps/Asteroids")]
 public class Aesteroids : PowerUpEffect
 {
-    int damage = 20;
+
+    [SerializeField] private int damage;
 
     public override void Apply(GameObject target)
     {

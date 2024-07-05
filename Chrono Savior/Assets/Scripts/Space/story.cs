@@ -8,7 +8,7 @@ public class EnemyWaveManager : MonoBehaviour
     [SerializeField] private GameObject fighterShipPrefab;
     [SerializeField] private GameObject bomberShipPrefab;
     [SerializeField] private GameObject sniperShipPrefab;
-    [SerializeField] private GameObject asteroidPrefab; // Add a reference to the asteroid prefab
+
     [SerializeField] private Text waveText;
     private int[] fighterShipsPerWave = {3, 2, 0, 2, 0};
     private int[] bomberShipsPerWave = {0, 0, 3, 3, 5};
@@ -18,7 +18,7 @@ public class EnemyWaveManager : MonoBehaviour
     private float minSpacing = 0.5f; // Minimum spacing between ships
     private List<Vector3> spawnedPositions = new List<Vector3>(); // List to keep track of spawned positions
     private List<GameObject> spawnedEnemies = new List<GameObject>(); // List to keep track of spawned enemies
-    private Coroutine asteroidSpawner; // Coroutine for spawning asteroids
+    private Coroutine asteroidSpawner; 
     private Coroutine enemiesSpawner;
     private SpaceGameManager gameManager; 
 
@@ -40,23 +40,15 @@ public class EnemyWaveManager : MonoBehaviour
         }
         shipSize = GetPrefabSize(fighterShipPrefab);
         aesterpodSize = shipSize;
-        // aesterpodSize = GetPrefabSize(asteroidPrefab);
         StartNextWave();
         
     }
 
     float GetPrefabSize(GameObject prefab)
     {
-        // Instantiate the prefab temporarily to get the size
         GameObject tempObject = Instantiate(prefab);
-
-        // Get the SpriteRenderer component
         SpriteRenderer spriteRenderer = tempObject.GetComponent<SpriteRenderer>();
-
-        // Calculate the size
         float size = (spriteRenderer.bounds.size.y)/2;
-
-        // Destroy the temporary object
         Destroy(tempObject);
 
         return size;
@@ -68,7 +60,7 @@ public class EnemyWaveManager : MonoBehaviour
             if (currentWave < fighterShipsPerWave.Length)
             {
                 enemiesRemaining = fighterShipsPerWave[currentWave] + bomberShipsPerWave[currentWave] + sniperShipsPerWave[currentWave];
-                asteroidSpawner = StartCoroutine(SpawnAsteroids()); // Start spawning asteroids
+                asteroidSpawner = StartCoroutine(SpawnAsteroids()); 
                 enemiesSpawner = StartCoroutine(SpawnWave(fighterShipsPerWave[currentWave],bomberShipsPerWave[currentWave],sniperShipsPerWave[currentWave]));
             }
             else
@@ -152,12 +144,17 @@ public class EnemyWaveManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(3.0f); // Wait for 1 second before spawning the next asteroid
+            yield return new WaitForSeconds(2.5f); // Wait for 1 second before spawning the next asteroid
             // Spawn asteroid
             Vector3 spawnPosition = new Vector3(8.0f, Random.Range(minY+aesterpodSize, maxY-aesterpodSize), 0f);
             PoolManager.Instance.SpawnFromPool("Aesteroid", spawnPosition, Quaternion.identity);
+            yield return new WaitForSeconds(2.5f);
+            spawnPosition = new Vector3(8.0f, Random.Range(minY+aesterpodSize, maxY-aesterpodSize), 0f);
+            PoolManager.Instance.SpawnFromPool("Mine", spawnPosition, Quaternion.identity);
         }
     }
+
+    
     private Vector3 CalculateSpawnPosition()
     {
         Vector3 spawnPosition;

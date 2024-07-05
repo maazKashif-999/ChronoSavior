@@ -44,8 +44,8 @@ public class PoolManager : MonoBehaviour
             Debug.LogWarning("Pool with tag " + tag + " doesn't exist.");
             return null;
         }
+        Debug.Log(tag);
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
-        //Debug.Log(tag);
         objectToSpawn.SetActive(true);
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;

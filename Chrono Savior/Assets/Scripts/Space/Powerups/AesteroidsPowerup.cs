@@ -41,6 +41,6 @@ public class AesteroidPowerup : MonoBehaviour
         PoolManager.Instance.ReturnToPool("Aesteroid", gameObject);
     }
     private void OnDestroy() {
-        Debug.Log("Aesteroid destroyed");
+        //Debug.Log("Aesteroid destroyed");
     }    
 }

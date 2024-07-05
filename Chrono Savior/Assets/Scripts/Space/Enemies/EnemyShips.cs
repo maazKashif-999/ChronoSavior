@@ -86,7 +86,7 @@ public class EnemyShip : MonoBehaviour
                 TakeDamage(bullet.Damage);
 
                 other.gameObject.SetActive(false);
-                Destroy(other.gameObject);
+                // Destroy(other.gameObject);
                 spriteRenderer.color = Color.red;
                 Invoke("ResetColor", 0.5f);
 

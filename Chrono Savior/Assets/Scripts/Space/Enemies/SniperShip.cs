@@ -14,6 +14,7 @@ public class SniperShip : EnemyShip
         }
         fireInterval = 1.5f;
         bulletSpeed = 2.0f;
+        MAX_HEALTH = 100;
         damage = 30;
         angle = 270;
         coinDroppingProbability = 0.15f;

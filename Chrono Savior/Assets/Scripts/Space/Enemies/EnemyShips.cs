@@ -15,6 +15,8 @@ public class EnemyShip : MonoBehaviour
     protected float fireInterval; // Interval between consecutive bullet fires
     protected float bulletSpeed; // Speed of the fired bullets
     protected int health;
+
+    protected int MAX_HEALTH;
     protected int damage;
     protected string bulletTag;
     
@@ -27,7 +29,9 @@ public class EnemyShip : MonoBehaviour
 
     private PlayerControls player;
     protected float nextFireTime; // Time when the ship can fire next
-
+    private void OnEnable() {
+        health = MAX_HEALTH;
+    }
     protected virtual void Start()
     {
         nextFireTime = Time.time;
@@ -43,9 +47,6 @@ public class EnemyShip : MonoBehaviour
             return;
         }
         originalColor = spriteRenderer.color;
-
-
-
     }
 
     protected virtual void Update()

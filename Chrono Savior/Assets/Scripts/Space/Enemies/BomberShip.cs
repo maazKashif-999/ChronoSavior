@@ -14,6 +14,7 @@ public class BomberShip : EnemyShip
         }
         
         health = 80;
+        MAX_HEALTH = 80;
         speed = 4.0f;
         
         fireInterval = 1f;
@@ -23,7 +24,7 @@ public class BomberShip : EnemyShip
         coinDroppingProbability = 0.2f;
         powerUpDroppingProbability = 0.4f;
         bulletTag = "BomberBullet";
-        
+
     }
 
     protected override void Update()

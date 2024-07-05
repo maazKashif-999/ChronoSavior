@@ -6,6 +6,7 @@ public class FighterShip : EnemyShip
     {
         base.Start(); // Call base class (EnemyShip) Start method first
         health = 50;
+        MAX_HEALTH = 50;
         speed = 4.0f;
         Camera mainCamera = Camera.main;
         if (mainCamera != null)

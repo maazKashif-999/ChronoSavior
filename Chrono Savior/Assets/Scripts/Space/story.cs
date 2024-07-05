@@ -101,7 +101,7 @@ public class EnemyWaveManager : MonoBehaviour
         for (int i = 0; i < fighterShips; i++)
         {
             Vector3 spawnPosition = CalculateSpawnPosition();
-            GameObject enemy = PoolManager.Instance.SpawnFromPool("FighterShip", spawnPosition, Quaternion.identity);
+            GameObject enemy = PoolManager.Instance.SpawnFromPool("FighterShip", spawnPosition, Quaternion.Euler(0, 0, 90));
             spawnedEnemies.Add(enemy);
             spawnedPositions.Add(spawnPosition); // Add position to the list
             yield return new WaitForSeconds(0.5f); // Adjust spawn rate as needed
@@ -110,7 +110,7 @@ public class EnemyWaveManager : MonoBehaviour
         for (int i = 0; i < bomberShips; i++)
         {
             Vector3 spawnPosition = CalculateSpawnPosition();
-            GameObject enemy = PoolManager.Instance.SpawnFromPool("BomberShip", spawnPosition, Quaternion.identity);
+            GameObject enemy = PoolManager.Instance.SpawnFromPool("BomberShip", spawnPosition,Quaternion.Euler(0, 0, 90));
             spawnedEnemies.Add(enemy);
             spawnedPositions.Add(spawnPosition); // Add position to the list
             yield return new WaitForSeconds(0.5f); // Adjust spawn rate as needed
@@ -119,7 +119,7 @@ public class EnemyWaveManager : MonoBehaviour
         for (int i = 0; i < sniperShips; i++)
         {
             Vector3 spawnPosition = CalculateSpawnPosition();
-            GameObject enemy = PoolManager.Instance.SpawnFromPool("SniperShip", spawnPosition, Quaternion.identity);
+            GameObject enemy = PoolManager.Instance.SpawnFromPool("SniperShip", spawnPosition, Quaternion.Euler(0, 0, 90));
             spawnedEnemies.Add(enemy);
             spawnedPositions.Add(spawnPosition); // Add position to the list
             yield return new WaitForSeconds(0.5f); // Adjust spawn rate as needed

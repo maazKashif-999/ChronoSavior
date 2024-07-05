@@ -183,16 +183,11 @@ public class EnemyWaveManager : MonoBehaviour
     {
         StopCoroutine(asteroidSpawner);
         StopCoroutine(enemiesSpawner);
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (GameObject enemy in enemies)
-        {
-            Destroy(enemy);
-        }
         GameObject[] allObjects = FindObjectsOfType<GameObject>();
         
         foreach (GameObject obj in allObjects)
         {
-            if (obj.layer == LayerMask.NameToLayer("Hazard") || obj.layer == LayerMask.NameToLayer("EnemyBullets"))
+            if (obj.layer == LayerMask.NameToLayer("Hazard") || obj.layer == LayerMask.NameToLayer("EnemyBullets") || obj.layer == LayerMask.NameToLayer("Enemy"))
             {
                 // PoolManager.Instance.ReturnToPool(obj.tag, obj);
                 obj.SetActive(false);

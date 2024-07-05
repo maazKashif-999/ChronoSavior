@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3443310024173748633}
   - component: {fileID: -3821432222520753961}
   - component: {fileID: -3038978711074241447}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: sniperShip_0
   m_TagString: SniperShip
   m_Icon: {fileID: 0}

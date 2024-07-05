@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 465216505675148779}
   - component: {fileID: -1014582865691467558}
   - component: {fileID: 1521932422177209924}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BomberShip 1
   m_TagString: BomberShip
   m_Icon: {fileID: 0}

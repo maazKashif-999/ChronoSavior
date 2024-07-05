@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3510907838893667687}
   - component: {fileID: 7233805703047889053}
   - component: {fileID: -5834127554473294772}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FighterShips
   m_TagString: FighterShip
   m_Icon: {fileID: 0}

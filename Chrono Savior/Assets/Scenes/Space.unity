@@ -4149,7 +4149,6 @@ MonoBehaviour:
   fighterShipPrefab: {fileID: 5693077176221833657, guid: 4acaffca43201cd499fb22b3a78889e6, type: 3}
   bomberShipPrefab: {fileID: 172225892155615687, guid: 462e0bc64a04cd74a876f49374d09fb3, type: 3}
   sniperShipPrefab: {fileID: 8981091360872959988, guid: e3d60fe919f04b343b319daa53f88352, type: 3}
-  asteroidPrefab: {fileID: 8957302797035069460, guid: 96d78e3309fc5b0459cd3556c4a71221, type: 3}
   waveText: {fileID: 1241508238}
 --- !u!4 &1540347437
 Transform:
@@ -4286,6 +4285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1551619782}
   - component: {fileID: 1551619781}
+  - component: {fileID: 1551619783}
   m_Layer: 0
   m_Name: PoolManager
   m_TagString: Untagged
@@ -4306,12 +4306,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pools:
-  - tag: PlayerBullet
+  - tag: PlayerBullets
     prefab: {fileID: 3613634235533893083, guid: 9982b0a141a2d8246bc26fd6d910ca70, type: 3}
-    size: 30
+    size: 10
   - tag: Aesteroid
     prefab: {fileID: 8709522368479257947, guid: 7c5349399da9f3b46b28583753180a34, type: 3}
-    size: 10
+    size: 5
+  - tag: Mine
+    prefab: {fileID: 6565155123482788075, guid: ccd5c8e9fa5e79f40849a164f8201e83, type: 3}
+    size: 5
+  - tag: TwiceDamage
+    prefab: {fileID: 1014076423861209352, guid: b52b65edb29e0446994a354fe4c2bf55, type: 3}
+    size: 5
+  - tag: Energy
+    prefab: {fileID: 6441774834541697523, guid: f139037c77c7145c3ab369bc5d2bb8b6, type: 3}
+    size: 5
+  - tag: Health
+    prefab: {fileID: 4067199002600538791, guid: feb1a8a4a22944a96b22bd666ce20f48, type: 3}
+    size: 5
+  - tag: Shield
+    prefab: {fileID: 9167055751797416062, guid: ea04f10236e024aec87ba6a5ab97bc51, type: 3}
+    size: 5
+  - tag: OneShot
+    prefab: {fileID: 5248095307372783484, guid: 9092e5be375344c4bb7c6e0e7c85bb87, type: 3}
+    size: 5
+  - tag: coins
+    prefab: {fileID: 8308779161561762033, guid: 79a94a20ca069f14a8cccf2be12f4c1a, type: 3}
+    size: 5
+  - tag: token
+    prefab: {fileID: 7812099448907868456, guid: ba5ffafaec2388749b09e79f5e59b650, type: 3}
+    size: 5
+  - tag: SniperBullet
+    prefab: {fileID: 460774859088834133, guid: 3d2eb3ad39b299b44bcf93ae011ca24a, type: 3}
+    size: 5
+  - tag: FighterShipBullet
+    prefab: {fileID: 7742614971424878670, guid: 2506b6221a03ed340b2a3ceb06746b71, type: 3}
+    size: 5
+  - tag: BomberBullet
+    prefab: {fileID: 4921208440279278939, guid: f15df44643d2bc247a57227f1cba0549, type: 3}
+    size: 5
+  - tag: SniperShip
+    prefab: {fileID: 8981091360872959988, guid: e3d60fe919f04b343b319daa53f88352, type: 3}
+    size: 5
+  - tag: FighterShip
+    prefab: {fileID: 5693077176221833657, guid: 4acaffca43201cd499fb22b3a78889e6, type: 3}
+    size: 3
+  - tag: BomberShip
+    prefab: {fileID: 172225892155615687, guid: 462e0bc64a04cd74a876f49374d09fb3, type: 3}
+    size: 7
 --- !u!4 &1551619782
 Transform:
   m_ObjectHideFlags: 0
@@ -4327,6 +4369,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1551619783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551619780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f84875692dbeedd4999529d4d80ab255, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 0}
+  explosion: {fileID: 0}
+  coinPrefab: {fileID: 0}
+  tokenPrefab: {fileID: 0}
+  powerupPrefabs: []
 --- !u!1 &1558138580
 GameObject:
   m_ObjectHideFlags: 0

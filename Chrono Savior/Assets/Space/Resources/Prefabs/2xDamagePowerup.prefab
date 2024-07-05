@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 361781942630953797}
   - component: {fileID: 2710731609657452482}
   - component: {fileID: 8292851736608282974}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 2xDamagePowerup
-  m_TagString: PowerUp
+  m_TagString: TwiceDamage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

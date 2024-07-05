@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 4633790009382959449}
   - component: {fileID: -4548161630177602645}
   - component: {fileID: -4408661252547954448}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: FighterBullet
-  m_TagString: EnemyBullets
+  m_TagString: FighterShipBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

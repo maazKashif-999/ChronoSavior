@@ -15,6 +15,18 @@ TagManager:
   - Hazard
   - Aesteroid
   - PowerUpMessage
+  - Mine
+  - TwiceDamage
+  - Energy
+  - Health
+  - OneShot
+  - Shield
+  - BomberBullet
+  - FighterShipBullet
+  - SniperBullet
+  - FighterShip
+  - SniperShip
+  - BomberShip
   layers:
   - Default
   - TransparentFX
@@ -28,8 +40,8 @@ TagManager:
   - Obstacle
   - Weapon
   - Powerups
-  - 
-  - 
+  - Hazard
+  - EnemyBullets
   - 
   - 
   - 

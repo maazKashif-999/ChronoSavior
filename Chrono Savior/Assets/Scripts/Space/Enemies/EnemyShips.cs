@@ -11,11 +11,13 @@ public class EnemyShip : MonoBehaviour
     [SerializeField] private GameObject explosion; // Prefab of the explosion
     [SerializeField] private GameObject coinPrefab; // Prefab of the coins
     [SerializeField] private GameObject tokenPrefab;
-    [SerializeField] private List<GameObject> powerupPrefabs;
+    [SerializeField] private List<string> powerupPrefabs;
     protected float fireInterval; // Interval between consecutive bullet fires
     protected float bulletSpeed; // Speed of the fired bullets
     protected int health;
     protected int damage;
+    protected string bulletTag;
+    
     private EnemyWaveManager enemyWaveManager;
     protected float angle;
     protected float coinDroppingProbability;
@@ -28,16 +30,18 @@ public class EnemyShip : MonoBehaviour
 
     protected virtual void Start()
     {
-        // Initialize next fire time
         nextFireTime = Time.time;
-
-        // Rotate the enemy ship by 90 degrees
         transform.rotation = Quaternion.Euler(0, 0, 90);
 
         enemyWaveManager = FindObjectOfType<EnemyWaveManager>();
         player = FindObjectOfType<PlayerControls>();
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+        {
+            Debug.Log("Missing SpriteRenderer component on " + gameObject.name);
+            return;
+        }
         originalColor = spriteRenderer.color;
 
 
@@ -64,7 +68,7 @@ public class EnemyShip : MonoBehaviour
     {
         if (bulletPrefab != null)
         {
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            GameObject bullet = PoolManager.Instance.SpawnFromPool(bulletTag, transform.position, Quaternion.identity);
             PlayerBullet bulletScript = bullet.GetComponent<PlayerBullet>();
             if (bulletScript != null && player != null)
             {
@@ -86,7 +90,6 @@ public class EnemyShip : MonoBehaviour
                 TakeDamage(bullet.Damage);
 
                 other.gameObject.SetActive(false);
-                // Destroy(other.gameObject);
                 spriteRenderer.color = Color.red;
                 Invoke("ResetColor", 0.5f);
 
@@ -106,7 +109,7 @@ public class EnemyShip : MonoBehaviour
         if (health <= 0)
         {
             Explode();
-            Destroy(gameObject);
+            gameObject.SetActive(false);
             if (enemyWaveManager != null)
             {
                 enemyWaveManager.EnemyDestroyed();
@@ -130,7 +133,7 @@ public class EnemyShip : MonoBehaviour
             float randomValue = Random.Range(0f, 1f);
             if (randomValue <= coinDroppingProbability)
             {
-                Instantiate(coinPrefab, transform.position, Quaternion.identity);
+                PoolManager.Instance.SpawnFromPool("coins", transform.position, Quaternion.identity);
             }
             else if (randomValue <= powerUpDroppingProbability)
             {
@@ -139,7 +142,7 @@ public class EnemyShip : MonoBehaviour
 
             else 
             {
-                Instantiate(tokenPrefab, transform.position, Quaternion.identity);
+                PoolManager.Instance.SpawnFromPool("token", transform.position, Quaternion.identity);
             }
         }
 
@@ -156,8 +159,14 @@ public class EnemyShip : MonoBehaviour
             while (randomIndex == 1 && MainMenu.mode != MainMenu.Mode.Campaign){
                 randomIndex = Random.Range(0, powerupPrefabs.Count);
             }
-            GameObject selectedPowerup = powerupPrefabs[randomIndex];
-            Instantiate(selectedPowerup,transform.position, Quaternion.identity);
+            string selectedPowerup = powerupPrefabs[randomIndex];
+            PoolManager.Instance.SpawnFromPool(selectedPowerup, transform.position, Quaternion.identity);
         }
+    }
+    private void OnDisable() {
+        PoolManager.Instance.ReturnToPool(gameObject.tag, gameObject);
+    }
+    private void OnDestroy() {
+        Debug.Log("EnemyShip Destroyed");
     }
 }

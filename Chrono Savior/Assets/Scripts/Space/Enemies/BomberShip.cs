@@ -22,6 +22,8 @@ public class BomberShip : EnemyShip
         angle = 0;
         coinDroppingProbability = 0.2f;
         powerUpDroppingProbability = 0.4f;
+        bulletTag = "BomberBullet";
+        
     }
 
     protected override void Update()

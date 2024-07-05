@@ -18,6 +18,7 @@ public class FighterShip : EnemyShip
         angle = 270;
         coinDroppingProbability = 0.1f;
         powerUpDroppingProbability = 0.25f;
+        bulletTag = "FighterShipBullet";
     }
 
     protected override void Update()

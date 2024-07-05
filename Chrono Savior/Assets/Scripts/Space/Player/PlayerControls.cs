@@ -191,7 +191,7 @@ public class PlayerControls : MonoBehaviour
                     return;
                 }
                 mousePosition.z = 0f;
-                GameObject bulletObject = PoolManager.Instance.SpawnFromPool("PlayerBullet", transform.position, Quaternion.identity);
+                GameObject bulletObject = PoolManager.Instance.SpawnFromPool("PlayerBullets", transform.position, Quaternion.identity);
                 PlayerBullet bulletScript = bulletObject.GetComponent<PlayerBullet>();
                 if (bulletScript != null)
                 {
@@ -218,13 +218,13 @@ public class PlayerControls : MonoBehaviour
         if (other == null)
             return;
 
-        if (other.CompareTag("EnemyBullets"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("EnemyBullets"))
         {
             PlayerBullet bullet = other.GetComponent<PlayerBullet>();
             if (bullet != null)
             {
                 TakeDamage(bullet.Damage);
-                Destroy(other.gameObject);
+                other.gameObject.SetActive(false);
             }
         }
     }

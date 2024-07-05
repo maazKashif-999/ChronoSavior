@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Mine
   m_EditorClassIdentifier: 
   speed: 1.5
+  damage: 30

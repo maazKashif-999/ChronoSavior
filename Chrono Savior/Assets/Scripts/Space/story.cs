@@ -46,10 +46,10 @@ public class EnemyWaveManager : MonoBehaviour
 
     float GetPrefabSize(GameObject prefab)
     {
-        GameObject tempObject = Instantiate(prefab);
+        GameObject tempObject = PoolManager.Instance.SpawnFromPool("FighterShip",transform.position, Quaternion.identity);
         SpriteRenderer spriteRenderer = tempObject.GetComponent<SpriteRenderer>();
         float size = (spriteRenderer.bounds.size.y)/2;
-        Destroy(tempObject);
+        tempObject.SetActive(false);
 
         return size;
     }
@@ -78,17 +78,13 @@ public class EnemyWaveManager : MonoBehaviour
             }
             break;
             case MainMenu.Mode.Infinity:
-            // Debug.Log("Infinity started");
-            enemiesRemaining = 3 + currentWave;
-            // Debug.Log(enemiesRemaining);
-            int fighterCount = Mathf.RoundToInt(enemiesRemaining * GetSpawnPercentage("fighter"));
-            int bomberCount = Mathf.RoundToInt(enemiesRemaining * GetSpawnPercentage("bomber"));
-            int sniperCount = Mathf.RoundToInt(enemiesRemaining * GetSpawnPercentage("sniper"));
-            
-            // Debug.Log(fighterCount.ToString() + " " + bomberCount.ToString() + " " + sniperCount.ToString());
-            asteroidSpawner = StartCoroutine(SpawnAsteroids()); // Start spawning asteroids
-            enemiesSpawner = StartCoroutine(SpawnWave(fighterCount,bomberCount,sniperCount));
-            break;
+                enemiesRemaining = 3 + currentWave;
+                int fighterCount = Mathf.RoundToInt(enemiesRemaining * GetSpawnPercentage("fighter"));
+                int bomberCount = Mathf.RoundToInt(enemiesRemaining * GetSpawnPercentage("bomber"));
+                int sniperCount = Mathf.RoundToInt(enemiesRemaining * GetSpawnPercentage("sniper"));
+                asteroidSpawner = StartCoroutine(SpawnAsteroids()); 
+                enemiesSpawner = StartCoroutine(SpawnWave(fighterCount,bomberCount,sniperCount));
+                break;
             default:
                 Debug.LogWarning("Unknown game mode.");
                 break;
@@ -105,7 +101,7 @@ public class EnemyWaveManager : MonoBehaviour
         for (int i = 0; i < fighterShips; i++)
         {
             Vector3 spawnPosition = CalculateSpawnPosition();
-            GameObject enemy = Instantiate(fighterShipPrefab, spawnPosition, Quaternion.identity);
+            GameObject enemy = PoolManager.Instance.SpawnFromPool("FighterShip", spawnPosition, Quaternion.identity);
             spawnedEnemies.Add(enemy);
             spawnedPositions.Add(spawnPosition); // Add position to the list
             yield return new WaitForSeconds(0.5f); // Adjust spawn rate as needed
@@ -114,7 +110,7 @@ public class EnemyWaveManager : MonoBehaviour
         for (int i = 0; i < bomberShips; i++)
         {
             Vector3 spawnPosition = CalculateSpawnPosition();
-            GameObject enemy = Instantiate(bomberShipPrefab, spawnPosition, Quaternion.identity);
+            GameObject enemy = PoolManager.Instance.SpawnFromPool("BomberShip", spawnPosition, Quaternion.identity);
             spawnedEnemies.Add(enemy);
             spawnedPositions.Add(spawnPosition); // Add position to the list
             yield return new WaitForSeconds(0.5f); // Adjust spawn rate as needed
@@ -123,7 +119,7 @@ public class EnemyWaveManager : MonoBehaviour
         for (int i = 0; i < sniperShips; i++)
         {
             Vector3 spawnPosition = CalculateSpawnPosition();
-            GameObject enemy = Instantiate(sniperShipPrefab, spawnPosition, Quaternion.identity);
+            GameObject enemy = PoolManager.Instance.SpawnFromPool("SniperShip", spawnPosition, Quaternion.identity);
             spawnedEnemies.Add(enemy);
             spawnedPositions.Add(spawnPosition); // Add position to the list
             yield return new WaitForSeconds(0.5f); // Adjust spawn rate as needed
@@ -192,21 +188,17 @@ public class EnemyWaveManager : MonoBehaviour
         {
             Destroy(enemy);
         }
-        GameObject[] enemyBullets = GameObject.FindGameObjectsWithTag("EnemyBullets");
-        foreach (GameObject bullet in enemyBullets)
+        GameObject[] allObjects = FindObjectsOfType<GameObject>();
+        
+        foreach (GameObject obj in allObjects)
         {
-            Destroy(bullet);
+            if (obj.layer == LayerMask.NameToLayer("Hazard") || obj.layer == LayerMask.NameToLayer("EnemyBullets"))
+            {
+                // PoolManager.Instance.ReturnToPool(obj.tag, obj);
+                obj.SetActive(false);
+            }
         }
-        GameObject[] powerUps = GameObject.FindGameObjectsWithTag("PowerUp");
-        foreach (GameObject powerUp in powerUps)
-        {
-            Destroy(powerUp);
-        }
-        GameObject[] aesteroids = GameObject.FindGameObjectsWithTag("Aesteroid");
-        foreach (GameObject powerUp in powerUps)
-        {
-            PoolManager.Instance.ReturnToPool("Aesteroid", gameObject);
-        }
+        
     }
     public void ResetWaves()
     {

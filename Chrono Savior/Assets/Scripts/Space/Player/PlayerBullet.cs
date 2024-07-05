@@ -46,24 +46,11 @@ public class PlayerBullet : MonoBehaviour
 
     void OnDisable()
     {
-        if (gameObject.CompareTag("PlayerBullets"))
-
-        {
-            PoolManager.Instance.ReturnToPool("PlayerBullet", gameObject);
-        }
-        else{
-            Destroy(gameObject);
-        }
-        
+        PoolManager.Instance.ReturnToPool(gameObject.tag, gameObject);
     }
     void OnDestroy()
     {
-        if (gameObject.CompareTag("PlayerBullets"))
-
-        {
-            //PoolManager.Instance.ReturnToPool("PlayerBullet", gameObject);
-            Debug.Log("Bullet dead");
-        }
+        Debug.Log("Bullet Destroyed");
     }
      
 

@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: -8536821198640018823}
   - component: {fileID: -306316330834329967}
   - component: {fileID: -5622762553596997740}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: oneshot
-  m_TagString: PowerUp
+  m_TagString: OneShot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

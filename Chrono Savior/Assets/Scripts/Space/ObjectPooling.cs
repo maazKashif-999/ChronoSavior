@@ -44,15 +44,20 @@ public class PoolManager : MonoBehaviour
             Debug.LogWarning("Pool with tag " + tag + " doesn't exist.");
             return null;
         }
-        Debug.Log(tag);
-        GameObject objectToSpawn = poolDictionary[tag].Dequeue();
-        objectToSpawn.SetActive(true);
-        objectToSpawn.transform.position = position;
-        objectToSpawn.transform.rotation = rotation;
-
-        // poolDictionary[tag].Enqueue(objectToSpawn);
-
-        return objectToSpawn;
+        Queue<GameObject> objectPool = poolDictionary[tag];
+        if (objectPool.Count == 0){
+            Pool pool = pools.Find(p => p.tag == tag);
+            GameObject newObject = Instantiate(pool.prefab,position,rotation);
+            return newObject;
+        }
+        else{
+            GameObject objectToSpawn = objectPool.Dequeue();
+            objectToSpawn.transform.position = position;
+            objectToSpawn.transform.rotation = rotation;
+            objectToSpawn.SetActive(true);
+            return objectToSpawn;
+        }
+        
     }
 
     public void ReturnToPool(string tag, GameObject objectToReturn)
@@ -63,8 +68,6 @@ public class PoolManager : MonoBehaviour
             Destroy(objectToReturn);  // Fallback in case of error
             return;
         }
-        
-        objectToReturn.SetActive(false);
         poolDictionary[tag].Enqueue(objectToReturn);
     }
 }

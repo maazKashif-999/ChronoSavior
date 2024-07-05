@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7362237695136808097}
   - component: {fileID: -5380457399367967512}
   - component: {fileID: -8781214615492402884}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MinePrefab
   m_TagString: Mine
   m_Icon: {fileID: 0}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -6658946113327494264}
   - component: {fileID: -2008113338944161020}
   - component: {fileID: -1929154979536627505}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Aesteroid Prefab
   m_TagString: Aesteroid
   m_Icon: {fileID: 0}

@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 530366660762073983}
   - component: {fileID: 6917745218675588880}
   - component: {fileID: 735118375819177521}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: energymultiplier
-  m_TagString: PowerUp
+  m_TagString: Energy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -16,7 +16,7 @@ public class Powerup : MonoBehaviour
         transform.position += Vector3.left * powerUpEffect.speed * Time.deltaTime;
         if (transform.position.x < screenEdgeX)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
@@ -25,7 +25,13 @@ public class Powerup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             powerUpEffect.Apply(other.gameObject);
-            Destroy(gameObject); 
+            gameObject.SetActive(false);
         }
+    }
+    private void OnDisable() {
+        PoolManager.Instance.ReturnToPool(gameObject.tag, gameObject);
+    }
+    private void OnDestroy() {
+        Debug.Log("Powerup Destroyed");
     }
 }

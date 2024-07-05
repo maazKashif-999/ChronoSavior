@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: -471739728943986965}
   - component: {fileID: 7367833430888424591}
   - component: {fileID: 1702000541194797645}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BomberBullet
-  m_TagString: EnemyBullets
+  m_TagString: BomberBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -19,9 +19,15 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
-        secondWeapon.text = "Second Weapon: " + weaponSwitch.GetSecondWeaponName();
-        thirdWeapon.text = "Third Weapon: " + weaponSwitch.GetThirdWeaponName();
-        weaponSwitch.OnWeaponSet += OnWeaponChanged;
+        Time.timeScale = 0f;
+        PauseMenu.gameIsPaused = true;
+        if(secondWeapon != null && thirdWeapon != null && weaponSwitch != null)
+        {
+            secondWeapon.text = "Second Weapon: " + weaponSwitch.GetSecondWeaponName();
+            thirdWeapon.text = "Third Weapon: " + weaponSwitch.GetThirdWeaponName();
+            weaponSwitch.OnWeaponSet += OnWeaponChanged;
+        }
+        
         
     }
 
@@ -35,6 +41,11 @@ public class InventoryManager : MonoBehaviour
         if(weaponSwitch == null)
         {
             Debug.LogError("WeaponSwitch is null in InventoryManager");
+            return;
+        }
+        if(secondWeapon == null || thirdWeapon == null)
+        {
+            Debug.LogError("Second or Third Weapon Text is null in InventoryManager");
             return;
         }
         secondWeapon.text = "Second Weapon: " + weaponSwitch.GetSecondWeaponName();

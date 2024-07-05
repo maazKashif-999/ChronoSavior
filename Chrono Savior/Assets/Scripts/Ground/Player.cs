@@ -4,6 +4,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
+    public delegate void CoinGet();
+    public event CoinGet OnCoinGet;
     private bool isAlive = true;
     private const float MAX_HEALTH = 100f;
     public const float MAX_SHIELD = 50f;
@@ -18,6 +20,8 @@ public class Player : MonoBehaviour
     private bool canUseAbility = true;
     private bool areEnemiesFrozen = false;
     private bool redSkinEquipped = true;
+    private int coins = 0;
+    private bool isInfinite = false;
     private Camera mainCamera;
     [SerializeField] GameObject playerBlue;
     [SerializeField] GameObject playerRed;
@@ -68,7 +72,14 @@ public class Player : MonoBehaviour
                 Debug.LogError("PlayerBlue or PlayerRed not found in Player.");
             }
         }
-        
+        if(MainMenu.mode == MainMenu.Mode.Infinity)
+        {
+            isInfinite = true;
+        }
+        else
+        {
+            isInfinite = false;
+        }
     }
 
     void Update()
@@ -160,11 +171,17 @@ public class Player : MonoBehaviour
     {
         isAlive = false;
         yield return new WaitForSeconds(0.6f);
+        if(StateManagement.Instance != null)
+        {
+            int total_coins = StateManagement.Instance.GetCoins();
+            total_coins += coins;
+            StateManagement.Instance.SetCoins(total_coins);
+        }
         if (gameOverController != null)
         {
             gameOverController.ShowGameOverScreen();
         }
-        if (gameTimer != null)
+        if(isInfinite && gameTimer != null) 
         {
             gameTimer.StopTimer();
         }
@@ -264,5 +281,16 @@ public class Player : MonoBehaviour
     public float GetCurrentShield()
     {
         return currentShield;
+    }
+
+    public void AddCoin()
+    {
+        coins++;
+        OnCoinGet?.Invoke();
+    }
+
+    public int GetCoins()
+    {
+        return coins;
     }
 }

@@ -12,6 +12,8 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Seeker seeker;
     private float currentHealth;
+    private bool isInfinite = false;
+
     private Player player;
     private GameObject playerCenter;
     private float nextWaypointDistance = 0.1f;
@@ -35,6 +37,14 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
         else
         {
             Debug.LogError("Seeker or PlayerCenter is null in ExplosiveRobot");
+        }
+        if(MainMenu.mode == MainMenu.Mode.Infinity)
+        {
+            isInfinite = true;
+        }
+        else
+        {
+            isInfinite = false;
         }
     }
 
@@ -136,13 +146,37 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
             Debug.LogError("PowerupPoolingAPI is null in GunRobot");
         }
     }
+
+    private void SpawnCoin()
+    {
+        if(CoinPoolingAPI.SharedInstance != null)
+        {
+            CoinScript coin = CoinPoolingAPI.SharedInstance.GetPooledCoin();
+            coin.transform.position = transform.position;
+            coin.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("CoinPoolingAPI is null in GunRobot");
+        }
+    
+    }
     private void Die()
     {
         Destroy(gameObject);
-        if(Random.Range(0, 6) == 0)
+        int randomNumber = Random.Range(0, 6);
+        if(randomNumber == 0)
         {
             SpawnPowerUp();
         }
+        else if(randomNumber == 1)
+        {
+            if(!isInfinite)
+            {
+                SpawnCoin();
+            }
+        }
+        
     }
 
 }

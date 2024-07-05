@@ -211,6 +211,7 @@ public class SpaceGameManager : MonoBehaviour
                             current_coins += coins_gained;
                             StateManagement.Instance.SetCoins(current_coins);
                             StateManagement.Instance.SetTokens(tokens_gained);
+                            StateManagement.Instance.SetSessionLoad(true);
                         }
                         else
                         {

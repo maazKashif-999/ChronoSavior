@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class WeaponSwitch : MonoBehaviour
 {
@@ -16,11 +17,16 @@ public class WeaponSwitch : MonoBehaviour
 
     // Start is called before the first frame update
     
-    void Awake()
+    void Start()
     {
         mainCamera = Camera.main;
         player = Player.Instance;
         SelectedWeapon(selectedWeaponIndex);
+        if(MainMenu.mode == MainMenu.Mode.Campaign)
+        {
+            weaponIndex[1] = -1;
+            weaponIndex[2] = -1;
+        }
     }
 
     // Update is called once per frame
@@ -30,11 +36,18 @@ public class WeaponSwitch : MonoBehaviour
         {
             return;
         }
-        if (player == null || mainCamera == null)
+       
+        if(player == null)
         {
-            Debug.LogError("Player or Main Camera not found in WeaponSwitch.");
+            Debug.LogError("Player not found in WeaponSwitch.");
             return;
         }
+        if(mainCamera == null)
+        {
+            Debug.LogError("Main Camera not found in WeaponSwitch.");
+            return;
+        }
+
         if (!player.IsAlive()) return;
 
         mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -77,6 +90,23 @@ public class WeaponSwitch : MonoBehaviour
     
     void SelectedWeapon(int selectedWeapon)
     {
+        if(selectedWeapon == -1)
+        {
+            // for(int i = 0; i < transform.childCount; i++)
+            // {
+            //     Transform currentWeapon = transform.GetChild(i);
+            //     currentWeapon.gameObject.SetActive(false);
+            // }
+            // if(ammoUIController != null)
+            // {
+            //     ammoUIController.SetCurrentGun(null);
+            // }
+            // else
+            // {
+            //     Debug.LogError("AmmoUIController not found in WeaponSwitch.");
+            // }
+            selectedWeapon = 0;
+        }
         for (int i = 0; i < transform.childCount; i++)
         {
             Transform currentWeapon = transform.GetChild(i);
@@ -113,9 +143,13 @@ public class WeaponSwitch : MonoBehaviour
     {
         weaponIndex[1] = selectedWeapon;
 
-        while(weaponIndex[1] == weaponIndex[2])
+        // while(weaponIndex[1] == weaponIndex[2])
+        // {
+        //     weaponIndex[2] = UnityEngine.Random.Range(1,5);
+        // }
+        if(weaponIndex[1] == weaponIndex[2])
         {
-            weaponIndex[2] = UnityEngine.Random.Range(1,5);
+            weaponIndex[2] = -1;
         }
         OnWeaponSet?.Invoke(this,EventArgs.Empty);
     }
@@ -123,20 +157,32 @@ public class WeaponSwitch : MonoBehaviour
     public void SetThirdWeapon(int selectedWeapon)
     {
         weaponIndex[2] = selectedWeapon;
-        while(weaponIndex[1] == weaponIndex[2])
+        // while(weaponIndex[1] == weaponIndex[2])
+        // {
+        //     weaponIndex[1] = UnityEngine.Random.Range(1,5);
+        // }
+        if(weaponIndex[1] == weaponIndex[2])
         {
-            weaponIndex[1] = UnityEngine.Random.Range(1,5);
+            weaponIndex[1] = -1;
         }
         OnWeaponSet?.Invoke(this,EventArgs.Empty);
     }
 
     public string GetSecondWeaponName()
     {
+        if(weaponIndex[1] == -1)
+        {
+            return "Not Selected";
+        }
         return transform.GetChild(weaponIndex[1]).name;
     }
 
     public string GetThirdWeaponName()
     {
+        if(weaponIndex[2] == -1)
+        {
+            return "Not Selected";
+        }
         return transform.GetChild(weaponIndex[2]).name;
     }
 }

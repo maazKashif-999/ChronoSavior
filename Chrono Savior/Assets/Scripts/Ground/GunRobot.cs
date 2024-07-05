@@ -17,6 +17,7 @@ public class GunRobot : MonoBehaviour, IEnemy
     private GameObject playerCenter;
     private Player player;
     private float nextWaypointDistance = 0.5f;
+    private bool isInfinite = false;
     private Path path;
     private int currentWayPoint = 0;
     private float timer = 0;
@@ -43,6 +44,14 @@ public class GunRobot : MonoBehaviour, IEnemy
         else
         {
             Debug.LogError("Seeker or PlayerCenter is null in GunRobot");
+        }
+        if(MainMenu.mode == MainMenu.Mode.Infinity)
+        {
+            isInfinite = true;
+        }
+        else
+        {
+            isInfinite = false;
         }
     }
 
@@ -185,12 +194,34 @@ public class GunRobot : MonoBehaviour, IEnemy
         
     }
 
+    private void SpawnCoin()
+    {
+        if(CoinPoolingAPI.SharedInstance != null)
+        {
+            CoinScript coin = CoinPoolingAPI.SharedInstance.GetPooledCoin();
+            coin.transform.position = transform.position;
+            coin.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("CoinPoolingAPI is null in GunRobot");
+        }
+    
+    }
     private void Die()
     {
         Destroy(gameObject);
-        if(Random.Range(0, 5) == 0)
+        int randomNumber = Random.Range(0, 5);
+        if(randomNumber == 0)
         {
             SpawnPowerUp();
+        }
+        else if(randomNumber == 1)
+        {
+            if(!isInfinite)
+            {
+                SpawnCoin();
+            }
         }
     }
 

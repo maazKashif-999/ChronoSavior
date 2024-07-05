@@ -18,6 +18,7 @@ public class StateManagement : MonoBehaviour
     private const string SNIPER = "Sniper";
     private const string AR = "AR";
     private const string SHOTGUN = "Shotgun";
+    private const string SESSION_LOAD = "SessionLoad";
 
     
     void Awake()
@@ -42,6 +43,7 @@ public class StateManagement : MonoBehaviour
         PlayerPrefs.SetInt(SMG,1);
         PlayerPrefs.SetInt(PISTOL,1);
         PlayerPrefs.SetInt(SNIPER,1);
+        PlayerPrefs.SetInt(SESSION_LOAD,1);
     }
     public void SetGroundHighestScore(float highscore)
     {
@@ -129,4 +131,15 @@ public class StateManagement : MonoBehaviour
         int updatedIndex = Mathf.Clamp(index,0,5);
         PlayerPrefs.SetInt(upgradeIndex,updatedIndex);
     }
+
+    public void SetSessionLoad(bool load)
+    {
+        PlayerPrefs.SetInt(SESSION_LOAD,load ? 1 : 0);
+    }
+
+    public bool CanLoadSession()
+    {
+        return PlayerPrefs.GetInt(SESSION_LOAD,0) == 1;
+    }
+
 }

@@ -21,6 +21,7 @@ public class MeleeRobot : MonoBehaviour, IEnemy
     private Path path;
     private int currentWayPoint = 0;
     private float timer = 0;
+    private bool isInfinite = false;
     private const float TIME_BETWEEN_ATTACK = 0.5f;
     private const string UPDATE_PATH = "UpdatePath";
     private const string PLAYER_CENTER = "PlayerCenter";
@@ -42,7 +43,15 @@ public class MeleeRobot : MonoBehaviour, IEnemy
         {
             Debug.LogError("Seeker or PlayerCenter is null in MeleeRobot");
         }
-        
+        if(MainMenu.mode == MainMenu.Mode.Infinity)
+        {
+            isInfinite = true;
+        }
+        else
+        {
+            isInfinite = false;
+        }
+
     }
 
     void UpdatePath()
@@ -163,21 +172,51 @@ public class MeleeRobot : MonoBehaviour, IEnemy
             Debug.LogError("PowerupPoolingAPI is null in GunRobot");
         }
     }
+    
+    private void SpawnCoin()
+    {
+        if(CoinPoolingAPI.SharedInstance != null)
+        {
+            CoinScript coin = CoinPoolingAPI.SharedInstance.GetPooledCoin();
+            coin.transform.position = transform.position;
+            coin.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("CoinPoolingAPI is null in GunRobot");
+        }
+    
+    }
     private void Die()
     {
+        int randomNumber = 0;
         if(MAX_HEALTH == 60)
         {
-            if(Random.Range(0,6) == 0)
+            randomNumber = Random.Range(0, 6);
+            if(randomNumber == 0)
             {
                 SpawnPowerUp();
+            }
+            else if(randomNumber == 1)
+            {
+                SpawnCoin();
             }
         }
         else if(MAX_HEALTH == 50)
         {
-            if(Random.Range(0,9) == 0)
+            randomNumber = Random.Range(0, 9);
+            if(randomNumber == 0)
             {
                 SpawnPowerUp();
             }
+            else if(randomNumber == 1)
+            {
+                if(!isInfinite)
+                {
+                    SpawnCoin();
+                }
+            }
+
         }
         Destroy(gameObject);
     }

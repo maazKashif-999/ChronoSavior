@@ -46,6 +46,7 @@ public class UpgradeWeaponStoreManager : MonoBehaviour
             }
             else if(isUnlocked && coins < upgradeItemsSO[i].prices[index])
             {
+                purchaseButtonsText[i].text = "UPGRADE";
                 purchaseButtons[i].interactable = false;
             }
             else

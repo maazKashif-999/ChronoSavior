@@ -14,6 +14,7 @@ public class GameTimer : MonoBehaviour
 
     void Start()
     {
+        
         startTime = Time.time;
         if(StateManagement.Instance != null)
         {

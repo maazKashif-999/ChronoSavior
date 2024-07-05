@@ -242,7 +242,7 @@ MonoBehaviour:
     m_Bits: 64
   attackRadius: 0.55
   attackDamage: 10
-  movementSpeed: 4
+  movementSpeed: 2.5
   rb: {fileID: 9057236909752284124}
   seeker: {fileID: 1968560922604738919}
 --- !u!50 &9057236909752284124

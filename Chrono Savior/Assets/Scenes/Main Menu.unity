@@ -6016,7 +6016,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 17, y: 324}
-  m_SizeDelta: {x: 1288.2, y: 192.9334}
+  m_SizeDelta: {x: 1400, y: 192.9334}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1209119544
 MonoBehaviour:
@@ -6051,7 +6051,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CHRONOSAVIOR
+  m_Text: CHRONO SAVIOR
 --- !u!222 &1209119545
 CanvasRenderer:
   m_ObjectHideFlags: 0

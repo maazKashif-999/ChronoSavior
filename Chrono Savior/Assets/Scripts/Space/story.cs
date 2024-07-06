@@ -103,9 +103,7 @@ public class EnemyWaveManager : MonoBehaviour
             Vector3 spawnPosition = CalculateSpawnPosition();
             if (spawnPosition.z == -10f){
                 yield return new WaitForSeconds(5f); 
-                yield return new WaitForSeconds(5f); 
                 i-=1;
-                Debug.Log("unable to Spawn");
                 continue;
             }
             GameObject enemy = PoolManager.Instance.SpawnFromPool("FighterShip", spawnPosition, Quaternion.Euler(0, 0, 90));
@@ -119,7 +117,6 @@ public class EnemyWaveManager : MonoBehaviour
             Vector3 spawnPosition = CalculateSpawnPosition();
             if (spawnPosition.z == -10f){
                 yield return new WaitForSeconds(5f); 
-                Debug.Log("unable to Spawn");
                 i-=1;
                 continue;
             }
@@ -134,10 +131,8 @@ public class EnemyWaveManager : MonoBehaviour
             Vector3 spawnPosition = CalculateSpawnPosition();
             if (spawnPosition.z == -10f){
                 yield return new WaitForSeconds(5f); 
-                yield return new WaitForSeconds(5f); 
                 i-=1;
                 continue;
-                Debug.Log("unable to Spawn");
             }
             GameObject enemy = PoolManager.Instance.SpawnFromPool("SniperShip", spawnPosition, Quaternion.Euler(0, 0, 90));
             spawnedEnemies.Add(enemy);
@@ -170,7 +165,6 @@ public class EnemyWaveManager : MonoBehaviour
         }
     }
 
-    
     private Vector3 CalculateSpawnPosition()
     {
         Vector3 spawnPosition;
@@ -183,7 +177,6 @@ public class EnemyWaveManager : MonoBehaviour
             float offsetFromUI = 0.5f;
             float spawnY = Random.Range(minY+shipSize, maxY-shipSize - offsetFromUI);
             spawnPosition = new Vector3(spawnX, spawnY, 0f);
-            // Check if the new spawn position is too close to any existing positions
             foreach (float pos in spawnedPositions)
             {
                 if (Mathf.Abs(spawnPosition.y - pos) < minSpacing)
@@ -202,6 +195,10 @@ public class EnemyWaveManager : MonoBehaviour
     }
     public void EnemyDestroyed(Vector3 position)
     {
+        if (MainMenu.Mode.Infinity == MainMenu.mode){
+            StateManagement.Instance.SetSpaceKillCount(StateManagement.Instance.GetSpaceKillCount() + 1);
+            Debug.Log(StateManagement.Instance.GetSpaceKillCount() );
+        }
         enemiesRemaining--;
         if (spawnedPositions.Contains(position.y))
         {

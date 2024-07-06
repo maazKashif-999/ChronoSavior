@@ -16,7 +16,7 @@ public class EnemyWaveManager : MonoBehaviour
     private int currentWave = 0; // Current wave index
     private int enemiesRemaining; // Number of enemies remaining in the current wave
     private float minSpacing = 0.5f; // Minimum spacing between ships
-    private List<Vector3> spawnedPositions = new List<Vector3>(); // List to keep track of spawned positions
+    private List<float> spawnedPositions = new List<float>(); // List to keep track of spawned positions
     private List<GameObject> spawnedEnemies = new List<GameObject>(); // List to keep track of spawned enemies
     private Coroutine asteroidSpawner; 
     private Coroutine enemiesSpawner;
@@ -101,27 +101,47 @@ public class EnemyWaveManager : MonoBehaviour
         for (int i = 0; i < fighterShips; i++)
         {
             Vector3 spawnPosition = CalculateSpawnPosition();
+            if (spawnPosition.z == -10f){
+                yield return new WaitForSeconds(5f); 
+                yield return new WaitForSeconds(5f); 
+                i-=1;
+                Debug.Log("unable to Spawn");
+                continue;
+            }
             GameObject enemy = PoolManager.Instance.SpawnFromPool("FighterShip", spawnPosition, Quaternion.Euler(0, 0, 90));
             spawnedEnemies.Add(enemy);
-            spawnedPositions.Add(spawnPosition); // Add position to the list
+            spawnedPositions.Add(spawnPosition.y); // Add position to the list
             yield return new WaitForSeconds(0.5f); // Adjust spawn rate as needed
         }
         // Spawn bomber ships
         for (int i = 0; i < bomberShips; i++)
         {
             Vector3 spawnPosition = CalculateSpawnPosition();
+            if (spawnPosition.z == -10f){
+                yield return new WaitForSeconds(5f); 
+                Debug.Log("unable to Spawn");
+                i-=1;
+                continue;
+            }
             GameObject enemy = PoolManager.Instance.SpawnFromPool("BomberShip", spawnPosition,Quaternion.Euler(0, 0, 90));
             spawnedEnemies.Add(enemy);
-            spawnedPositions.Add(spawnPosition); // Add position to the list
+            spawnedPositions.Add(spawnPosition.y); // Add position to the list
             yield return new WaitForSeconds(0.5f); // Adjust spawn rate as needed
         }
         // Spawn sniper ships
         for (int i = 0; i < sniperShips; i++)
         {
             Vector3 spawnPosition = CalculateSpawnPosition();
+            if (spawnPosition.z == -10f){
+                yield return new WaitForSeconds(5f); 
+                yield return new WaitForSeconds(5f); 
+                i-=1;
+                continue;
+                Debug.Log("unable to Spawn");
+            }
             GameObject enemy = PoolManager.Instance.SpawnFromPool("SniperShip", spawnPosition, Quaternion.Euler(0, 0, 90));
             spawnedEnemies.Add(enemy);
-            spawnedPositions.Add(spawnPosition); // Add position to the list
+            spawnedPositions.Add(spawnPosition.y); // Add position to the list
             yield return new WaitForSeconds(0.5f); // Adjust spawn rate as needed
         }
         // Wait until all enemies are destroyed
@@ -155,6 +175,7 @@ public class EnemyWaveManager : MonoBehaviour
     {
         Vector3 spawnPosition;
         bool validPosition;
+        int count = 0;
         do
         {
             validPosition = true;
@@ -163,21 +184,29 @@ public class EnemyWaveManager : MonoBehaviour
             float spawnY = Random.Range(minY+shipSize, maxY-shipSize - offsetFromUI);
             spawnPosition = new Vector3(spawnX, spawnY, 0f);
             // Check if the new spawn position is too close to any existing positions
-            foreach (Vector3 pos in spawnedPositions)
+            foreach (float pos in spawnedPositions)
             {
-                if (Vector3.Distance(spawnPosition, pos) < minSpacing)
+                if (Mathf.Abs(spawnPosition.y - pos) < minSpacing)
                 {
                     validPosition = false;
                     break;
                 }
             }
+            count +=1;
         }
-        while (!validPosition);
+        while (!validPosition && count< 5);
+        if (!validPosition){
+            return new Vector3(0f,0f,-10.0f);
+        }
         return spawnPosition;
     }
-    public void EnemyDestroyed()
+    public void EnemyDestroyed(Vector3 position)
     {
         enemiesRemaining--;
+        if (spawnedPositions.Contains(position.y))
+        {
+            spawnedPositions.Remove(position.y);
+        }
     }
     public void DestroyAllEnemies()
     {

@@ -113,7 +113,7 @@ public class EnemyShip : MonoBehaviour
             gameObject.SetActive(false);
             if (enemyWaveManager != null)
             {
-                enemyWaveManager.EnemyDestroyed();
+                enemyWaveManager.EnemyDestroyed(transform.position);
             }
         }
     }

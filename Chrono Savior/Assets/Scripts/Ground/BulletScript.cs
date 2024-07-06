@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletScript : MonoBehaviour
@@ -12,6 +13,8 @@ public class BulletScript : MonoBehaviour
     private Rigidbody2D rb;
     private const int PLAYER_LAYER = 6;
     private const int POWERUP_LAYER = 11;
+    private const int TRIGGER_LAYER = 14;
+    private const int ENEMY_BULLET_LAYER = 13;
     private const string AR = "AR";
     private const string SMG = "SMG";
     private const string PISTOL = "Pistol";
@@ -66,7 +69,7 @@ public class BulletScript : MonoBehaviour
    
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == PLAYER_LAYER || collision.gameObject.layer == POWERUP_LAYER) return;
+        if(collision.gameObject.layer == PLAYER_LAYER || collision.gameObject.layer == POWERUP_LAYER || collision.gameObject.layer == TRIGGER_LAYER || collision.gameObject.layer == ENEMY_BULLET_LAYER) return;
         IEnemy enemy = collision.GetComponent<IEnemy>();
         if(enemy != null)
         {

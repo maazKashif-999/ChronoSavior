@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8705225340826362744}
   - component: {fileID: -5438956813392706276}
   - component: {fileID: -2042161730053481783}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Coin
   m_TagString: coins
   m_Icon: {fileID: 0}
@@ -280,4 +280,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b1ee8d87c17404bbba62235b150081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: -5438956813392706276}

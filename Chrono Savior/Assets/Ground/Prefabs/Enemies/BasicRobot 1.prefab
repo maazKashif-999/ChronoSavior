@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5625314288341364714}
   - component: {fileID: 4812825933164327933}
   - component: {fileID: 1681607408109933432}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BasicRobot 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -335964993
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 1635118481, guid: 71d0312ad18d645168a2169e19e40935, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

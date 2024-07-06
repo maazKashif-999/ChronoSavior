@@ -223,6 +223,10 @@ public class GunRobot : MonoBehaviour, IEnemy
                 SpawnCoin();
             }
         }
+        if(!isInfinite && StoryManager.Instance != null)
+        {
+            StoryManager.Instance.DecreaseEnemyCount();
+        }
     }
 
 }

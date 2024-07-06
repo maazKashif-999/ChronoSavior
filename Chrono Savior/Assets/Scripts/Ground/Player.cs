@@ -28,29 +28,32 @@ public class Player : MonoBehaviour
     [SerializeField] Rigidbody2D rb;
     [SerializeField] private GameObject playerDeath;
     private GameOverController gameOverController;
+    // private GameCompleteScript gameComplete;
     private GameTimer gameTimer;
 
     void Awake()
     {
         mainCamera = Camera.main;
-        gameOverController = FindObjectOfType<GameOverController>();
-        gameTimer = FindObjectOfType<GameTimer>();
+        
 
         if (Instance != null)
         {
             Debug.LogError("Multiple instances of Player found");
         }
         Instance = this;
-        if (gameOverController == null)
-        {
-            Debug.LogError("GameOverController not found in the scene.");
-        }
+        gameOverController = FindObjectOfType<GameOverController>();
 
         
     }
 
     void Start()
     {
+        
+        gameTimer = FindObjectOfType<GameTimer>();
+        if (gameOverController == null)
+        {
+            Debug.LogError("GameOverController not found in the scene.");
+        }
         if(StateManagement.Instance != null)
         {
             redSkinEquipped = StateManagement.Instance.IsRedSkinEquipped();

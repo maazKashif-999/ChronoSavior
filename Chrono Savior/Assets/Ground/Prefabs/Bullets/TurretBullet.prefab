@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 77536096505663090}
   - component: {fileID: 3561400090933802073}
   - component: {fileID: 5982665351647752245}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: TurretBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,3 +172,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: 10
+  bulletDamage: 10
+  rotation: 90

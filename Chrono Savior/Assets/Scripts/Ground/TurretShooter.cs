@@ -11,6 +11,8 @@ public class TurretShooter : MonoBehaviour, IEnemy
     [SerializeField] private GameObject idle;
     [SerializeField] private GameObject deathAnimation;
     private const float MAX_HEALTH = 50f;
+    private bool isInfinite = false;
+
     private float currentHealth;
     private Player player;
     private float timer;
@@ -36,6 +38,14 @@ public class TurretShooter : MonoBehaviour, IEnemy
         else
         {
             Debug.LogError("Active is null in TurretShooter");
+        }
+        if(MainMenu.mode == MainMenu.Mode.Infinity)
+        {
+            isInfinite = true;
+        }
+        else
+        {
+            isInfinite = false;
         }
     }
     
@@ -96,6 +106,10 @@ public class TurretShooter : MonoBehaviour, IEnemy
         {
             Debug.LogError("Death animation is null in TurretShooter");
             return;
+        }
+        if(!isInfinite && StoryManager.Instance != null)
+        {
+            StoryManager.Instance.DecreaseEnemyCount();
         }
         Instantiate(deathAnimation, transform.position, Quaternion.identity);
         Destroy(gameObject);

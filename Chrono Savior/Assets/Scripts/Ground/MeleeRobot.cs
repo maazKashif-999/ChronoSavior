@@ -89,6 +89,10 @@ public class MeleeRobot : MonoBehaviour, IEnemy
             rb.velocity = Vector2.zero;
             return;
         }
+        else if(player.AreEnemiesFrozen())
+        {
+            return;
+        }
 
         timer += Time.deltaTime;
         if(timer > TIME_BETWEEN_ATTACK)
@@ -218,7 +222,12 @@ public class MeleeRobot : MonoBehaviour, IEnemy
             }
 
         }
+        if(!isInfinite && StoryManager.Instance != null)
+        {
+            StoryManager.Instance.DecreaseEnemyCount();
+        }
         Destroy(gameObject);
+
     }
 
 }

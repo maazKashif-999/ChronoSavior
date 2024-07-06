@@ -10,6 +10,7 @@ public class SpaceGameManager : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject enemies;
     [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject gameCompletePanel;
 
     [SerializeField] private GameObject coinsCollected,tokensCollected;
 
@@ -169,6 +170,15 @@ public class SpaceGameManager : MonoBehaviour
                         }
                         
 
+                    }
+                    if(gameCompletePanel != null)
+                    {
+                        gameCompletePanel.SetActive(false);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("GameCompletePanel GameObject not assigned in SpaceGameManager.");
+                    
                     }
                 }
                 else

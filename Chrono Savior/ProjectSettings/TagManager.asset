@@ -42,8 +42,8 @@ TagManager:
   - Powerups
   - Hazard
   - EnemyBullets
-  - 
-  - 
+  - Triggers
+  - PlayerBullets
   - 
   - 
   - 
@@ -66,6 +66,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Door
+    uniqueID: 4249089533
     locked: 0
   - name: TopItems
     uniqueID: 1059121917

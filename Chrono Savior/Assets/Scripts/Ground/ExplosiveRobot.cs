@@ -176,7 +176,12 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
                 SpawnCoin();
             }
         }
+        if(!isInfinite && StoryManager.Instance != null)
+        {
+            StoryManager.Instance.DecreaseEnemyCount();
+        }
         
     }
+    
 
 }

@@ -12,6 +12,9 @@ public class EnemyBulletScript : MonoBehaviour
     private Rigidbody2D rb;
     private const int ENEMY_LAYER = 8;
     private const int POWERUP_LAYER = 11;
+    private const int TRIGGER_LAYER = 14;
+    private const int ENEMY_BULLET_LAYER = 13;
+    private const int PLAYER_BULLET_LAYER = 15;
     private const string PLAYER_CENTER = "PlayerCenter";
     void Start()
     {
@@ -34,7 +37,7 @@ public class EnemyBulletScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == ENEMY_LAYER || collision.gameObject.layer == POWERUP_LAYER) return;
+        if(collision.gameObject.layer == ENEMY_LAYER || collision.gameObject.layer == POWERUP_LAYER || collision.gameObject.layer == TRIGGER_LAYER || collision.gameObject.layer == ENEMY_BULLET_LAYER || collision.gameObject.layer == PLAYER_BULLET_LAYER) return;
         Player player = collision.GetComponent<Player>();
         if(player)
         {

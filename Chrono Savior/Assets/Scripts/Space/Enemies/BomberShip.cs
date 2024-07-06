@@ -22,7 +22,7 @@ public class BomberShip : EnemyShip
         damage = 25;
         angle = 0;
         coinDroppingProbability = 0.2f;
-        powerUpDroppingProbability = 0.4f;
+        powerUpDroppingProbability = 0.5f;
         bulletTag = "BomberBullet";
 
     }

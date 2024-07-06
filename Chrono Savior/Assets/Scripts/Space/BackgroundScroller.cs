@@ -3,22 +3,14 @@ using UnityEngine;
 public class ScrollingBackground : MonoBehaviour
 {
 
-    private float scrollSpeed = 0.3f;
-    private Vector2 startPos;
+    private float scrollSpeed = 0.05f;
+    private Renderer renderer;
 
-    void Start()
-    {
-        startPos = transform.position;
+    private void Start() {
+        renderer = GetComponent<Renderer>();
     }
-
     void Update()
     {
-        if (transform != null)
-        {
-            // Calculate new position
-            Vector3 newPos = new Vector3(transform.position.x - scrollSpeed * Time.deltaTime, startPos.y, 0);
-            // Update the position
-            transform.position = newPos;
-        }
+        renderer.material.mainTextureOffset += new Vector2(scrollSpeed*Time.deltaTime,0);
     }
 }

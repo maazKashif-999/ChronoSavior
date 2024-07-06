@@ -27,6 +27,9 @@ TagManager:
   - FighterShip
   - SniperShip
   - BomberShip
+  - AesteroidExplosion
+  - ShipExplosion
+  - BombExplosion
   layers:
   - Default
   - TransparentFX

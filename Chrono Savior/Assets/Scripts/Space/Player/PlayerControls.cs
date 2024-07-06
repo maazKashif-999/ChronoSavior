@@ -255,15 +255,7 @@ public class PlayerControls : MonoBehaviour
     }
     void Explode()
     {
-        if (explosion != null)
-        {
-            GameObject explosionObject = Instantiate(explosion, transform.position, Quaternion.identity);
-        }
-
-        else
-        {
-            Debug.LogWarning("Explosion prefab is not assigned.");
-        }
+        PoolManager.Instance.SpawnFromPool("ShipExplosion", transform.position, Quaternion.identity);
     }
     void UpdateHealth()
     {

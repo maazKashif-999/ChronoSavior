@@ -6,12 +6,12 @@ public class CutsceneManager : MonoBehaviour
 {
     [SerializeField] private Image cutsceneImage;
     [SerializeField] private Text dialogueText;
-    [SerializeField] private Sprite[] preModeCutsceneImages; // Array to hold pre-mode cutscene images
-    [SerializeField] private string[] preModeDialogueLines; // Array to hold pre-mode dialogue lines
-    [SerializeField] private Sprite[] midGameCutsceneImages; // Array to hold mid-game cutscene images
-    [SerializeField] private string[] midGameDialogueLines; // Array to hold mid-game dialogue lines
-    [SerializeField] private Image fadeOverlay; // Image component for the black fade overlay
-    [SerializeField] private float fadeDuration = 1f; // Duration for the fade effect
+    [SerializeField] private Sprite[] preModeCutsceneImages; 
+    [SerializeField] private string[] preModeDialogueLines;
+    [SerializeField] private Sprite[] midGameCutsceneImages; 
+    [SerializeField] private string[] midGameDialogueLines; 
+    [SerializeField] private Image fadeOverlay; 
+    [SerializeField] private float fadeDuration = 1f;
 
     private int currentCutsceneIndex = 0;
     private bool isMidGameCutscene = false;
@@ -19,10 +19,9 @@ public class CutsceneManager : MonoBehaviour
     private void Start()
     {
         fadeOverlay.gameObject.SetActive(true);
-        fadeOverlay.color = new Color(0, 0, 0, 1); // Ensure overlay starts fully opaque
+        fadeOverlay.color = new Color(0, 0, 0, 1);
         if (!isMidGameCutscene)
         {
-            // Start the pre-mode cutscene at the beginning of the game
             StartCoroutine(PlayCutscene(preModeCutsceneImages, preModeDialogueLines));
         }
     }
@@ -30,7 +29,7 @@ public class CutsceneManager : MonoBehaviour
     public void TriggerMidGameCutscene()
     {
         isMidGameCutscene = true;
-        currentCutsceneIndex = 0; // Reset index for mid-game cutscene
+        currentCutsceneIndex = 0;
         StartCoroutine(PlayCutscene(midGameCutsceneImages, midGameDialogueLines));
     }
 
@@ -46,17 +45,16 @@ public class CutsceneManager : MonoBehaviour
             dialogueText.text = dialogueLines[currentCutsceneIndex];
             yield return StartCoroutine(FadeFromBlack());
 
-            yield return new WaitForSeconds(4f); // Wait for 5 seconds before moving to the next cutscene
+            yield return new WaitForSeconds(4f); // wait time
             currentCutsceneIndex++;
         }
 
-        // Cutscene is over, hide the cutscene canvas
         yield return StartCoroutine(FadeToBlack());
         cutsceneImage.gameObject.SetActive(false);
         dialogueText.gameObject.SetActive(false);
         yield return StartCoroutine(FadeFromBlack());
 
-        isMidGameCutscene = false; // Reset the flag after cutscene ends
+        isMidGameCutscene = false;
     }
 
     private IEnumerator FadeToBlack()

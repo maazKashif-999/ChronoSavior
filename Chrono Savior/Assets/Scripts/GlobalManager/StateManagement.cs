@@ -8,6 +8,8 @@ public class StateManagement : MonoBehaviour
 
     private const string GROUND_HIGH_SCORE = "GroundHighScore";
     private const string SPACE_HIGH_SCORE = "SpaceHighScore";
+    private const string SPACE_KILL_COUNT = "SpaceKillCount";
+    private const string GROUND_KILL_COUNT = "GroundKillCount";
     private const string COINS = "Coins"; 
     private const string TOKENS = "Tokens";
     private const string CRIMSON_ARMOR_EQUIPPED = "RedSkinEquipped";
@@ -62,6 +64,24 @@ public class StateManagement : MonoBehaviour
     public float GetSpaceHighestScore()
     {
         return PlayerPrefs.GetFloat(SPACE_HIGH_SCORE,0);
+    }
+
+    public int GetSpaceKillCount()
+    {
+        return PlayerPrefs.GetInt(SPACE_KILL_COUNT,0);
+    }
+    public void SetSpaceKillCount(int count)
+    {
+        PlayerPrefs.SetInt(SPACE_KILL_COUNT, count);
+    }
+
+    public int GetGroundKillCount()
+    {
+        return PlayerPrefs.GetInt(GROUND_KILL_COUNT,0);
+    }
+    public void SetGroundeKillCount(int count)
+    {
+        PlayerPrefs.SetInt(GROUND_KILL_COUNT, count);
     }
 
     public void SetCoins(int coins)

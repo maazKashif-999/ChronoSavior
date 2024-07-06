@@ -45,6 +45,10 @@ public class PlayerControls : MonoBehaviour
 
     const int MAX_DAMAGE = 10;
 
+    public SpriteRenderer Render 
+    {
+        get { return spriteRenderer; }
+    }
     public int Multi
     {
         get { return multi; }
@@ -228,7 +232,7 @@ public class PlayerControls : MonoBehaviour
             }
         }
     }
-    void ResetColor()
+    public void ResetColor()
     {
         spriteRenderer.color = originalColor;
     }

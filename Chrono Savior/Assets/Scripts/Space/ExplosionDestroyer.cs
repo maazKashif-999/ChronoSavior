@@ -7,6 +7,7 @@ public class ExplosionDestroyer : MonoBehaviour
     // Start is called before the first frame update
     void dest()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        PoolManager.Instance.ReturnToPool(gameObject.tag, gameObject);
     }
 }

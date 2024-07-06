@@ -173,3 +173,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpEffect: {fileID: 11400000, guid: 59606b236fa1ba642aab64ea1c76f44d, type: 2}
   explosionPrefab: {fileID: 3565653656543359569, guid: 136d2ca36a711b84181e15ebe696e39c, type: 3}
+  prefabTag: AesteroidExplosion

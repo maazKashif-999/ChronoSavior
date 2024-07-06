@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6228304048584578588}
   m_Layer: 0
   m_Name: purple_explosion_0 1
-  m_TagString: Untagged
+  m_TagString: ShipExplosion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

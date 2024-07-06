@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -2168767402512245969}
   - component: {fileID: 4800389848296228566}
   - component: {fileID: 6020731602919724604}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: EnergyToken
   m_TagString: token
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ Animator:
   m_GameObject: {fileID: 7812099448907868456}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ce497d43264290e4e95035d21a36f995, type: 2}
+  m_Controller: {fileID: 9100000, guid: bfab5a7d31bf56a4dae4739686dd318b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

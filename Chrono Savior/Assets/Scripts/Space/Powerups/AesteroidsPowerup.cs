@@ -5,7 +5,9 @@ using UnityEngine;
 public class AesteroidPowerup : MonoBehaviour
 {
     [SerializeField] private PowerUpEffect powerUpEffect;
-     [SerializeField] private GameObject explosionPrefab;
+    [SerializeField] private GameObject explosionPrefab;
+
+    [SerializeField] private string prefabTag;
     private float screenEdgeX;
 
     private void Start()
@@ -28,7 +30,7 @@ public class AesteroidPowerup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             powerUpEffect.Apply(other.gameObject);
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            PoolManager.Instance.SpawnFromPool(prefabTag, transform.position, Quaternion.identity);
             gameObject.SetActive(false);
 
         }

@@ -120,16 +120,14 @@ public class EnemyShip : MonoBehaviour
 
     protected void Explode()
     {
-        if (explosion != null)
-        {
-            GameObject explosionObject = Instantiate(explosion, transform.position, Quaternion.identity);
-        }
+        
+        PoolManager.Instance.SpawnFromPool("ShipExplosion", transform.position, Quaternion.identity);
         DropCoin();
     }
 
     private void DropCoin()
     {
-        if (coinPrefab != null && tokenPrefab != null && MainMenu.mode == MainMenu.Mode.Campaign)
+        if (MainMenu.mode == MainMenu.Mode.Campaign)
         {
             float randomValue = Random.Range(0f, 1f);
             if (randomValue <= coinDroppingProbability)

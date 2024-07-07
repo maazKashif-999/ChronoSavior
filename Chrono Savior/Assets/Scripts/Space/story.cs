@@ -22,6 +22,8 @@ public class EnemyWaveManager : MonoBehaviour
     private Coroutine enemiesSpawner;
     private SpaceGameManager gameManager; 
 
+    float screenHeight;
+
     float minY,maxY,shipSize,aesterpodSize;
 
     private void Start()
@@ -33,6 +35,7 @@ public class EnemyWaveManager : MonoBehaviour
             
             minY = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + 0.3f ;
             maxY = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, 0)).y - 0.3f ;
+            screenHeight = mainCamera.orthographicSize * 2.0f *0.225f;
         }
         else
         {
@@ -174,9 +177,8 @@ public class EnemyWaveManager : MonoBehaviour
         {
             validPosition = true;
             float spawnX = 8.0f;
-            float offsetFromUI = 0.5f;
-            float spawnY = Random.Range(minY+shipSize, maxY-shipSize - offsetFromUI);
-            spawnPosition = new Vector3(spawnX, spawnY, 0f);
+            float spawnY = Random.Range(minY+shipSize, maxY-shipSize - screenHeight);
+            spawnPosition = new Vector3(spawnX,  maxY-shipSize - screenHeight, 0f);
             foreach (float pos in spawnedPositions)
             {
                 if (Mathf.Abs(spawnPosition.y - pos) < minSpacing)

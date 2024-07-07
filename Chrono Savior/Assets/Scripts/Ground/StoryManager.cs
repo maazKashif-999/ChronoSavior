@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class StoryManager : MonoBehaviour
 {
@@ -109,6 +111,9 @@ public class StoryManager : MonoBehaviour
     IEnumerator OnLevelComplete()
     {
         yield return new WaitForSeconds(5f);
+
+        MainMenu.EndGame = true;
+        SceneManager.LoadScene("cutsceneScene");
         if(gameComplete != null)
         {
             gameComplete.ShowGameCompleteScreen();

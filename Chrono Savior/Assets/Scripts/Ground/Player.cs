@@ -27,10 +27,10 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject playerRed;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] private GameObject playerDeath;
-
     private GameOverController gameOverController;
     private AudioSource myAudio;
     [SerializeField] private AudioClip powerupSound;
+    [SerializeField] private AudioClip damageSound;
     private bool bossDamage = false;
     private bool takenDamage = false;
 
@@ -166,6 +166,9 @@ public class Player : MonoBehaviour
     public void TakeDamage(float damage)
     {
         takenDamage = true;
+
+
+
         if (currentShield > 0)
         {
             currentShield -= damage;
@@ -325,7 +328,7 @@ public class Player : MonoBehaviour
         if (myAudio != null && powerupSound != null)
         {
             myAudio.PlayOneShot(powerupSound);
-            Debug.Log("powerup sound found");
+            //Debug.Log("powerup sound found");
 
         }
         else
@@ -333,4 +336,20 @@ public class Player : MonoBehaviour
             Debug.Log("powerup sound not found");
         }
     }
+
+
+    public void playDamageSound()
+    {
+        if (myAudio != null && damageSound != null)
+        {
+            myAudio.PlayOneShot(damageSound);
+            Debug.Log("Damage sound is found");
+
+        }
+        else
+        {
+            Debug.Log("damage sound not found");
+        }
+    }
+
 }

@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
     public static Mode mode;
 
     public static bool MidGame = false;
+    public static bool EndGame = true;
 
     private int MainMenuIndex = 0;
     private int Space = 1;
@@ -40,6 +41,14 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadSceneAsync(Space);
 
     }
+
+    //public void playLastCutscenes()
+    //{
+    //    mode = Mode.Campaign;
+    //    EndGame = true;
+    //    SceneManager.LoadScene(CutScene);
+    //}
+
     public void playGroundInfinity()
     {
         mode = Mode.Infinity;
@@ -63,5 +72,6 @@ public class MainMenu : MonoBehaviour
             AudioListener.volume = 1;
         }
     }
+
 
 }

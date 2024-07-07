@@ -349,7 +349,7 @@ public class SpaceGameManager : MonoBehaviour
 
     public void WinGame()
     {
-        Debug.Log("in main gamewon");
+        //Debug.Log("in main gamewon");
         SetGMState(GameManagerState.gamewon);
     }
 }

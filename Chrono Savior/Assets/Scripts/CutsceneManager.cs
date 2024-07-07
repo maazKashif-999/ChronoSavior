@@ -143,6 +143,10 @@ public class CutsceneManager : MonoBehaviour
         {
             StartCoroutine(PlayCutscene(preModeCutsceneImages, preModeDialogueLines, "Space"));
         }
+        else if(MainMenu.EndGame)
+        {
+            TriggerEndGameCutscene();
+        }            
         else
         {
             scene = "GroundCampaign";
@@ -160,7 +164,7 @@ public class CutsceneManager : MonoBehaviour
     {
         currentCutsceneIndex = 0;
         isEndGameCutscene = true;
-        StartCoroutine(PlayCutscene(endGameCutsceneImages, endGameDialogueLines, "Credits"));
+        StartCoroutine(PlayCutscene(endGameCutsceneImages, endGameDialogueLines, "Main Menu"));
     }
 
     void Update()

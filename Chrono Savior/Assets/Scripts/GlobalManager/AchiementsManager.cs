@@ -11,6 +11,16 @@ public class AchievementManager : MonoBehaviour
 
     private List<Achievement> locked;
     private List<Achievement> unlocked;
+
+    public List<Achievement> Locked
+    {
+        get { return locked; }
+    }
+
+    public List<Achievement> Unlocked
+    {
+        get { return unlocked; }
+    }
     private int counter;
 
     public Vector3 min;

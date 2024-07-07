@@ -7669,7 +7669,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7ba67e7dc19a1648bffedd2fa7c65d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allAchievements: []
+  allAchievements:
+  - {fileID: 11400000, guid: 3e090f9e6dea2144e98364a38805f0e5, type: 2}
+  - {fileID: 11400000, guid: 8cab42d83ee7dd14392df2abcc885234, type: 2}
+  - {fileID: 11400000, guid: 5de14accfc71c2d43bcb724ac6a461a4, type: 2}
+  - {fileID: 11400000, guid: d5e5ca6144e92ea47875c9bbbefdca18, type: 2}
+  - {fileID: 11400000, guid: c786c15180cd9244285d55b6b61bd85c, type: 2}
+  - {fileID: 11400000, guid: eb23ec512a0d7f8458f7e2f3c8937403, type: 2}
+  - {fileID: 11400000, guid: b86063b69def8b9408015f9f0b22ed34, type: 2}
 --- !u!4 &1362992106
 Transform:
   m_ObjectHideFlags: 0

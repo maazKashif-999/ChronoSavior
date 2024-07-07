@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class OnPowerupInteract : MonoBehaviour
 {
     [SerializeField] private PowerUp powerup;
-    [SerializeField] private float messageDuration = 2f;
+    [SerializeField] private float messageDuration = 4f;
 
     private Text messageText;
     private const string DAMAGE_POWERUP = "DamagePowerUp";

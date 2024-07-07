@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 782d7ff762f104d49bd773a9a848702b, type: 3}
   m_Name: Untouchable
   m_EditorClassIdentifier: 
+  achievementName: Untouchable
+  description: Complete a mission without losing any health
+  isUnlocked: 0

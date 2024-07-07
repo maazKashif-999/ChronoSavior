@@ -5,7 +5,6 @@ using UnityEngine;
 public class DamageEffect : PowerUpEffect
 {
     [SerializeField] private int ratio;
-     Color playerColor = Color.black;
     public override void Apply(GameObject target)
     {
         PlayerControls playerControls = target.GetComponent<PlayerControls>();
@@ -21,10 +20,9 @@ public class DamageEffect : PowerUpEffect
  
         // Set the new damage
         playerControls.Damage = playerControls.Damage * ratio;
-        playerControls.Render.color = playerColor;
+
         // Wait for 10 seconds
         yield return new WaitForSeconds(10);
-        playerControls.ResetColor();
         // Reset the damage to the original value
         playerControls.Damage = playerControls.MaxDamage;
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnergyMultiplier : PowerUpEffect
 {
     [SerializeField] private int ratio = 2;
-    Color playerColor = Color.green;
+
     public override void Apply(GameObject target)
     {
         PlayerControls playerControls = target.GetComponent<PlayerControls>();
@@ -21,11 +21,7 @@ public class EnergyMultiplier : PowerUpEffect
  
         // Set the new damage
         playerControls.Multi = playerControls.Multiplier * ratio;
-        playerControls.Render.color = playerColor;
-        // Wait for 10 seconds
         yield return new WaitForSeconds(10);
-
-        playerControls.ResetColor();
         // Reset the damage to the original value
         playerControls.Multi = playerControls.Multiplier;
     }

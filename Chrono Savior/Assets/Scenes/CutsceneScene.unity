@@ -262,8 +262,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 013c27d0d176d4c4b90b72e5c7d09270, type: 3}
   - {fileID: 21300000, guid: 786d10789557b44b4b18e66e076e6eb5, type: 3}
   midGameDialogueLines:
-  - That was a close one! You've finally made it to the moon!
-  - Time to find Dr Hart
+  - You've successfully landed on the Moon. The first step of your mission is complete,
+    but the real challenge lies ahead.
+  - Time to find Dr Hart...
   - Its now or never...
   endGameCutsceneImages:
   - {fileID: 21300000, guid: 488ad186a00854dec81f264b73fa1da6, type: 3}

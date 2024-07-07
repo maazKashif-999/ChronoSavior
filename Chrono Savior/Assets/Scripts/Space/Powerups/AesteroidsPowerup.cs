@@ -77,8 +77,4 @@ public class AesteroidPowerup : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
-    {
-        //Debug.Log("Aesteroid destroyed");
-    }
 }

@@ -42,7 +42,7 @@ public class EnemySpawner : MonoBehaviour
 
     private int CalculateEnemiesToSpawn(int wave)
     {
-        float funcValue = wave * (wave + 1) / 4.0f;
+        float funcValue = wave * (wave + 1) / 3.0f;
         int enemies = (int)Math.Ceiling(funcValue);
         return enemies;
     }

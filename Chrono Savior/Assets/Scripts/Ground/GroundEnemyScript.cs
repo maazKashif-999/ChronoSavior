@@ -57,9 +57,15 @@ public abstract class GroundEnemyScript : MonoBehaviour
     }
     protected virtual void UpdatePath()
     {
+        
         if (seeker == null)
         {
-            Debug.LogError("Seeker component is null in " + GetType().Name);
+            Debug.LogError("Seeker component is null");
+            return;
+        }
+        if (playerCenter == null)
+        {
+            Debug.LogError("PlayerCenter GameObject is null");
             return;
         }
         if (seeker.IsDone() && playerCenter != null)

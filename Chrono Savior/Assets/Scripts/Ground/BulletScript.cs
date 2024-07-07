@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
 
 public class BulletScript : MonoBehaviour
@@ -44,6 +44,10 @@ public class BulletScript : MonoBehaviour
 
     void Start()
     {
+        if(bulletType == SHOTGUN)
+        {
+            StartCoroutine(DisableShotgunBulletCo());
+        }
         if (StateManagement.Instance != null)
         {
             multiplerIndex = StateManagement.Instance.GetUpgradeIndex(bulletType);
@@ -60,6 +64,10 @@ public class BulletScript : MonoBehaviour
 
     void OnEnable()
     {
+        if(bulletType == SHOTGUN)
+        {
+            StartCoroutine(DisableShotgunBulletCo());
+        }
         if (mainCamera != null && rb != null)
         {
             mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -121,6 +129,21 @@ public class BulletScript : MonoBehaviour
         else
         {
             Debug.LogError("BulletPoolingAPI is null in BulletScript");
+        }
+    }
+    IEnumerator DisableShotgunBulletCo()
+    {
+        yield return new WaitForSeconds(0.2f);
+        if(gameObject.activeInHierarchy)
+        {
+            if (BulletPoolingAPI.SharedInstance != null)
+            {
+                BulletPoolingAPI.SharedInstance.ReleaseBullet(this, SHOTGUN_INDEX);
+            }
+            else
+            {
+                Debug.LogError("BulletPoolingAPI is null in BulletScript");
+            }
         }
     }
 }

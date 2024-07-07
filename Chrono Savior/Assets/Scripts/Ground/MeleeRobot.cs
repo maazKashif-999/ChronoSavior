@@ -3,97 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class MeleeRobot : MonoBehaviour, IEnemy
+public class MeleeRobot : GroundEnemyScript, IEnemy
 {
-    [SerializeField] private List<OnPowerupInteract> powerUps = new List<OnPowerupInteract>();
-    [SerializeField] private float MAX_HEALTH;
-    [SerializeField] private Animator animator;
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private float attackRadius;
     [SerializeField] private float attackDamage;
-    [SerializeField] private float movementSpeed;
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Seeker seeker;
-    private float currentHealth;
-    private GameObject playerCenter;
-    private Player player;
-    private float nextWaypointDistance = 0.1f;
-    private Path path;
-    private int currentWayPoint = 0;
-    private float timer = 0;
-    private bool isInfinite = false;
+
     private const float TIME_BETWEEN_ATTACK = 0.5f;
-    private const string UPDATE_PATH = "UpdatePath";
-    private const string PLAYER_CENTER = "PlayerCenter";
     private const string IS_ATTACKING = "IsAttacking";
 
-    void Start()
+    protected override void Start()
     {
-        player = Player.Instance;
-        if (player == null)
-        {
-            Debug.LogError("Player instance is null in MeleeRobot.");
-        }
-
-        playerCenter = GameObject.FindGameObjectWithTag(PLAYER_CENTER);
-        if (playerCenter == null)
-        {
-            Debug.LogError("PlayerCenter is null in MeleeRobot.");
-        }
-
-        currentHealth = MAX_HEALTH;
-
-        if (seeker == null)
-        {
-            Debug.LogError("Seeker is null in MeleeRobot.");
-        }
-
-        if (seeker != null && playerCenter != null)
-        {
-            InvokeRepeating(UPDATE_PATH, 0f, 0.5f);
-            seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
-        }
-
-        if (MainMenu.mode == MainMenu.Mode.Infinity)
-        {
-            isInfinite = true;
-        }
-        else
-        {
-            isInfinite = false;
-        }
+        nextWaypointDistance = 0.1f;
+        base.Start();
     }
 
-    void UpdatePath()
-    {
-        if (seeker == null)
-        {
-            Debug.LogError("Seeker is null in MeleeRobot.");
-            return;
-        }
 
-        if (playerCenter == null)
-        {
-            Debug.LogError("PlayerCenter is null in MeleeRobot.");
-            return;
-        }
 
-        if (seeker.IsDone())
-        {
-            seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
-        }
-    }
-
-    private void OnPathComplete(Path p)
-    {
-        if (!p.error)
-        {
-            path = p;
-            currentWayPoint = 0;
-        }
-    }
-
-    void Update()
+    protected override void Update()
     {
         if (player == null || playerCenter == null || rb == null)
         {
@@ -119,7 +46,7 @@ public class MeleeRobot : MonoBehaviour, IEnemy
         }
     }
 
-    void FixedUpdate()
+    protected override void FixedUpdate()
     {
         if (player == null || rb == null)
         {
@@ -142,16 +69,6 @@ public class MeleeRobot : MonoBehaviour, IEnemy
         if (distance < nextWaypointDistance)
         {
             currentWayPoint++;
-        }
-    }
-
-    public void TakeDamage(float damage)
-    {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
-        {
-            currentHealth = 0;
-            Die();
         }
     }
 
@@ -184,48 +101,9 @@ public class MeleeRobot : MonoBehaviour, IEnemy
         }
     }
 
-    private void SpawnPowerUp()
-    {
-        if (powerUps.Count == 0)
-        {
-            Debug.LogWarning("PowerUps list is empty in MeleeRobot.");
-            return;
-        }
 
-        int index = Random.Range(0, powerUps.Count);
-        if (powerUps[index] == null)
-        {
-            Debug.LogError("PowerUp is null in MeleeRobot.");
-            return;
-        }
 
-        if (PowerupPoolingAPI.SharedInstance != null)
-        {
-            OnPowerupInteract powerup = PowerupPoolingAPI.SharedInstance.GetPooledPowerup(index);
-            powerup.transform.position = transform.position;
-            powerup.gameObject.SetActive(true);
-        }
-        else
-        {
-            Debug.LogError("PowerupPoolingAPI is null in MeleeRobot.");
-        }
-    }
-
-    private void SpawnCoin()
-    {
-        if (CoinPoolingAPI.SharedInstance != null)
-        {
-            CoinScript coin = CoinPoolingAPI.SharedInstance.GetPooledCoin();
-            coin.transform.position = transform.position;
-            coin.gameObject.SetActive(true);
-        }
-        else
-        {
-            Debug.LogError("CoinPoolingAPI is null in MeleeRobot.");
-        }
-    }
-
-    private void Die()
+    protected override void Die()
     {
         int randomNumber = 0;
         if (MAX_HEALTH == 60)

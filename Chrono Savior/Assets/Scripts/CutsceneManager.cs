@@ -22,7 +22,7 @@ public class CutsceneManager : MonoBehaviour
         fadeOverlay.color = new Color(0, 0, 0, 1);
         if (!isMidGameCutscene)
         {
-            StartCoroutine(PlayCutscene(preModeCutsceneImages, preModeDialogueLines));
+            StartCoroutine(PlayCutscene(preModeCutsceneImages, preModeDialogueLines, "Space"));
         }
     }
 

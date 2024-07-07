@@ -13,7 +13,8 @@ public class CutsceneManager : MonoBehaviour
     [SerializeField] private string[] midGameDialogueLines; 
     [SerializeField] private Image fadeOverlay; 
     [SerializeField] private float fadeDuration = 1f;
-
+    bool skip = false;
+    string scene = "Space";
 
     private int currentCutsceneIndex = 0;
     private bool isMidGameCutscene = false;
@@ -30,6 +31,7 @@ public class CutsceneManager : MonoBehaviour
 
         else
         {
+            scene = "GroundCampaign";
             TriggerMidGameCutscene();
         }
     }
@@ -41,7 +43,13 @@ public class CutsceneManager : MonoBehaviour
         
     }
 
-
+    void Update()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            SceneManager.LoadScene(scene);
+        }
+    }
 
     private IEnumerator PlayCutscene(Sprite[] cutsceneImages, string[] dialogueLines, string Scene)
     {
@@ -53,16 +61,19 @@ public class CutsceneManager : MonoBehaviour
             yield return StartCoroutine(FadeToBlack());
             cutsceneImage.sprite = cutsceneImages[currentCutsceneIndex];
             dialogueText.text = dialogueLines[currentCutsceneIndex];
+       
             yield return StartCoroutine(FadeFromBlack());
-
             yield return new WaitForSeconds(4f);// wait time
+            
+            
             currentCutsceneIndex++;
+
+           
         }
 
         yield return StartCoroutine(FadeToBlack());
         cutsceneImage.gameObject.SetActive(false);
         dialogueText.gameObject.SetActive(false);
-        yield return StartCoroutine(FadeFromBlack());
 
         isMidGameCutscene = false;
 

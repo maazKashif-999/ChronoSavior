@@ -6,7 +6,6 @@ public class Achievement : ScriptableObject
     [SerializeField] private string name;
     [SerializeField] private string description;
     [SerializeField] private bool isUnlocked;
-
     public string Name
     {
         get { return name; }
@@ -30,4 +29,5 @@ public class Achievement : ScriptableObject
     {
         JsonUtility.FromJsonOverwrite(json, this);
     }
+    
 }

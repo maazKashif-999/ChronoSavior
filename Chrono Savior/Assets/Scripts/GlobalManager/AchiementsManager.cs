@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,9 +7,14 @@ public class AchievementManager : MonoBehaviour
     public static AchievementManager Instance;
 
     public List<Achievement> allAchievements;
+    public GameObject achievementPrefab; // The prefab to display when an achievement is unlocked
 
     private List<Achievement> locked;
     private List<Achievement> unlocked;
+    private int counter;
+
+    public Vector3 min;
+    public Vector3 max;
 
     private void Awake()
     {
@@ -17,6 +23,13 @@ public class AchievementManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             InitializeAchievements();
+            Camera mainCamera = Camera.main;
+            counter = 0;
+            if (mainCamera != null)
+            {
+                min = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0));
+                max = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, 0));
+            }
         }
         else
         {
@@ -45,10 +58,10 @@ public class AchievementManager : MonoBehaviour
                 {
                     locked.Add(loadedAchievement);
                 }
+                DisplayAchievement(loadedAchievement);
             }
             else
             {
-                // Create a copy of the achievement so that original ScriptableObject is not modified directly.
                 Achievement newAchievement = ScriptableObject.CreateInstance<Achievement>();
                 JsonUtility.FromJsonOverwrite(JsonUtility.ToJson(ach), newAchievement);
 
@@ -56,7 +69,7 @@ public class AchievementManager : MonoBehaviour
                 SaveAchievements(newAchievement);
             }
         }
-        PrintAchievements();
+        //PrintAchievements();
     }
 
     public void SaveAchievements(Achievement achievement)
@@ -75,10 +88,27 @@ public class AchievementManager : MonoBehaviour
                 unlocked.Add(ab);
                 locked.Remove(ab);
                 SaveAchievements(ab);
+                DisplayAchievement(ab);
                 Debug.Log("Achievement unlocked: " + ab.Name);
                 break;
             }
         }
+    }
+
+    private void DisplayAchievement(Achievement achievement)
+    {
+        Debug.Log("debuf");
+        Vector3 position = new Vector3(0, max.y - counter * 0.5f, 0);
+        GameObject instance = Instantiate(achievementPrefab, position, Quaternion.identity);
+        counter++;
+        StartCoroutine(DisplayAchievementCoroutine(instance));
+    }
+
+    private IEnumerator DisplayAchievementCoroutine(GameObject instance)
+    {
+        yield return new WaitForSeconds(10f);
+        //Destroy(instance);
+        counter--;
     }
 
     public void PrintAchievements()

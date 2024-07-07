@@ -13,6 +13,12 @@ public class GunShoot : MonoBehaviour
     [SerializeField] private int maxCapacity;
     [SerializeField] private float reloadTime = 1f;
     [SerializeField] private int MAX_AMMO_CAP = int.MaxValue;
+    bool pistolFire = false;
+    bool arFire = false;
+    bool sniperFire = false;
+    bool smgFire = false;
+    bool shotgunFire = false;
+
     private float timer;
     public int MaxCapacity => maxCapacity; // Add this line
     private int currentCapacity;
@@ -91,22 +97,27 @@ public class GunShoot : MonoBehaviour
             {
                 if(gunType == PISTOL)
                 {
+                    pistolFire = true;          
                     bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(PISTOL_INDEX); 
                 }
                 else if(gunType == AR)
                 {
+                    arFire = true;
                     bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(AR_INDEX); 
                 }
                 else if(gunType == SNIPER)
                 {
+                    sniperFire = true;
                     bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(SNIPER_INDEX); 
                 }
                 else if(gunType == SMG)
                 {
+                    smgFire = true;
                     bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(SMG_INDEX); 
                 }
                 else if(gunType == SHOTGUN)
                 {
+                    shotgunFire = true;
                     bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(SHOTGUN_INDEX); 
                 }
             }

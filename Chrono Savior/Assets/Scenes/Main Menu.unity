@@ -2516,7 +2516,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: INSTRUCTIONS
+  m_Text: CONTROLS
 --- !u!222 &313194800
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2675,7 +2675,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: INSTRUCTIONS
+  m_Text: CONTROLS
 --- !u!222 &372122150
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7677,6 +7677,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c786c15180cd9244285d55b6b61bd85c, type: 2}
   - {fileID: 11400000, guid: eb23ec512a0d7f8458f7e2f3c8937403, type: 2}
   - {fileID: 11400000, guid: b86063b69def8b9408015f9f0b22ed34, type: 2}
+  achievementPrefab: {fileID: 0}
+  min: {x: 0, y: 0, z: 0}
+  max: {x: 0, y: 0, z: 0}
 --- !u!4 &1362992106
 Transform:
   m_ObjectHideFlags: 0

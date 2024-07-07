@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2007886001848628575}
   - component: {fileID: -5492637259913111820}
   - component: {fileID: 1222187743116827065}
-  - component: {fileID: 7110498298637531471}
+  - component: {fileID: -8418621390141181167}
   m_Layer: 12
   m_Name: shieldPowerup
   m_TagString: Shield
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aec71ca6c260dd9469862afcb75169f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerUpSound: {fileID: 8300000, guid: a44dd154b94b1405ea15347190bcfb65, type: 3}
   powerUpEffect: {fileID: 11400000, guid: 3631d751418876d46bf13792bc08a1db, type: 2}
 --- !u!50 &-5492637259913111820
 Rigidbody2D:
@@ -173,7 +174,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.45}
   m_EdgeRadius: 0
---- !u!82 &7110498298637531471
+--- !u!82 &-8418621390141181167
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,7 +184,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e8abea87c78334f8eab4be29d562b9e8, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a44dd154b94b1405ea15347190bcfb65, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

@@ -155,7 +155,7 @@ public class PlayerControls : MonoBehaviour
         
         Move();
     }
-
+    
     void RotateTowardsMouse()
         {
             // Get the position of the mouse in screen space

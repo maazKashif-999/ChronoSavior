@@ -10,21 +10,29 @@ public class MainMenu : MonoBehaviour
     }
 
     public static Mode mode;
-    
+
+    public static bool MidGame = false;
+
     private int MainMenuIndex = 0;
     private int Space = 1;
     private int GroundInfinityIndex = 2;
     private int GroundCampaignIndex = 3;
+    private int CutScene = 4;
+    //[SerializeField] private CutsceneManager CutsceneManager;
+
     public void playLevelOne()
     {
         mode = Mode.Campaign;
-        SceneManager.LoadSceneAsync(Space);
+        MidGame = false;
+        SceneManager.LoadScene(CutScene);
     }
 
     public void playLevelTwo()
     {
+
         mode = Mode.Campaign;
-        SceneManager.LoadSceneAsync(GroundCampaignIndex);
+        MidGame=true;
+        SceneManager.LoadScene(CutScene);
     }
     public void playSpaceInfinity()
     {

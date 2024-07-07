@@ -30,7 +30,6 @@ public class GameCompleteScript : MonoBehaviour
         // Debug.Log("Game Over Screen called"); 
         PauseMenu.gameIsPaused = true;
         gameCompleteCanvas.SetActive(true); 
-        Time.timeScale = 0f; 
         
 
     }

@@ -4,8 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
+
 public class PlayerControls : MonoBehaviour
 {
+    public static PlayerControls Instance { get; private set; }
+
 
     float speed = 5f; 
     float minY; // Minimum Y position
@@ -23,7 +26,9 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private AudioClip bulletSound; //bullet picking up sound clip
     [SerializeField] private AudioClip tokenPickupSound; //token picking up sound clip
-    [SerializeField] private AudioClip coinPickupSound; //coin picking up sound clip
+    [SerializeField] private AudioClip coinPickupSound;
+    [SerializeField] private AudioClip powerupSound; 
+
     private AudioSource audioSource; // AudioSource component
 
 
@@ -79,7 +84,20 @@ public class PlayerControls : MonoBehaviour
             shield = MAX_SHIELD;
             UpdateShield(); }
     }
- 
+
+    void Awake()
+    {
+
+
+        if (Instance != null)
+        {
+            Debug.LogError("Multiple instances of Player found");
+        }
+        Instance = this;
+
+
+    }
+
     private void Start()
     {
         gameManager = FindObjectOfType<SpaceGameManager>(); // Find the GameManager in the scene
@@ -345,5 +363,21 @@ public class PlayerControls : MonoBehaviour
     public int GetTokens()
     {
         return token;
+    }
+
+
+    public void PlayPowerupSound()
+    {
+
+        if (audioSource != null && powerupSound != null)
+        {
+            audioSource.PlayOneShot(powerupSound);
+            Debug.Log("powerup sound found");
+
+        }
+        else
+        {
+            Debug.Log("powerup sound not found");
+        }
     }
 }

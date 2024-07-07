@@ -4,24 +4,15 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
-    private AudioSource audioSource;
-    [SerializeField] private AudioClip powerUpSound; 
+
     [SerializeField] private PowerUpEffect powerUpEffect;
     private float screenEdgeX;
+
+
 
     private void Start()
     {
         screenEdgeX = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
-        audioSource = GetComponent<AudioSource>();
-
-        if (audioSource == null)
-        {
-            Debug.LogError("No AudioSource found on the power-up object.");
-        }
-        if (powerUpSound == null)
-        {
-            Debug.LogError("No powerUpSound assigned in the inspector.");
-        }
 
     }
     void Update()
@@ -39,11 +30,10 @@ public class Powerup : MonoBehaviour
         {
             powerUpEffect.Apply(other.gameObject);
 
-            if (audioSource != null && powerUpSound != null)
+            if(PlayerControls.Instance!=null && !gameObject.CompareTag("coins") && !gameObject.CompareTag("token"))
             {
-                audioSource.PlayOneShot(powerUpSound);  
+                PlayerControls.Instance.PlayPowerupSound();
             }
-
             gameObject.SetActive(false);
         }
     }
@@ -53,4 +43,11 @@ public class Powerup : MonoBehaviour
     private void OnDestroy() {
         Debug.Log("Powerup Destroyed");
     }
+
+    private void setActiveFunc()
+     {
+           gameObject.SetActive(false);
+
+     }
+
 }

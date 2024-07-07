@@ -11,6 +11,10 @@ public class InstructionsPage : MonoBehaviour
     {
         instructionsText.text =
             "\n" +
+            "<b><size=60><color=#000000>Collectibles</color></size></b>\n" +
+            "<b>Coins, Tokens, and Powerups:</b>\n" +
+            "• Coins can be used to unlock skins, weapons, and upgrade weapons in the store.\n" +
+            "• Tokens can be used to activate these weapons in game.\n\n\n" +
             "<b><size=60><color=#000000>Movement</color></size></b>\n" +
             "<b>Keyboard:</b>\n" +
             "<i>• Ship:</i> Use the <b><color=#FF0000>W</color></b> and <b><color=#FF0000>S</color></b> keys to move the ship.\n" +

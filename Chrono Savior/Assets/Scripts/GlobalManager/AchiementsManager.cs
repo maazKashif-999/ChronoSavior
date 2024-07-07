@@ -31,7 +31,6 @@ public class AchievementManager : MonoBehaviour
         
         if (Instance == null)
         {
-            PlayerPrefs.DeleteKey("Starship Destroyer");
             Instance = this;
             DontDestroyOnLoad(gameObject);
             InitializeAchievements();

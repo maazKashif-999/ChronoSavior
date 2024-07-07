@@ -32,6 +32,13 @@ public class OnPowerupInteract : MonoBehaviour
         if (other != null && other.CompareTag("Player"))
         {
             powerup.UsePowerUp(other.gameObject);
+
+            if (Player.Instance != null && !gameObject.CompareTag("coins") && !gameObject.CompareTag("token"))
+            {
+                Player.Instance.PlayPowerupSound();
+            }
+
+
             string powerUpName = FormatPowerUpName(gameObject.name.Replace("(Clone)", "").Trim());
             ShowMessage(powerUpName + " Activated");
 

@@ -27,9 +27,10 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject playerRed;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] private GameObject playerDeath;
-    private GameOverController gameOverController;
-    // private GameCompleteScript gameComplete;
 
+    private GameOverController gameOverController;
+    private AudioSource myAudio;
+    [SerializeField] private AudioClip powerupSound;
     private bool bossDamage = false;
     private bool takenDamage = false;
 
@@ -56,8 +57,8 @@ public class Player : MonoBehaviour
         }
         Instance = this;
         gameOverController = FindObjectOfType<GameOverController>();
+        myAudio = GetComponent<AudioSource>();
 
-        
     }
 
     void Start()
@@ -316,5 +317,20 @@ public class Player : MonoBehaviour
     public int GetCoins()
     {
         return coins;
+    }
+
+    public void PlayPowerupSound()
+    {
+
+        if (myAudio != null && powerupSound != null)
+        {
+            myAudio.PlayOneShot(powerupSound);
+            Debug.Log("powerup sound found");
+
+        }
+        else
+        {
+            Debug.Log("powerup sound not found");
+        }
     }
 }

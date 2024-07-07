@@ -114,7 +114,7 @@ public class AchievementManager : MonoBehaviour
     {
         notificationPrefabs[counter].SetActive(true);
         NotificationController notificationController = notificationPrefabs[counter].GetComponent<NotificationController>();
-        notificationController.SetMessage($"Achievement Unlocked: {achievement.Name}"); // Set text content
+        notificationController.SetMessage($"Achievement Unlocked \n{achievement.Name}"); // Set text content
 
         StartCoroutine(DisplayAchievementCoroutine(notificationPrefabs[counter]));
         counter++;

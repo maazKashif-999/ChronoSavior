@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
         Campaign,
         Infinity
     }
-
+    [SerializeField] private GameObject volumePanel;
     public static Mode mode;
 
     public static bool MidGame = false;
@@ -21,6 +21,15 @@ public class MainMenu : MonoBehaviour
     private int CutScene = 4;
     //[SerializeField] private CutsceneManager CutsceneManager;
 
+    public void Start()
+    {
+        if(volumePanel != null)
+        {
+            volumePanel.SetActive(true);
+            volumePanel.SetActive(false);
+        }
+        
+    }
     public void playLevelOne()
     {
         mode = Mode.Campaign;

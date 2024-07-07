@@ -13,7 +13,6 @@ public class CutsceneManager : MonoBehaviour
     [SerializeField] private string[] midGameDialogueLines; 
     [SerializeField] private Image fadeOverlay; 
     [SerializeField] private float fadeDuration = 1f;
-    bool skip = false;
     string scene = "Space";
 
     private int currentCutsceneIndex = 0;
@@ -74,7 +73,7 @@ public class CutsceneManager : MonoBehaviour
         yield return StartCoroutine(FadeToBlack());
         cutsceneImage.gameObject.SetActive(false);
         dialogueText.gameObject.SetActive(false);
-
+        yield return StartCoroutine(FadeFromBlack());
         isMidGameCutscene = false;
 
         SceneManager.LoadScene(Scene);

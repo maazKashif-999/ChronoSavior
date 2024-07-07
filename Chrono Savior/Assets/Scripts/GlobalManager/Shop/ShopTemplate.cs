@@ -12,17 +12,31 @@ public class ShopTemplate : MonoBehaviour
 
     public void SetShopItem(ShopItemSO shopItem)
     {
-        titleText.text = shopItem.title;
-        descriptionText.text = shopItem.description;
-        if(shopItem.price == 0)
+        if(shopItem == null)
         {
-            priceText.text = "Default";
             return;
         }
-        else
+        if(titleText != null)
         {
-            priceText.text = "Coins: " + shopItem.price.ToString();
+            titleText.text = shopItem.title;
         }
+        if(descriptionText != null)
+        {
+            descriptionText.text = shopItem.description;
+        }
+        if(priceText != null)
+        {
+            if(shopItem.price == 0)
+            {
+                priceText.text = "Default";
+                return;
+            }
+            else
+            {
+                priceText.text = "Coins: " + shopItem.price.ToString();
+            }
+        }
+        
         
     }
 }

@@ -10,7 +10,18 @@ public class AchievementTemplate : MonoBehaviour
 
     public void SetAchievement(Achievement achievement)
     {
-        titleText.text = achievement.Name;
-        descriptionText.text = achievement.Description;
+        if(achievement == null)
+        {
+            return;
+        }
+        if(titleText != null)
+        {
+            titleText.text = achievement.Name;
+        }
+        if(descriptionText != null)
+        {
+            descriptionText.text = achievement.Description;
+        }
+        
     }
 }

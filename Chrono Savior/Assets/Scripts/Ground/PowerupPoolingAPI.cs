@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -54,7 +55,14 @@ public class PowerupPoolingAPI : MonoBehaviour
         }
 
         OnPowerupInteract powerup = Instantiate(powerupsToPool[index]);
-        powerup.gameObject.SetActive(false);
+        if(powerup != null)
+        {
+            powerup.gameObject.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError($"Failed to instantiate powerup at index {index} in PowerupPoolingAPI.");
+        }
         return powerup;
     }
 

@@ -47,6 +47,9 @@ To play the game or test its features:
 ### Game Pausing
 - **Keyboard:** Escape key to to pause the game
 
+### Reloading
+- **Keyboard:** R to reload weapon
+
 ## Menu Flowchart
 **Main Menu:**
 - Start

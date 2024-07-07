@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 782d7ff762f104d49bd773a9a848702b, type: 3}
   m_Name: Moon Explorer
   m_EditorClassIdentifier: 
+  achievementName: Moon Explorer
+  description: Discover all areas in the moon base
+  isUnlocked: 0

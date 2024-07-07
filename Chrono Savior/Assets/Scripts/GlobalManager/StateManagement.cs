@@ -79,7 +79,7 @@ public class StateManagement : MonoBehaviour
     {
         return PlayerPrefs.GetInt(GROUND_KILL_COUNT,0);
     }
-    public void SetGroundeKillCount(int count)
+    public void SetGroundKillCount(int count)
     {
         PlayerPrefs.SetInt(GROUND_KILL_COUNT, count);
     }

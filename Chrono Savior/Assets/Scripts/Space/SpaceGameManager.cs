@@ -42,22 +42,6 @@ public class SpaceGameManager : MonoBehaviour
         return string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    // private void Awake()
-    // {
-    //     if (Instance == null)
-    //     {
-    //         Instance = this;
-    //         // DontDestroyOnLoad(gameObject);
-    //     }
-    //     else
-    //     {
-    //         Destroy(gameObject);
-    //     }
-    // }
-
-
-
-    // Start is called before the first frame update
     void Start()
     {
         switch(MainMenu.mode)
@@ -168,8 +152,11 @@ public class SpaceGameManager : MonoBehaviour
                         {
                             Debug.LogError("StateManagement is not assigned.");
                         }
+                        if (StateManagement.Instance.GetSpaceKillCount() >= 15){
+                            AchievementManager.Instance.CheckLocked("Starship Destroyer");
+                        }
                         
-
+                        
                     }
                     if(gameCompletePanel != null)
                     {
@@ -275,9 +262,14 @@ public class SpaceGameManager : MonoBehaviour
         if(StateManagement.Instance != null)
         {
             float highestScore = StateManagement.Instance.GetSpaceHighestScore();
+            Debug.Log(elapsedTime);
             if(elapsedTime > highestScore)
             {
                 StateManagement.Instance.SetSpaceHighestScore(elapsedTime);
+                if (elapsedTime > 1800f )//check if highest score is more than half an hour
+                {
+                    AchievementManager.Instance.CheckLocked("Survivalist");
+                }
             }
         }
         else

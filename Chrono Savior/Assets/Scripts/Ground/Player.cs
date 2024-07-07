@@ -29,6 +29,20 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject playerDeath;
     private GameOverController gameOverController;
     // private GameCompleteScript gameComplete;
+
+    private bool bossDamage = false;
+    private bool takenDamage = false;
+
+    public bool BossDamage{
+        get{return bossDamage;}
+        set{bossDamage = value;}
+    }
+    public bool DamageTaken{
+        get{return takenDamage;}
+    }
+    public float MAXHEALTH{
+        get{return MAX_HEALTH;}
+    }
     private GameTimer gameTimer;
 
     void Awake()
@@ -150,6 +164,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        takenDamage = true;
         if (currentShield > 0)
         {
             currentShield -= damage;
@@ -187,9 +202,14 @@ public class Player : MonoBehaviour
         if(isInfinite && gameTimer != null) 
         {
             gameTimer.StopTimer();
+            if (StateManagement.Instance.GetGroundKillCount() >= 15){
+                AchievementManager.Instance.CheckLocked("Robot Slayer");
+            }
+            
         }
         areEnemiesFrozen = true;
     }
+    
 
     public bool IsAlive()
     {
@@ -200,6 +220,7 @@ public class Player : MonoBehaviour
     {
         currentHealth = MAX_HEALTH;
     }
+    
 
     public void FullShieldHeal()
     {

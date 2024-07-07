@@ -226,6 +226,11 @@ public class MeleeRobot : MonoBehaviour, IEnemy
         {
             StoryManager.Instance.DecreaseEnemyCount();
         }
+        if(isInfinite)
+        {
+            StateManagement.Instance.SetGroundKillCount(StateManagement.Instance.GetGroundKillCount() + 1);
+            Debug.Log(StateManagement.Instance.GetGroundKillCount());
+        }
         Destroy(gameObject);
 
     }

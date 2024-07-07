@@ -42,7 +42,7 @@ To play the game or test its features:
 - **Keyboard:** Use Z to activate special ability.
 
 ### Weapon Swapping:
-- **Keyboard:** 1, 2, 3 to cycle between weapons.
+- **Keyboard:** 1, 2, 3 or TAB to cycle between weapons.
 
 ### Game Pausing
 - **Keyboard:** Escape key to to pause the game

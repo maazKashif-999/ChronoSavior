@@ -128,6 +128,18 @@ public class StoryManager : MonoBehaviour
                 total_coins += Player.Instance.GetCoins();
             }
             StateManagement.Instance.SetCoins(total_coins);
+            AchievementManager.Instance.CheckLocked("Mission Master");
+            if (!Player.Instance.BossDamage)
+            {
+                AchievementManager.Instance.CheckLocked("Boss Conqueror");
+            }
+            if (!Player.Instance.DamageTaken)
+            {
+                AchievementManager.Instance.CheckLocked("Untouchable");
+            }
+            if (Player.Instance.GetCurrentHealth()< (0.25*Player.Instance.MAXHEALTH)){
+                AchievementManager.Instance.CheckLocked("Fearless Fighter");
+            }
         }
         
     }

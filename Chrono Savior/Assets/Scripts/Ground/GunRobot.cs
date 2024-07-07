@@ -227,6 +227,10 @@ public class GunRobot : MonoBehaviour, IEnemy
         {
             StoryManager.Instance.DecreaseEnemyCount();
         }
+        if(isInfinite)
+        {
+            StateManagement.Instance.SetGroundKillCount(StateManagement.Instance.GetGroundKillCount() + 1);
+        }
     }
 
 }

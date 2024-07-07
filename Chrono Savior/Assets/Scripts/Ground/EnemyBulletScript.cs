@@ -42,6 +42,10 @@ public class EnemyBulletScript : MonoBehaviour
         if(player)
         {
             player.TakeDamage(bulletDamage);
+            if (gameObject.tag == "BomberBullet"){
+                player.BossDamage = true;
+            }
+            
         }
         Destroy(gameObject);
     }

@@ -49,6 +49,7 @@ public class MissileScript : MonoBehaviour
         if(player)
         {
             player.TakeDamage(bulletDamage);
+            player.BossDamage = true;
         }
         Destroy(gameObject);
     }

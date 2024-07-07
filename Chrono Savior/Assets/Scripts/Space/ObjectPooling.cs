@@ -13,8 +13,8 @@ public class PoolManager : MonoBehaviour
         public int size;
     }
 
-    public List<Pool> pools;
-    public Dictionary<string, Queue<GameObject>> poolDictionary;
+    [SerializeField] private List<Pool> pools;
+    private Dictionary<string, Queue<GameObject>> poolDictionary;
 
     void Awake()
     {

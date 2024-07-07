@@ -31,6 +31,8 @@ public class GameCompleteScript : MonoBehaviour
         PauseMenu.gameIsPaused = true;
         gameCompleteCanvas.SetActive(true); 
         Time.timeScale = 0f; 
+        
+
     }
 
 

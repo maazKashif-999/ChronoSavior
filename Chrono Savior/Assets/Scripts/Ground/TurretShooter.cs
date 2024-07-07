@@ -111,6 +111,11 @@ public class TurretShooter : MonoBehaviour, IEnemy
         {
             StoryManager.Instance.DecreaseEnemyCount();
         }
+        if(isInfinite)
+        {
+            StateManagement.Instance.SetGroundKillCount(StateManagement.Instance.GetGroundKillCount() + 1);
+            Debug.Log(StateManagement.Instance.GetGroundKillCount());
+        }
         Instantiate(deathAnimation, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

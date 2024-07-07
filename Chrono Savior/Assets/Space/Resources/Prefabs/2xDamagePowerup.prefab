@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1077939783, guid: 3813aa39d601d49a48c635e3e0e718d9, type: 3}
+  m_Sprite: {fileID: 1209701913, guid: 3813aa39d601d49a48c635e3e0e718d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,8 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aec71ca6c260dd9469862afcb75169f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUpSound: {fileID: 8300000, guid: a44dd154b94b1405ea15347190bcfb65, type: 3}
   powerUpEffect: {fileID: 11400000, guid: 00041f7654ac6964787f6b082e65cf18, type: 2}
+  messageDuration: 4
 --- !u!50 &361781942630953797
 Rigidbody2D:
   serializedVersion: 4

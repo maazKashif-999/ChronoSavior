@@ -24,12 +24,12 @@ public class UpgradeTemplate : MonoBehaviour
             if(StateManagement.Instance != null)
             {
                 int index = StateManagement.Instance.GetUpgradeIndex(upgradeItem.title);
-                upgradeCountText.text = (index) + "/5";
+                upgradeCountText.text = "Upgrade Status : " + (index) + "/5";
                 priceText.text = "Coins: " + upgradeItem.prices[index].ToString();
             }
             else
             {
-                upgradeCountText.text = "0/5";
+                upgradeCountText.text = "Upgrade Status: 0/5";
                 priceText.text = "Coins: " + upgradeItem.prices[0].ToString();
             }
         }

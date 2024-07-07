@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 782d7ff762f104d49bd773a9a848702b, type: 3}
   m_Name: Robot Slayer
   m_EditorClassIdentifier: 
+  achievementName: Robot Slayer
+  description: Defeat 1000 enemy robots in Ground Comba
+  isUnlocked: 0

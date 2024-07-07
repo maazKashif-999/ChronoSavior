@@ -27,7 +27,7 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] private AudioClip coinPickupSound;
     [SerializeField] private AudioClip powerupSound;
     [SerializeField] private AudioClip explosionSound;
-
+    [SerializeField] private AudioClip damageSoundSpaceship;
     private AudioSource audioSource; // AudioSource component
 
     [SerializeField] private ShieldBar shieldBar;
@@ -291,6 +291,7 @@ public class PlayerControls : MonoBehaviour
     {
         if (shield > 0)
         {
+
             shield -= damage;
             Mathf.Clamp(shield, 0, MAX_SHIELD);
             UpdateShield();
@@ -306,10 +307,12 @@ public class PlayerControls : MonoBehaviour
         {
             spriteRenderer.color = Color.red;
         }
+
         else
         {
             Debug.LogWarning("SpriteRenderer is not assigned.");
         }
+        playDamageSound();
 
         Invoke("ResetColor", 0.5f);
 
@@ -457,6 +460,21 @@ public class PlayerControls : MonoBehaviour
         else
         {
             Debug.LogWarning("AudioSource or ExplosionSound is not assigned.");
+        }
+    }
+
+
+    public void playDamageSound()
+    {
+        if (audioSource != null && damageSoundSpaceship != null)
+        {
+            audioSource.PlayOneShot(damageSoundSpaceship);
+            //Debug.Log("Damage sound for ship is found");
+
+        }
+        else
+        {
+            Debug.Log("damage sound not found");
         }
     }
 }

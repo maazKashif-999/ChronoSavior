@@ -115,16 +115,15 @@ public class StoryManager : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
 
-        MainMenu.EndGame = true;
-        SceneManager.LoadScene("cutsceneScene");
-        if (gameComplete != null)
-        {
-            gameComplete.ShowGameCompleteScreen();
-        }
-        else
-        {
-            Debug.LogError("GameCompleteScript not found in StoryManager.");
-        }
+
+        //if (gameComplete != null)
+        //{
+        //    gameComplete.ShowGameCompleteScreen();
+        //}
+        //else
+        //{
+        //    Debug.LogError("GameCompleteScript not found in StoryManager.");
+        //}
 
         if (StateManagement.Instance != null)
         {
@@ -152,6 +151,9 @@ public class StoryManager : MonoBehaviour
                     AchievementManager.Instance.CheckLocked("Fearless Fighter");
                 }
             }
+
+            MainMenu.EndGame = true;
+            SceneManager.LoadScene("cutsceneScene");
         }
         else
         {

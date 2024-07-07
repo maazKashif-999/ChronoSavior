@@ -45,7 +45,6 @@ public class StateManagement : MonoBehaviour
         PlayerPrefs.SetInt(SMG,1);
         PlayerPrefs.SetInt(PISTOL,1);
         PlayerPrefs.SetInt(SNIPER,1);
-        PlayerPrefs.SetInt(SESSION_LOAD, 1);///lslls
     }
     public void SetGroundHighestScore(float highscore)
     {

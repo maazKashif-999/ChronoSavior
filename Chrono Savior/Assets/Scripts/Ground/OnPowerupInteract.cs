@@ -55,7 +55,7 @@ public class OnPowerupInteract : MonoBehaviour
             }
 
             string powerUpName = FormatPowerUpName(gameObject.name.Replace("(Clone)", "").Trim());
-            ShowMessage(powerUpName + " Activated");
+            ShowMessage(powerUpName + "Powerup Activated");
 
             if (PowerupPoolingAPI.SharedInstance != null)
             {

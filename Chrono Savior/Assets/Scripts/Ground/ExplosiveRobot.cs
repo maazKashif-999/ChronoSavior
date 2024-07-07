@@ -3,76 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class ExplosiveRobot : MonoBehaviour, IEnemy
+public class ExplosiveRobot : GroundEnemyScript, IEnemy
 {
-    [SerializeField] private List<OnPowerupInteract> powerUps = new List<OnPowerupInteract>();
-    [SerializeField] private float MAX_HEALTH = 30f;
-    [SerializeField] private Animator animator;
     [SerializeField] private GameObject explosion;
-    [SerializeField] private float movementSpeed;
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Seeker seeker;
-    private float currentHealth;
-    private bool isInfinite = false;
-
-    private Player player;
-    private GameObject playerCenter;
-    private float nextWaypointDistance = 0.1f;
-    private Path path;
-    private int currentWayPoint = 0;
-    private const string UPDATE_PATH = "UpdatePath";
-    private const string PLAYER_CENTER = "PlayerCenter";
     private const float EXPLODE_DISTANCE = 1f;
 
-    void Start()
+    protected override void Start()
     {
-        player = Player.Instance;
-        playerCenter = GameObject.FindGameObjectWithTag(PLAYER_CENTER);
-        currentHealth = MAX_HEALTH;
-
-        if (seeker != null && playerCenter != null)
-        {
-            InvokeRepeating(UPDATE_PATH, 0f, 0.5f);
-            seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
-        }
-        else
-        {
-            Debug.LogError("Seeker or PlayerCenter is null in ExplosiveRobot");
-        }
-
-        if (MainMenu.mode == MainMenu.Mode.Infinity)
-        {
-            isInfinite = true;
-        }
-        else
-        {
-            isInfinite = false;
-        }
+        nextWaypointDistance = 0.1f;
+        base.Start();
     }
 
-    void UpdatePath()
-    {
-        if (seeker == null)
-        {
-            Debug.Log("Seeker is null in ExplosiveRobot");
-            return;
-        }
-        if (seeker.IsDone())
-        {
-            seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
-        }
-    }
 
-    private void OnPathComplete(Path p)
-    {
-        if (!p.error)
-        {
-            path = p;
-            currentWayPoint = 0;
-        }
-    }
-
-    void Update()
+    protected override void Update()
     {
         if (player == null || playerCenter == null || rb == null)
         {
@@ -95,7 +38,7 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
         }
     }
 
-    void FixedUpdate()
+    protected override void FixedUpdate()
     {
         if (player == null || rb == null)
         {
@@ -119,17 +62,7 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
         }
     }
 
-    public void TakeDamage(float damage)
-    {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
-        {
-            currentHealth = 0;
-            Die();
-        }
-    }
-
-    private void SpawnPowerUp()
+    protected override void SpawnPowerUp()
     {
         if (powerUps.Count == 0)
         {
@@ -155,21 +88,8 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
         }
     }
 
-    private void SpawnCoin()
-    {
-        if (CoinPoolingAPI.SharedInstance != null)
-        {
-            CoinScript coin = CoinPoolingAPI.SharedInstance.GetPooledCoin();
-            coin.transform.position = transform.position;
-            coin.gameObject.SetActive(true);
-        }
-        else
-        {
-            Debug.LogError("CoinPoolingAPI is null in ExplosiveRobot");
-        }
-    }
 
-    private void Die()
+    protected override void Die()
     {
         Destroy(gameObject);
         int randomNumber = Random.Range(0, 6);

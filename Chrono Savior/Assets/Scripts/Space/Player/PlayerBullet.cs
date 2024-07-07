@@ -105,10 +105,6 @@ public class PlayerBullet : MonoBehaviour
         {
             PoolManager.Instance.ReturnToPool(gameObject.tag, gameObject);
         }
-        else
-        {
-            Debug.LogWarning("PoolManager instance is null in OnDisable.");
-        }
     }
 
     void OnDestroy()

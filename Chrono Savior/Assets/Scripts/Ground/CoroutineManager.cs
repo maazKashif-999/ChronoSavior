@@ -19,8 +19,28 @@ public class CoroutineManager : MonoBehaviour
         }
     }
 
+    void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (_instance != this)
+        {
+            Debug.LogWarning("Multiple instances of CoroutineManager detected. Destroying duplicate.");
+            Destroy(gameObject);
+        }
+    }
+
     public void StartCor(IEnumerator coroutine)
     {
+        if (coroutine == null)
+        {
+            Debug.LogError("Attempted to start a null coroutine.");
+            return;
+        }
+
         StartCoroutine(coroutine);
     }
 }

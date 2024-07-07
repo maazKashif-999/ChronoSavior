@@ -22,8 +22,6 @@ public class BossScript : MonoBehaviour, IEnemy
     [SerializeField] private AudioClip missileSound;
     [SerializeField] private AudioClip bulletSound;
 
-
-
     private float currentHealth;
     private GameObject playerCenter;
     private bool alreadySpawned = false;
@@ -77,6 +75,15 @@ public class BossScript : MonoBehaviour, IEnemy
         {
             Debug.LogError("HealthBarController is not assigned in the inspector.");
         }
+
+        if (myaudio == null)
+        {
+            myaudio = GetComponent<AudioSource>();
+            if (myaudio == null)
+            {
+                Debug.LogError("AudioSource component is missing in BossScript.");
+            }
+        }
     }
 
     void UpdatePath()
@@ -88,7 +95,14 @@ public class BossScript : MonoBehaviour, IEnemy
         }
         if (seeker.IsDone())
         {
-            seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
+            if (playerCenter != null)
+            {
+                seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
+            }
+            else
+            {
+                Debug.LogError("PlayerCenter is null in BossScript UpdatePath");
+            }
         }
     }
 
@@ -105,37 +119,45 @@ public class BossScript : MonoBehaviour, IEnemy
     {
         if (player == null || playerCenter == null || rb == null)
         {
-            Debug.LogError("Player, PlayerCenter or Rigidbody2D is null in BossScript");
+            Debug.LogError("Player, PlayerCenter, or Rigidbody2D is null in BossScript");
             return;
         }
         if (!player.IsAlive()) return;
         if (!canTakeDamage) return;
+
         Vector2 distanceVec = playerCenter.transform.position - transform.position;
         float distanceSquared = distanceVec.sqrMagnitude;
+
         if (distanceSquared <= (SHOOT_DISTANCE * SHOOT_DISTANCE))
         {
             if (distanceSquared <= (AWAY_DISTANCE * AWAY_DISTANCE))
             {
                 inRange = true;
-                if (animator == null)
+                if (animator != null)
+                {
+                    animator.SetBool(IS_WALKING, false);
+                }
+                else
                 {
                     Debug.LogError("Animator is null in BossScript");
                     return;
                 }
-                animator.SetBool(IS_WALKING, false);
             }
             else
             {
                 inRange = false;
-                if (animator == null)
+                if (animator != null)
+                {
+                    animator.SetBool(IS_WALKING, true);
+                }
+                else
                 {
                     Debug.LogError("Animator is null in BossScript");
                     return;
                 }
-                animator.SetBool(IS_WALKING, true);
             }
 
-            rb.velocity = new Vector3(0, 0, 0);
+            rb.velocity = Vector3.zero;
             timer += Time.deltaTime;
             if (!firingBullets)
             {
@@ -157,12 +179,15 @@ public class BossScript : MonoBehaviour, IEnemy
         else
         {
             inRange = false;
-            if (animator == null)
+            if (animator != null)
+            {
+                animator.SetBool(IS_WALKING, true);
+            }
+            else
             {
                 Debug.LogError("Animator is null in BossScript");
                 return;
             }
-            animator.SetBool(IS_WALKING, true);
         }
     }
 
@@ -202,6 +227,12 @@ public class BossScript : MonoBehaviour, IEnemy
 
     private void Shoot()
     {
+        if (bullet == null || missile == null || bulletPosition1 == null || bulletPosition2 == null)
+        {
+            Debug.LogError("Bullet, missile, or bullet positions are not assigned in BossScript");
+            return;
+        }
+
         if (firingBullets)
         {
             Instantiate(bullet, bulletPosition1.position, Quaternion.identity);
@@ -211,18 +242,16 @@ public class BossScript : MonoBehaviour, IEnemy
             {
                 myaudio.PlayOneShot(bulletSound);
             }
-
             else
             {
-                Debug.Log("bullet sound from boss not found");
+                Debug.Log("Bullet sound from boss not found");
             }
-
         }
         else
         {
-            if(missileSound!=null && myaudio!= null)
+            if (missileSound != null && myaudio != null)
             {
-                myaudio.PlayOneShot(missileSound); 
+                myaudio.PlayOneShot(missileSound);
             }
             else
             {
@@ -235,6 +264,7 @@ public class BossScript : MonoBehaviour, IEnemy
     public void TakeDamage(float damage)
     {
         if (!canTakeDamage) return;
+
         float filteredDamage = damage;
         if (player != null)
         {
@@ -244,6 +274,7 @@ public class BossScript : MonoBehaviour, IEnemy
                 filteredDamage /= damageMultiplier;
             }
         }
+
         currentHealth -= filteredDamage;
 
         if (currentHealth <= (MAX_HEALTH / 2) && !alreadySpawned)
@@ -269,8 +300,15 @@ public class BossScript : MonoBehaviour, IEnemy
             {
                 Vector3 randomJitter = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
                 CoinScript coin = CoinPoolingAPI.SharedInstance.GetPooledCoin();
-                coin.transform.position = transform.position + randomJitter;
-                coin.gameObject.SetActive(true);
+                if (coin != null)
+                {
+                    coin.transform.position = transform.position + randomJitter;
+                    coin.gameObject.SetActive(true);
+                }
+                else
+                {
+                    Debug.LogError("Pooled coin is null in BossScript");
+                }
             }
         }
         else
@@ -286,6 +324,11 @@ public class BossScript : MonoBehaviour, IEnemy
         {
             StoryManager.Instance.DecreaseEnemyCount();
         }
+        else
+        {
+            Debug.LogError("StoryManager is null in BossScript");
+        }
+
         if (animator != null)
         {
             animator.SetTrigger(DEATH);
@@ -294,6 +337,7 @@ public class BossScript : MonoBehaviour, IEnemy
         {
             Debug.LogError("Animator is null in BossScript");
         }
+
         if (explosion != null)
         {
             Instantiate(explosion, transform.position, Quaternion.identity);
@@ -302,6 +346,7 @@ public class BossScript : MonoBehaviour, IEnemy
         {
             Debug.LogError("Explosion is null in BossScript");
         }
+
         float timer = 0;
         while (timer < 1.5f)
         {
@@ -314,6 +359,7 @@ public class BossScript : MonoBehaviour, IEnemy
     {
         alreadySpawned = true;
         canTakeDamage = false;
+
         if (rb != null)
         {
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -340,17 +386,19 @@ public class BossScript : MonoBehaviour, IEnemy
             yield return new WaitForSeconds(2f);
             currentHealth += 10f;
         }
+
         if (invincibleSkin != null && defaultSkin != null)
         {
             invincibleSkin.gameObject.SetActive(false);
             defaultSkin.gameObject.SetActive(true);
         }
+
         if (rb != null)
         {
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
-        canTakeDamage = true;
 
+        canTakeDamage = true;
         firingBullets = false;
     }
 

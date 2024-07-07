@@ -26591,7 +26591,7 @@ MonoBehaviour:
   MAX_AMMO_CAP: 100
   myaudio: {fileID: 118980253}
   bulletSound: {fileID: 8300000, guid: 57946d959de844e20a93de5e0f5e07fe, type: 3}
-  reloadSound: {fileID: 0}
+  reloadSound: {fileID: 8300000, guid: 71bea977aad91463299300338aca36dd, type: 3}
 --- !u!1 &1481566342
 GameObject:
   m_ObjectHideFlags: 0

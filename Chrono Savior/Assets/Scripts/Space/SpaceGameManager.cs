@@ -196,8 +196,6 @@ public class SpaceGameManager : MonoBehaviour
                 // Implement what happens when the game is won
                 if(player != null)
                 {
-                    Debug.Log("In game won");
-
                     PlayerControls playerControls = player.GetComponent<PlayerControls>();
                     if(playerControls != null)
                     {
@@ -350,6 +348,12 @@ public class SpaceGameManager : MonoBehaviour
     public void WinGame()
     {
         //Debug.Log("in main gamewon");
+        Invoke("SetGameWonState", 5f);
+        
+    }
+    public void SetGameWonState()
+    {
         SetGMState(GameManagerState.gamewon);
     }
+    
 }

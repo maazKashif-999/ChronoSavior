@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AchievementManager : MonoBehaviour
 {
     public static AchievementManager Instance;
-
-    public List<Achievement> allAchievements;
-    public GameObject achievementPrefab; // The prefab to display when an achievement is unlocked
-
+    [SerializeField] private List<GameObject> notificationPrefabs; 
+    private Queue<GameObject> queue;
+    [SerializeField] private List<Achievement> allAchievements;
     private List<Achievement> locked;
     private List<Achievement> unlocked;
 
@@ -28,8 +28,10 @@ public class AchievementManager : MonoBehaviour
 
     private void Awake()
     {
+        
         if (Instance == null)
         {
+            PlayerPrefs.DeleteKey("Starship Destroyer");
             Instance = this;
             DontDestroyOnLoad(gameObject);
             InitializeAchievements();
@@ -39,6 +41,11 @@ public class AchievementManager : MonoBehaviour
             {
                 min = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0));
                 max = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, 0));
+            }
+            queue = new Queue<GameObject>();
+            foreach (GameObject obj in notificationPrefabs){
+                obj.SetActive(false);
+                queue.Enqueue(obj);
             }
         }
         else
@@ -68,7 +75,6 @@ public class AchievementManager : MonoBehaviour
                 {
                     locked.Add(loadedAchievement);
                 }
-                DisplayAchievement(loadedAchievement);
             }
             else
             {
@@ -79,7 +85,6 @@ public class AchievementManager : MonoBehaviour
                 SaveAchievements(newAchievement);
             }
         }
-        //PrintAchievements();
     }
 
     public void SaveAchievements(Achievement achievement)
@@ -107,17 +112,19 @@ public class AchievementManager : MonoBehaviour
 
     private void DisplayAchievement(Achievement achievement)
     {
-        Debug.Log("debuf");
-        Vector3 position = new Vector3(0, max.y - counter * 0.5f, 0);
-        GameObject instance = Instantiate(achievementPrefab, position, Quaternion.identity);
+        notificationPrefabs[counter].SetActive(true);
+        NotificationController notificationController = notificationPrefabs[counter].GetComponent<NotificationController>();
+        notificationController.SetMessage($"Achievement Unlocked: {achievement.Name}"); // Set text content
+
+        StartCoroutine(DisplayAchievementCoroutine(notificationPrefabs[counter]));
         counter++;
-        StartCoroutine(DisplayAchievementCoroutine(instance));
+        
     }
 
     private IEnumerator DisplayAchievementCoroutine(GameObject instance)
     {
-        yield return new WaitForSeconds(10f);
-        //Destroy(instance);
+        yield return new WaitForSeconds(5.0f);
+        instance.SetActive(false);
         counter--;
     }
 

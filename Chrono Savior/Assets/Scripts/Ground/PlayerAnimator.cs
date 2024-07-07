@@ -37,7 +37,6 @@ public class PlayerAnimator : MonoBehaviour
                 MyAudio.Stop();
             }
         }
-        
 
 
     }

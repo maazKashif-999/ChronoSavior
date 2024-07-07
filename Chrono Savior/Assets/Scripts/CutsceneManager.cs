@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class CutsceneManager : MonoBehaviour
 {
@@ -13,27 +14,36 @@ public class CutsceneManager : MonoBehaviour
     [SerializeField] private Image fadeOverlay; 
     [SerializeField] private float fadeDuration = 1f;
 
+
     private int currentCutsceneIndex = 0;
     private bool isMidGameCutscene = false;
 
     private void Start()
     {
+        isMidGameCutscene = MainMenu.MidGame;
         fadeOverlay.gameObject.SetActive(true);
         fadeOverlay.color = new Color(0, 0, 0, 1);
         if (!isMidGameCutscene)
         {
             StartCoroutine(PlayCutscene(preModeCutsceneImages, preModeDialogueLines, "Space"));
         }
+
+        else
+        {
+            TriggerMidGameCutscene();
+        }
     }
 
     public void TriggerMidGameCutscene()
     {
-        isMidGameCutscene = true;
         currentCutsceneIndex = 0;
-        StartCoroutine(PlayCutscene(midGameCutsceneImages, midGameDialogueLines));
+        StartCoroutine(PlayCutscene(midGameCutsceneImages, midGameDialogueLines, "GroundCampaign"));
+        
     }
 
-    private IEnumerator PlayCutscene(Sprite[] cutsceneImages, string[] dialogueLines)
+
+
+    private IEnumerator PlayCutscene(Sprite[] cutsceneImages, string[] dialogueLines, string Scene)
     {
         cutsceneImage.gameObject.SetActive(true);
         dialogueText.gameObject.SetActive(true);
@@ -45,7 +55,7 @@ public class CutsceneManager : MonoBehaviour
             dialogueText.text = dialogueLines[currentCutsceneIndex];
             yield return StartCoroutine(FadeFromBlack());
 
-            yield return new WaitForSeconds(4f); // wait time
+            yield return new WaitForSeconds(4f);// wait time
             currentCutsceneIndex++;
         }
 
@@ -55,6 +65,11 @@ public class CutsceneManager : MonoBehaviour
         yield return StartCoroutine(FadeFromBlack());
 
         isMidGameCutscene = false;
+
+        SceneManager.LoadScene(Scene);
+
+
+
     }
 
     private IEnumerator FadeToBlack()

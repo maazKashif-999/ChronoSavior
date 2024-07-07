@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GroundCampaign.unity
     guid: 69e543a77ce914b6b96b36e4680c7826
+  - enabled: 1
+    path: Assets/Scenes/CutsceneScene.unity
+    guid: 4509d26cb39f044599ae3f3b64621b81
   m_configObjects: {}

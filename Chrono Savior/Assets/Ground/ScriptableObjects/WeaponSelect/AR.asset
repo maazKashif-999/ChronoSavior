@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AR
   m_EditorClassIdentifier: 
   weaponName: AR
-  tokenCost: 400
+  tokenCost: 150

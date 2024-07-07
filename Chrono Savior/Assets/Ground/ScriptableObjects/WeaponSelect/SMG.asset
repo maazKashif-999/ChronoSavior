@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: SMG
   m_EditorClassIdentifier: 
   weaponName: SMG
-  tokenCost: 300
+  tokenCost: 100

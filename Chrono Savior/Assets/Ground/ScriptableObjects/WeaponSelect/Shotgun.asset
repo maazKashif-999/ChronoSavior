@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   weaponName: Shotgun
-  tokenCost: 400
+  tokenCost: 150

@@ -9,24 +9,50 @@ public class PowerupPoolingAPI : MonoBehaviour
     [SerializeField] private int amountToPool = 5;
     [SerializeField] private List<OnPowerupInteract> powerupsToPool = new List<OnPowerupInteract>();
     private List<ObjectPool<OnPowerupInteract>> pooledObjects = new List<ObjectPool<OnPowerupInteract>>();
-    
-    // Start is called before the first frame update
-    
+
     void Awake()
     {
-        SharedInstance = this;
+        if (SharedInstance == null)
+        {
+            SharedInstance = this;
+        }
+        else
+        {
+            Destroy(this);
+            Debug.LogError("Multiple instances of PowerupPoolingAPI detected. Destroying duplicate.");
+        }
     }
+
     void Start()
     {
-        for(int i = 0; i < powerupsToPool.Count; i++)
+        if (powerupsToPool == null || powerupsToPool.Count == 0)
+        {
+            Debug.LogError("PowerupsToPool list is not assigned or empty in PowerupPoolingAPI.");
+            return;
+        }
+
+        for (int i = 0; i < powerupsToPool.Count; i++)
         {
             int index = i;
-            pooledObjects.Add(new ObjectPool<OnPowerupInteract>(()=>CreatePowerup(index),null,OnReleaseFromPool,OnPowerupDestroy,true,amountToPool,amountToPool));
+            if (powerupsToPool[index] != null)
+            {
+                pooledObjects.Add(new ObjectPool<OnPowerupInteract>(() => CreatePowerup(index), null, OnReleaseFromPool, OnPowerupDestroy, true, amountToPool, amountToPool));
+            }
+            else
+            {
+                Debug.LogError($"Powerup at index {index} is null in PowerupPoolingAPI.");
+            }
         }
     }
 
     private OnPowerupInteract CreatePowerup(int index)
     {
+        if (index < 0 || index >= powerupsToPool.Count || powerupsToPool[index] == null)
+        {
+            Debug.LogError($"Invalid powerup index or null powerup in PowerupPoolingAPI: {index}");
+            return null;
+        }
+
         OnPowerupInteract powerup = Instantiate(powerupsToPool[index]);
         powerup.gameObject.SetActive(false);
         return powerup;
@@ -34,26 +60,54 @@ public class PowerupPoolingAPI : MonoBehaviour
 
     private void OnReleaseFromPool(OnPowerupInteract powerup)
     {
-        powerup.gameObject.SetActive(false);
+        if (powerup != null)
+        {
+            powerup.gameObject.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("Attempted to release a null powerup in PowerupPoolingAPI.");
+        }
     }
 
     private void OnPowerupDestroy(OnPowerupInteract powerup)
     {
-        Destroy(powerup.gameObject);
+        if (powerup != null)
+        {
+            Destroy(powerup.gameObject);
+        }
+        else
+        {
+            Debug.LogError("Attempted to destroy a null powerup in PowerupPoolingAPI.");
+        }
     }
 
     public OnPowerupInteract GetPooledPowerup(int powerupIndex)
     {
-        if (powerupIndex >= powerupsToPool.Count || powerupIndex < 0) return null;
+        if (powerupIndex >= powerupsToPool.Count || powerupIndex < 0 || pooledObjects[powerupIndex] == null)
+        {
+            Debug.LogError($"Invalid powerup index or null pooled object in PowerupPoolingAPI: {powerupIndex}");
+            return null;
+        }
 
         return pooledObjects[powerupIndex].Get();
     }
 
     public void ReleasePowerup(OnPowerupInteract powerup, int powerupIndex)
     {
-        if (powerupIndex >= powerupsToPool.Count || powerupIndex < 0) return;
+        if (powerupIndex >= powerupsToPool.Count || powerupIndex < 0 || pooledObjects[powerupIndex] == null)
+        {
+            Debug.LogError($"Invalid powerup index or null pooled object in PowerupPoolingAPI: {powerupIndex}");
+            return;
+        }
 
-        pooledObjects[powerupIndex].Release(powerup);
+        if (powerup != null)
+        {
+            pooledObjects[powerupIndex].Release(powerup);
+        }
+        else
+        {
+            Debug.LogError("Attempted to release a null powerup in PowerupPoolingAPI.");
+        }
     }
-    
 }

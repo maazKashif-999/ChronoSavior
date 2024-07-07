@@ -25,19 +25,34 @@ public class OnPowerupInteract : MonoBehaviour
         {
             messageText = messageObject.GetComponent<Text>();
         }
+        else
+        {
+            Debug.LogError("PowerUpMessage GameObject is null in OnPowerupInteract");
+        }
+
+        if (powerup == null)
+        {
+            Debug.LogError("PowerUp is not assigned in OnPowerupInteract");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other != null && other.CompareTag("Player"))
         {
-            powerup.UsePowerUp(other.gameObject);
+            if (powerup != null)
+            {
+                powerup.UsePowerUp(other.gameObject);
+            }
+            else
+            {
+                Debug.LogError("PowerUp is null in OnPowerupInteract");
+            }
 
             if (Player.Instance != null && !gameObject.CompareTag("coins") && !gameObject.CompareTag("token"))
             {
                 Player.Instance.PlayPowerupSound();
             }
-
 
             string powerUpName = FormatPowerUpName(gameObject.name.Replace("(Clone)", "").Trim());
             ShowMessage(powerUpName + " Activated");
@@ -54,7 +69,14 @@ public class OnPowerupInteract : MonoBehaviour
                 else if (name == SHIELD_POWERUP) index = 5;
                 else if (name == SPEED_POWERUP) index = 6;
 
-                PowerupPoolingAPI.SharedInstance.ReleasePowerup(this, index);
+                if (index != -1)
+                {
+                    PowerupPoolingAPI.SharedInstance.ReleasePowerup(this, index);
+                }
+                else
+                {
+                    Debug.LogError("Invalid powerup name in OnPowerupInteract");
+                }
             }
             else
             {
@@ -69,14 +91,21 @@ public class OnPowerupInteract : MonoBehaviour
         {
             CoroutineManager.Instance.StartCor(DisplayMessage(message));
         }
+        else
+        {
+            Debug.LogError("MessageText is null in OnPowerupInteract");
+        }
     }
 
     private IEnumerator DisplayMessage(string message)
     {
-        messageText.text = message;
-        messageText.enabled = true;
-        yield return new WaitForSeconds(messageDuration);
-        messageText.enabled = false;
+        if (messageText != null)
+        {
+            messageText.text = message;
+            messageText.enabled = true;
+            yield return new WaitForSeconds(messageDuration);
+            messageText.enabled = false;
+        }
     }
 
     private string FormatPowerUpName(string name)

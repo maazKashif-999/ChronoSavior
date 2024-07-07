@@ -7,22 +7,32 @@ using UnityEngine.AI;
 public class WeaponSwitch : MonoBehaviour
 {
     public event EventHandler OnWeaponSet;
-    [SerializeField] private AmmoUIController ammoUIController; 
+    [SerializeField] private AmmoUIController ammoUIController;
     private Camera mainCamera;
     private Vector3 mousePosition;
     private Player player;
     private int selectedWeaponIndex = 0;
-    private int[] weaponIndex = new int[] {0, 3, 2};
-
+    private int[] weaponIndex = new int[] { 0, 3, 2 };
 
     // Start is called before the first frame update
-    
     void Start()
     {
         mainCamera = Camera.main;
         player = Player.Instance;
+
+        if (mainCamera == null)
+        {
+            Debug.LogError("Main Camera not found in WeaponSwitch.");
+        }
+
+        if (player == null)
+        {
+            Debug.LogError("Player instance not found in WeaponSwitch.");
+        }
+
         SelectedWeapon(selectedWeaponIndex);
-        if(MainMenu.mode == MainMenu.Mode.Campaign)
+
+        if (MainMenu.mode == MainMenu.Mode.Campaign)
         {
             weaponIndex[1] = -1;
             weaponIndex[2] = -1;
@@ -36,13 +46,14 @@ public class WeaponSwitch : MonoBehaviour
         {
             return;
         }
-       
-        if(player == null)
+
+        if (player == null)
         {
             Debug.LogError("Player not found in WeaponSwitch.");
             return;
         }
-        if(mainCamera == null)
+
+        if (mainCamera == null)
         {
             Debug.LogError("Main Camera not found in WeaponSwitch.");
             return;
@@ -55,7 +66,7 @@ public class WeaponSwitch : MonoBehaviour
         float rotationZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rotationZ);
 
-        if((rotationZ >= 90 && rotationZ <= 180) || (rotationZ <= -90 && rotationZ >= -180))
+        if ((rotationZ >= 90 && rotationZ <= 180) || (rotationZ <= -90 && rotationZ >= -180))
         {
             transform.localScale = new Vector3(1, -1, 1);
         }
@@ -79,34 +90,20 @@ public class WeaponSwitch : MonoBehaviour
             selectedWeaponIndex = 2;
             SelectedWeapon(weaponIndex[selectedWeaponIndex]);
         }
-        else if(Input.GetKeyDown(KeyCode.Tab))
+        else if (Input.GetKeyDown(KeyCode.Tab))
         {
             selectedWeaponIndex = (selectedWeaponIndex + 1) % weaponIndex.Length;
             SelectedWeapon(weaponIndex[selectedWeaponIndex]);
         }
-        
     }
 
-    
     void SelectedWeapon(int selectedWeapon)
     {
-        if(selectedWeapon == -1)
+        if (selectedWeapon == -1)
         {
-            // for(int i = 0; i < transform.childCount; i++)
-            // {
-            //     Transform currentWeapon = transform.GetChild(i);
-            //     currentWeapon.gameObject.SetActive(false);
-            // }
-            // if(ammoUIController != null)
-            // {
-            //     ammoUIController.SetCurrentGun(null);
-            // }
-            // else
-            // {
-            //     Debug.LogError("AmmoUIController not found in WeaponSwitch.");
-            // }
             selectedWeapon = 0;
         }
+
         for (int i = 0; i < transform.childCount; i++)
         {
             Transform currentWeapon = transform.GetChild(i);
@@ -114,9 +111,9 @@ public class WeaponSwitch : MonoBehaviour
             {
                 currentWeapon.gameObject.SetActive(true);
                 GunShoot gunShoot = currentWeapon.GetComponent<GunShoot>();
-                if(gunShoot != null)
+                if (gunShoot != null)
                 {
-                    if(ammoUIController != null)
+                    if (ammoUIController != null)
                     {
                         ammoUIController.SetCurrentGun(gunShoot);
                     }
@@ -124,13 +121,11 @@ public class WeaponSwitch : MonoBehaviour
                     {
                         Debug.LogError("AmmoUIController not found in WeaponSwitch.");
                     }
-                    
                 }
                 else
                 {
                     Debug.LogError("GunShoot component not found in WeaponSwitch.");
                 }
-                
             }
             else
             {
@@ -143,46 +138,41 @@ public class WeaponSwitch : MonoBehaviour
     {
         weaponIndex[1] = selectedWeapon;
 
-        // while(weaponIndex[1] == weaponIndex[2])
-        // {
-        //     weaponIndex[2] = UnityEngine.Random.Range(1,5);
-        // }
-        if(weaponIndex[1] == weaponIndex[2])
+        if (weaponIndex[1] == weaponIndex[2])
         {
             weaponIndex[2] = -1;
         }
-        OnWeaponSet?.Invoke(this,EventArgs.Empty);
+        OnWeaponSet?.Invoke(this, EventArgs.Empty);
     }
 
     public void SetThirdWeapon(int selectedWeapon)
     {
         weaponIndex[2] = selectedWeapon;
-        // while(weaponIndex[1] == weaponIndex[2])
-        // {
-        //     weaponIndex[1] = UnityEngine.Random.Range(1,5);
-        // }
-        if(weaponIndex[1] == weaponIndex[2])
+
+        if (weaponIndex[1] == weaponIndex[2])
         {
             weaponIndex[1] = -1;
         }
-        OnWeaponSet?.Invoke(this,EventArgs.Empty);
+        OnWeaponSet?.Invoke(this, EventArgs.Empty);
     }
 
     public string GetSecondWeaponName()
     {
-        if(weaponIndex[1] == -1)
+        if (weaponIndex[1] == -1)
         {
             return "Not Selected";
         }
-        return transform.GetChild(weaponIndex[1]).name;
+        Transform secondWeapon = transform.GetChild(weaponIndex[1]);
+        return secondWeapon != null ? secondWeapon.name : "Not Selected";
     }
 
     public string GetThirdWeaponName()
     {
-        if(weaponIndex[2] == -1)
+        if (weaponIndex[2] == -1)
         {
             return "Not Selected";
         }
-        return transform.GetChild(weaponIndex[2]).name;
+        Transform thirdWeapon = transform.GetChild(weaponIndex[2]);
+        return thirdWeapon != null ? thirdWeapon.name : "Not Selected";
     }
 }

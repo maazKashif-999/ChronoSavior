@@ -14,39 +14,41 @@ public class MissileScript : MonoBehaviour
     private const int TRIGGER_LAYER = 14;
     private const int ENEMY_BULLET_LAYER = 13;
     private const string PLAYER_CENTER = "PlayerCenter";
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playerCenter = GameObject.FindGameObjectWithTag(PLAYER_CENTER);
 
-        if(playerCenter != null && rb != null)
+        if (playerCenter != null && rb != null)
         {
             Vector3 direction = playerCenter.transform.position - transform.position;
-            rb.velocity = new Vector2(direction.x,direction.y).normalized * force;
+            rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
             float rot = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0,0,rot + rotation);
+            transform.rotation = Quaternion.Euler(0, 0, rot + rotation);
         }
         else
         {
-            Debug.LogError("PlayerCenter or Rigidbody2D is null in EnemyBulletScript");
+            Debug.LogError("PlayerCenter or Rigidbody2D is null in MissileScript");
         }
         StartCoroutine(DestroyAfterDelay(5f));
     }
 
     void Update()
     {
-        if(playerCenter != null)
+        if (playerCenter != null && rb != null)
         {
             Vector3 direction = playerCenter.transform.position - transform.position;
-            rb.velocity = new Vector2(direction.x,direction.y).normalized * force;
+            rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == ENEMY_LAYER || collision.gameObject.layer == POWERUP_LAYER || collision.gameObject.layer == TRIGGER_LAYER || collision.gameObject.layer == ENEMY_BULLET_LAYER) return;
+        if (collision.gameObject.layer == ENEMY_LAYER || collision.gameObject.layer == POWERUP_LAYER || collision.gameObject.layer == TRIGGER_LAYER || collision.gameObject.layer == ENEMY_BULLET_LAYER) return;
+
         Player player = collision.GetComponent<Player>();
-        if(player)
+        if (player != null)
         {
             player.TakeDamage(bulletDamage);
             player.BossDamage = true;

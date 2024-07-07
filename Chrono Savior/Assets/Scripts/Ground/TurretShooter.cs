@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TurretShooter : MonoBehaviour, IEnemy
 {
-    // Start is called before the first frame update
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletPosition;
     [SerializeField] private GameObject active;
@@ -18,43 +17,46 @@ public class TurretShooter : MonoBehaviour, IEnemy
     private float timer;
     private const float TIME_BETWEEN_SHOTS = 1.5f;
     private const float DETECT_DISTANCE = 5f;
-    
-    void Start() 
+
+    void Start()
     {
         player = Player.Instance;
+        if (player == null)
+        {
+            Debug.LogError("Player instance is null in TurretShooter.");
+        }
+
         currentHealth = MAX_HEALTH;
-        if(idle != null)
+
+        if (idle != null)
         {
             idle.SetActive(true);
         }
         else
         {
-            Debug.LogError("Idle is null in TurretShooter");
+            Debug.LogError("Idle is null in TurretShooter.");
         }
-        if(active != null)
+
+        if (active != null)
         {
             active.SetActive(false);
         }
         else
         {
-            Debug.LogError("Active is null in TurretShooter");
+            Debug.LogError("Active is null in TurretShooter.");
         }
-        if(MainMenu.mode == MainMenu.Mode.Infinity)
+
+        if (MainMenu.mode == MainMenu.Mode.Infinity)
         {
             isInfinite = true;
         }
-        else
-        {
-            isInfinite = false;
-        }
     }
-    
-    // Update is called once per frame
+
     void Update()
     {
-        if(player == null || idle == null || active == null)
+        if (player == null || idle == null || active == null)
         {
-            Debug.LogError("Player, idle or active is null in TurretShooter.");
+            Debug.LogError("Player, idle, or active is null in TurretShooter.");
             return;
         }
 
@@ -62,14 +64,17 @@ public class TurretShooter : MonoBehaviour, IEnemy
         {
             return;
         }
+
         Vector2 distanceVec = player.transform.position - transform.position;
         float distanceSquared = distanceVec.sqrMagnitude;
-        if(distanceSquared < (DETECT_DISTANCE * DETECT_DISTANCE))
+
+        if (distanceSquared < (DETECT_DISTANCE * DETECT_DISTANCE))
         {
             idle.SetActive(false);
             active.SetActive(true);
             timer += Time.deltaTime;
-            if(timer > TIME_BETWEEN_SHOTS)
+
+            if (timer > TIME_BETWEEN_SHOTS)
             {
                 Shoot();
                 timer = 0;
@@ -84,40 +89,45 @@ public class TurretShooter : MonoBehaviour, IEnemy
 
     void Shoot()
     {
-        if(bullet == null || bulletPosition == null)
+        if (bullet == null || bulletPosition == null)
         {
-            Debug.LogError("Bullet or bulletPosition is null in TurretShooter");
+            Debug.LogError("Bullet or bulletPosition is null in TurretShooter.");
             return;
         }
+
         Instantiate(bullet, bulletPosition.position, Quaternion.identity);
     }
 
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        if(currentHealth <= 0)
+
+        if (currentHealth <= 0)
         {
             Die();
         }
     }
+
     void Die()
     {
-        if(deathAnimation == null)
+        if (deathAnimation == null)
         {
-            Debug.LogError("Death animation is null in TurretShooter");
+            Debug.LogError("Death animation is null in TurretShooter.");
             return;
         }
-        if(!isInfinite && StoryManager.Instance != null)
+
+        if (!isInfinite && StoryManager.Instance != null)
         {
             StoryManager.Instance.DecreaseEnemyCount();
         }
-        if(isInfinite)
+
+        if (isInfinite && StateManagement.Instance != null)
         {
             StateManagement.Instance.SetGroundKillCount(StateManagement.Instance.GetGroundKillCount() + 1);
             Debug.Log(StateManagement.Instance.GetGroundKillCount());
         }
+
         Instantiate(deathAnimation, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
-
 }

@@ -11,12 +11,26 @@ public class ShieldBarController : MonoBehaviour
     void Start()
     {
         player = Player.Instance;
+        if (player == null)
+        {
+            Debug.LogError("Player instance is null in ShieldBarController.");
+        }
+
+        if (shieldBarImage == null)
+        {
+            Debug.LogError("ShieldBarImage is not assigned in the inspector.");
+        }
+
+        if (shieldBarSprites == null || shieldBarSprites.Length == 0)
+        {
+            Debug.LogError("ShieldBarSprites array is not assigned or empty in the inspector.");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player != null)
+        if (player != null && shieldBarImage != null && shieldBarSprites != null && shieldBarSprites.Length > 0)
         {
             UpdateShieldBar(player.GetCurrentShield());
         }
@@ -24,8 +38,8 @@ public class ShieldBarController : MonoBehaviour
 
     void UpdateShieldBar(float currentShield)
     {
-        int shieldIndex = Mathf.FloorToInt(currentShield / (Player.MAX_SHIELD / 7f));
-        shieldIndex = Mathf.Clamp(shieldIndex, 0, 6);
+        int shieldIndex = Mathf.FloorToInt(currentShield / (Player.MAX_SHIELD / (float)shieldBarSprites.Length));
+        shieldIndex = Mathf.Clamp(shieldIndex, 0, shieldBarSprites.Length - 1);
         shieldBarImage.sprite = shieldBarSprites[shieldIndex];
     }
 }

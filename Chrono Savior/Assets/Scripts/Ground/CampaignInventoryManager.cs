@@ -34,7 +34,6 @@ public class CampaignInventoryManager : MonoBehaviour
         {
             tokens = StateManagement.Instance.GetTokens();
             tokensText.text = tokens.ToString();
-            tokens = 1000;
             secondWeapon.text = "Second Weapon: Not Selected";
             thirdWeapon.text = "Third Weapon: Not Selected";
             weaponSwitch.OnWeaponSet += OnWeaponChanged;

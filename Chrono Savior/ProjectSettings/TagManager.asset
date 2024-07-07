@@ -30,6 +30,7 @@ TagManager:
   - AesteroidExplosion
   - ShipExplosion
   - BombExplosion
+  - PowerUpMessage1
   layers:
   - Default
   - TransparentFX

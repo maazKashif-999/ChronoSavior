@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 735118375819177521}
   - component: {fileID: 7261821075971285129}
   m_Layer: 12
-  m_Name: energymultiplier
+  m_Name: EnergyMultiplier
   m_TagString: Energy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

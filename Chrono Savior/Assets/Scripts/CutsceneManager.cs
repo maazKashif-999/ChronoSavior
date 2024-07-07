@@ -128,7 +128,7 @@ public class CutsceneManager : MonoBehaviour
     [SerializeField] private string[] endGameDialogueLines;
     [SerializeField] private Image fadeOverlay;
     [SerializeField] private float fadeDuration = 1f;
-    private string scene = "Space";
+    private string scene;
 
     private int currentCutsceneIndex = 0;
     private bool isMidGameCutscene = false;
@@ -141,10 +141,12 @@ public class CutsceneManager : MonoBehaviour
         fadeOverlay.color = new Color(0, 0, 0, 1);
         if (!isMidGameCutscene)
         {
-            StartCoroutine(PlayCutscene(preModeCutsceneImages, preModeDialogueLines, "Space"));
+             scene = "Space";
+             StartCoroutine(PlayCutscene(preModeCutsceneImages, preModeDialogueLines, "Space"));
         }
         else if(MainMenu.EndGame)
         {
+            scene = "Main Menu";
             TriggerEndGameCutscene();
         }            
         else

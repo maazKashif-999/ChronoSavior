@@ -4,10 +4,15 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public static bool gameIsPaused = false;
-    public GameObject pauseMenuUI;
+    [SerializeField] private GameObject pauseMenuUI;
+    private InventoryManager inventoryManager;
+    private CampaignInventoryManager campaignInventoryManager;
+    
 
     void Start()
     {
+        inventoryManager = FindObjectOfType<InventoryManager>();
+        campaignInventoryManager = FindObjectOfType<CampaignInventoryManager>();
         if (pauseMenuUI == null)
         {
             Debug.LogError("PauseMenuUI is not assigned!");
@@ -21,14 +26,33 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("Escape key pressed");
-            if (gameIsPaused)
+            if(inventoryManager != null)
             {
-                Resume();
+                if(inventoryManager.gameObject.activeInHierarchy)
+                {
+                    HandleEscapeOnMenu();
+                }
+                else
+                {
+                    HandleEscape();
+                
+                }
+            }
+            else if(campaignInventoryManager != null)
+            {
+                if(campaignInventoryManager.gameObject.activeInHierarchy)
+                {
+                    HandleEscapeOnMenu();
+                }
+                else
+                {
+                    HandleEscape();
+                
+                }
             }
             else
             {
-                Pause();
+                HandleEscape();
             }
         }
     }
@@ -37,9 +61,19 @@ public class PauseMenu : MonoBehaviour
     {
         if (pauseMenuUI != null)
         {
+            if((inventoryManager != null && inventoryManager.gameObject.activeInHierarchy) || (campaignInventoryManager != null && campaignInventoryManager.gameObject.activeInHierarchy))
+            {
+                Time.timeScale = 0f;
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                gameIsPaused = false;
+            }
+            
             pauseMenuUI.SetActive(false);
-            Time.timeScale = 1f;
-            gameIsPaused = false;
+            // Time.timeScale = 1f;
+            // gameIsPaused = false;
         }
     }
 
@@ -58,5 +92,32 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         gameIsPaused = false;
         SceneManager.LoadScene("Main Menu"); 
+    }
+
+    private void HandleEscape()
+    {
+        if (gameIsPaused)
+        {
+            Resume();
+        }
+        else
+        {
+            Pause();
+        }
+    }
+
+    private void HandleEscapeOnMenu()
+    {
+        if(pauseMenuUI != null)
+        {
+            if(!pauseMenuUI.activeInHierarchy)
+            {
+                pauseMenuUI.SetActive(true);
+            }
+            else
+            {
+                pauseMenuUI.SetActive(false);
+            }
+        }
     }
 }

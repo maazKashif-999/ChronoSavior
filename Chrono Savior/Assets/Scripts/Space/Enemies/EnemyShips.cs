@@ -7,9 +7,6 @@ public class EnemyShip : MonoBehaviour
     private Color originalColor;
     protected float speed; // Speed of the enemy ship
     protected float limitXPosition; // X position where the ship stops
-    [SerializeField] private GameObject bulletPrefab; // Prefab of the bullet
-    [SerializeField] private GameObject explosion; // Prefab of the explosion
-    [SerializeField] private GameObject coinPrefab; // Prefab of the coins
     [SerializeField] private GameObject tokenPrefab;
     [SerializeField] private List<string> powerupPrefabs;
     protected float fireInterval; // Interval between consecutive bullet fires
@@ -67,7 +64,7 @@ public class EnemyShip : MonoBehaviour
 
     protected virtual void FireBullet()
     {
-        if (bulletPrefab != null)
+        if (PoolManager.Instance != null)
         {
             GameObject bullet = PoolManager.Instance.SpawnFromPool(bulletTag, transform.position, Quaternion.identity);
             PlayerBullet bulletScript = bullet.GetComponent<PlayerBullet>();

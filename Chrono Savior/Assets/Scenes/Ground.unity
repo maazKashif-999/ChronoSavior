@@ -1337,7 +1337,7 @@ MonoBehaviour:
   bullet: {fileID: 8650246631434452996, guid: ded7880ae41a34153b807599da73108d, type: 3}
   bulletTransform: {fileID: 1047590223}
   canFire: 1
-  timeBeteenShots: 1
+  timeBeteenShots: 0.7
   maxCapacity: 12
   reloadTime: 1
   MAX_AMMO_CAP: 90

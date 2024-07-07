@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletType: Shotgun
-  force: 20
+  force: 15
   bulletDamage: 30
 --- !u!61 &4831818068501183074
 BoxCollider2D:

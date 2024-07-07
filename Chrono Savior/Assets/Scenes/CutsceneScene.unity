@@ -258,8 +258,12 @@ MonoBehaviour:
     journey to Dr Evelyn Hart\u2019s space base to try to stop him and prevent the
     apocalyptic future from unfolding."
   midGameCutsceneImages:
+  - {fileID: 21300000, guid: 4c3172cffd7b5499587a56e315b8ede0, type: 3}
+  - {fileID: 21300000, guid: 013c27d0d176d4c4b90b72e5c7d09270, type: 3}
   - {fileID: 21300000, guid: 786d10789557b44b4b18e66e076e6eb5, type: 3}
   midGameDialogueLines:
+  - 
+  - 
   - Its now or never...
   fadeOverlay: {fileID: 774605607}
   fadeDuration: 1
@@ -538,6 +542,7 @@ GameObject:
   - component: {fileID: 1975442340}
   - component: {fileID: 1975442343}
   - component: {fileID: 1975442344}
+  - component: {fileID: 1975442345}
   m_Layer: 5
   m_Name: DialogueText
   m_TagString: Untagged
@@ -603,8 +608,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.9706, y: -402.49823}
-  m_SizeDelta: {x: 1870.0586, y: 163.1449}
+  m_AnchoredPosition: {x: 3.473, y: -411.08975}
+  m_SizeDelta: {x: 1771.2563, y: 180.3279}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1975442343
 MonoBehaviour:
@@ -618,7 +623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.79607844}
+  m_EffectColor: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 1}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
 --- !u!114 &1975442344
@@ -634,7 +639,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 2, y: -2}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
+--- !u!114 &1975442345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975442339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.16981131, g: 0.16260234, b: 0.16260234, a: 1}
+  m_EffectDistance: {x: 5, y: -5}
   m_UseGraphicAlpha: 1
 --- !u!1 &2078643359
 GameObject:

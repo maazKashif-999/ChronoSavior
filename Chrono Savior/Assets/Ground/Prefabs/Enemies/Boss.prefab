@@ -196,6 +196,8 @@ MonoBehaviour:
   defaultSkin: {fileID: 1741845613103422832}
   explosion: {fileID: 8388390182983040267, guid: 082c0b0d232834f85b1e9cf0334b59af, type: 3}
   healthBarController: {fileID: 1964330487350287640}
+  missileSound: {fileID: 8300000, guid: 15700c8a1c96b4123b3b64e5e052e2c3, type: 3}
+  bulletSound: {fileID: 8300000, guid: 646e6f24a4bbd4266af447cfb74372ed, type: 3}
 --- !u!1 &4093573960625866014
 GameObject:
   m_ObjectHideFlags: 0

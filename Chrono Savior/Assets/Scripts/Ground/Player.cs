@@ -34,6 +34,12 @@ public class Player : MonoBehaviour
     private bool bossDamage = false;
     private bool takenDamage = false;
 
+
+    //[SerializeField] private GameObject muzzleFlashPrefab;
+    //[SerializeField] private Transform firePoint; 
+
+
+
     public bool BossDamage{
         get{return bossDamage;}
         set{bossDamage = value;}
@@ -168,6 +174,7 @@ public class Player : MonoBehaviour
         takenDamage = true;
 
 
+        playDamageSound();
 
         if (currentShield > 0)
         {
@@ -352,4 +359,14 @@ public class Player : MonoBehaviour
         }
     }
 
+
+    //private void TriggerMuzzleFlash()
+    //{
+    //    if (muzzleFlashPrefab != null && firePoint != null)
+    //    {
+    //        GameObject muzzleFlash = Instantiate(muzzleFlashPrefab, firePoint.position, firePoint.rotation);
+
+    //        Destroy(muzzleFlash, 0.1f); 
+    //    }
+    //}
 }

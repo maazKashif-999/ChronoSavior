@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour
     private int MainMenuIndex = 0;
     private int Space = 1;
     private int GroundInfinityIndex = 2;
-    private int GroundCampaignIndex = 3;
+    // private int GroundCampaignIndex = 3;
     private int CutScene = 4;
     //[SerializeField] private CutsceneManager CutsceneManager;
 

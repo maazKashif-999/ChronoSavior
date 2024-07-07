@@ -262,9 +262,29 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 013c27d0d176d4c4b90b72e5c7d09270, type: 3}
   - {fileID: 21300000, guid: 786d10789557b44b4b18e66e076e6eb5, type: 3}
   midGameDialogueLines:
-  - 
-  - 
+  - That was a close one! You've finally made it to the moon!
+  - Time to find Dr Hart
   - Its now or never...
+  endGameCutsceneImages:
+  - {fileID: 21300000, guid: 488ad186a00854dec81f264b73fa1da6, type: 3}
+  - {fileID: 21300000, guid: 0f5899d4c12f14fb1b9e8bd28d015ea8, type: 3}
+  - {fileID: 21300000, guid: 85a401ce3f9d84ab2841524ead986f8e, type: 3}
+  - {fileID: 21300000, guid: 568afb512667446d69e397185d3d24bf, type: 3}
+  - {fileID: 21300000, guid: 21f4db8eac32e485b84a6b49489e9e2d, type: 3}
+  - {fileID: 21300000, guid: ba501238f39644fafa4763d08caa7dde, type: 3}
+  endGameDialogueLines:
+  - With a display of unmatched valor, you have triumphed over the mechanical menace.
+    The battlefield is now a silent testament to your strength and courage
+  - As the final explosion lights up the lunar surface, the doctors base is no more.
+    You watch as the last remnants of their power fade into the void of space
+  - As you destroy the lair. The Evil Doctor grins, knowing he's one step ahead.
+    'This isn't over,' he sneers, escaping the scene. The chase continues...
+  - Peace returns to the world, and life resumes its natural course. Thanks to your
+    bravery, everything is back to normal. The future looks bright, and humanity
+    thrives once more.
+  - After a long and arduous journey, you stand victorious. The Earth, once again
+    safe, awaits your return. A new dawn breaks, heralding peace and tranquility.
+  - Dr Evelyn Hart retreats, planning his next move...
   fadeOverlay: {fileID: 774605607}
   fadeDuration: 1
 --- !u!4 &555409748

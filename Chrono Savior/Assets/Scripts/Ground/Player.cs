@@ -188,9 +188,10 @@ public class Player : MonoBehaviour
         {
             currentHealth -= damage;
         }
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && isAlive)
         {
             currentHealth = 0;
+            isAlive = false;
             Instantiate(playerDeath, new Vector2(transform.position.x, transform.position.y - 0.25f), Quaternion.identity);
             StartCoroutine(Die());
         }
@@ -198,7 +199,7 @@ public class Player : MonoBehaviour
 
     IEnumerator Die()
     {
-        isAlive = false;
+        
         yield return new WaitForSeconds(0.6f);
         if(StateManagement.Instance != null)
         {

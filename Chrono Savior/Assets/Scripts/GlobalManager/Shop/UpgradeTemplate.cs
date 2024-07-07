@@ -11,18 +11,29 @@ public class UpgradeTemplate : MonoBehaviour
 
     public void SetUpgradeItem(UpgradeTemplateSO upgradeItem)
     {
-        titleText.text = upgradeItem.title;
-        if(StateManagement.Instance != null)
+        if(upgradeItem == null)
         {
-            int index = StateManagement.Instance.GetUpgradeIndex(upgradeItem.title);
-            upgradeCountText.text = (index) + "/5";
-            priceText.text = "Coins: " + upgradeItem.prices[index].ToString();
+            return;
         }
-        else
+        if(titleText != null)
         {
-            upgradeCountText.text = "0/5";
-            priceText.text = "Coins: " + upgradeItem.prices[0].ToString();
+            titleText.text = upgradeItem.title;
         }
+        if(upgradeCountText != null && priceText != null)
+        {
+            if(StateManagement.Instance != null)
+            {
+                int index = StateManagement.Instance.GetUpgradeIndex(upgradeItem.title);
+                upgradeCountText.text = (index) + "/5";
+                priceText.text = "Coins: " + upgradeItem.prices[index].ToString();
+            }
+            else
+            {
+                upgradeCountText.text = "0/5";
+                priceText.text = "Coins: " + upgradeItem.prices[0].ToString();
+            }
+        }
+        
         
         
         

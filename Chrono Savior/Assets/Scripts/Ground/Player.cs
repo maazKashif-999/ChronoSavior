@@ -34,6 +34,12 @@ public class Player : MonoBehaviour
     private bool bossDamage = false;
     private bool takenDamage = false;
 
+
+    //[SerializeField] private GameObject muzzleFlashPrefab;
+    //[SerializeField] private Transform firePoint; 
+
+
+
     public bool BossDamage{
         get{return bossDamage;}
         set{bossDamage = value;}
@@ -168,6 +174,7 @@ public class Player : MonoBehaviour
         takenDamage = true;
 
 
+        playDamageSound();
 
         if (currentShield > 0)
         {
@@ -181,9 +188,10 @@ public class Player : MonoBehaviour
         {
             currentHealth -= damage;
         }
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && isAlive)
         {
             currentHealth = 0;
+            isAlive = false;
             Instantiate(playerDeath, new Vector2(transform.position.x, transform.position.y - 0.25f), Quaternion.identity);
             StartCoroutine(Die());
         }
@@ -191,7 +199,7 @@ public class Player : MonoBehaviour
 
     IEnumerator Die()
     {
-        isAlive = false;
+        
         yield return new WaitForSeconds(0.6f);
         if(StateManagement.Instance != null)
         {
@@ -352,4 +360,14 @@ public class Player : MonoBehaviour
         }
     }
 
+
+    //private void TriggerMuzzleFlash()
+    //{
+    //    if (muzzleFlashPrefab != null && firePoint != null)
+    //    {
+    //        GameObject muzzleFlash = Instantiate(muzzleFlashPrefab, firePoint.position, firePoint.rotation);
+
+    //        Destroy(muzzleFlash, 0.1f); 
+    //    }
+    //}
 }

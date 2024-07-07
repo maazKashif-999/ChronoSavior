@@ -662,7 +662,7 @@ MonoBehaviour:
   rb: {fileID: 118980249}
   playerDeath: {fileID: 6876317499932927865, guid: 39018eed0cb9c469b9405fdac8c78bfb, type: 3}
   powerupSound: {fileID: 8300000, guid: 5fd818e0a3c0c43ababb98194346acda, type: 3}
-  damageSound: {fileID: 0}
+  damageSound: {fileID: 8300000, guid: 8dd5d0d232c0d4573935bd7467deecd3, type: 3}
 --- !u!82 &118980253
 AudioSource:
   m_ObjectHideFlags: 0

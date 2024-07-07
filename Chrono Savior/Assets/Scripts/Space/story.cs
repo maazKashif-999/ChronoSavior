@@ -178,7 +178,7 @@ public class EnemyWaveManager : MonoBehaviour
             validPosition = true;
             float spawnX = 8.0f;
             float spawnY = Random.Range(minY+shipSize, maxY-shipSize - screenHeight);
-            spawnPosition = new Vector3(spawnX,  maxY-shipSize - screenHeight, 0f);
+            spawnPosition = new Vector3(spawnX,  spawnY, 0f);
             foreach (float pos in spawnedPositions)
             {
                 if (Mathf.Abs(spawnPosition.y - pos) < minSpacing)

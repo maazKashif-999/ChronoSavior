@@ -215,6 +215,15 @@ public class SpaceGameManager : MonoBehaviour
                             Debug.LogError("StateManagement is not assigned.");
                         }
                     }
+                    if(gameCompletePanel != null)
+                    {
+                        gameCompletePanel.SetActive(true);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("GameCompletePanel GameObject not assigned in SpaceGameManager.");
+                    
+                    }
                 }
                 break;
         }

@@ -33,6 +33,7 @@ public class CampaignInventoryManager : MonoBehaviour
         if(secondWeapon != null && thirdWeapon != null && weaponSwitch != null && StateManagement.Instance != null)
         {
             tokens = StateManagement.Instance.GetTokens();
+            tokens = 10000;
             tokensText.text = tokens.ToString();
             secondWeapon.text = "Second Weapon: Not Selected";
             thirdWeapon.text = "Third Weapon: Not Selected";

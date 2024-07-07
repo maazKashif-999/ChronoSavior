@@ -53,7 +53,7 @@ public class GunShoot : MonoBehaviour
         {
             return;
         }
-        if (currentCapacity <= 0 || Input.GetKeyDown(KeyCode.R))
+        if (currentCapacity <= 0 || (Input.GetKeyDown(KeyCode.R) && currentCapacity < maxCapacity))
         {
             isReloading = true;
             StartCoroutine(Reload());

@@ -12,7 +12,7 @@ public class MainMenu : MonoBehaviour
     public static Mode mode;
 
     public static bool MidGame = false;
-    public static bool EndGame = true;
+    public static bool EndGame = false;
 
     private int MainMenuIndex = 0;
     private int Space = 1;

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Sniper
   m_EditorClassIdentifier: 
   weaponName: Sniper
-  tokenCost: 600
+  tokenCost: 200

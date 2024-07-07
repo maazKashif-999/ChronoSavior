@@ -6,8 +6,7 @@ public class AesteroidPowerup : MonoBehaviour
 {
     [SerializeField] private PowerUpEffect powerUpEffect;
     [SerializeField] private GameObject explosionPrefab;
-    //[SerializeField] private AudioClip explosionSound;
-    //private AudioSource audioSource;
+
 
     [SerializeField] private string prefabTag;
     private float screenEdgeX;
@@ -34,7 +33,10 @@ public class AesteroidPowerup : MonoBehaviour
             
             powerUpEffect.Apply(other.gameObject);
             PoolManager.Instance.SpawnFromPool(prefabTag, transform.position, Quaternion.identity);
-            //PlayExplosionSound();
+            if (PlayerControls.Instance != null && !gameObject.CompareTag("coins") && !gameObject.CompareTag("token"))
+            {
+                PlayerControls.Instance.PlayExplosionSound();
+            }
             gameObject.SetActive(false);
 
         }
@@ -50,11 +52,5 @@ public class AesteroidPowerup : MonoBehaviour
         //Debug.Log("Aesteroid destroyed");
     }
 
-    //private void PlayExplosionSound()
-    //{
-    //    if (audioSource != null && explosionSound != null)
-    //    {
-    //        audioSource.PlayOneShot(explosionSound); // Play the explosion sound effect
-    //    }
-    //}
+
 }

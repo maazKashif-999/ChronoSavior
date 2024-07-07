@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -306316330834329967}
   - component: {fileID: 4202819959798228780}
   m_Layer: 12
-  m_Name: oneshot
+  m_Name: OneShotKill
   m_TagString: OneShot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

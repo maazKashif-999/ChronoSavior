@@ -102,7 +102,7 @@ public class PlayerControls : MonoBehaviour
     private void Start()
     {
         gameManager = FindObjectOfType<SpaceGameManager>(); // Find the GameManager in the scene
-        audioSource = GetComponent<AudioSource>(); // Get the AudioSource component
+        audioSource = GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
     }

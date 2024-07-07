@@ -29956,7 +29956,7 @@ MonoBehaviour:
   MAX_AMMO_CAP: 100
   myaudio: {fileID: 2137780086}
   bulletSound: {fileID: 8300000, guid: 57946d959de844e20a93de5e0f5e07fe, type: 3}
-  reloadSound: {fileID: 0}
+  reloadSound: {fileID: 8300000, guid: 71bea977aad91463299300338aca36dd, type: 3}
 --- !u!1 &441768139
 GameObject:
   m_ObjectHideFlags: 0
@@ -39268,7 +39268,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c7504cb5cfb9346f0bf80570ec22184a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.131
+  m_Volume: 0.323
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -39368,6 +39368,7 @@ MonoBehaviour:
   playerRed: {fileID: 1982448288}
   rb: {fileID: 2137780088}
   playerDeath: {fileID: 6876317499932927865, guid: 39018eed0cb9c469b9405fdac8c78bfb, type: 3}
+  powerupSound: {fileID: 8300000, guid: 5fd818e0a3c0c43ababb98194346acda, type: 3}
 --- !u!50 &2137780088
 Rigidbody2D:
   serializedVersion: 4

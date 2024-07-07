@@ -16,15 +16,14 @@ public class AbilityUIController : MonoBehaviour
         {
             Debug.LogError("Player not found in AbilityUIController.");
         }
-        if(abilityImage == null)
+        if (abilityImage == null)
         {
-            Debug.Log("Ability Image is null in AbilityUIController.");
+            Debug.LogError("Ability Image is null in AbilityUIController.");
         }
         else
         {
             abilityImage.color = normalColor;
         }
-        
     }
 
     // Update is called once per frame
@@ -32,13 +31,20 @@ public class AbilityUIController : MonoBehaviour
     {
         if (player != null)
         {
-            if (player.CanUseAbility())
+            if (abilityImage != null)
             {
-                abilityImage.color = normalColor;
+                if (player.CanUseAbility())
+                {
+                    abilityImage.color = normalColor;
+                }
+                else
+                {
+                    abilityImage.color = cooldownColor;
+                }
             }
             else
             {
-                abilityImage.color = cooldownColor;
+                Debug.LogError("Ability Image is null in AbilityUIController.");
             }
         }
         else

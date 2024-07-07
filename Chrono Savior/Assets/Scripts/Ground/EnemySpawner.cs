@@ -18,9 +18,14 @@ public class EnemySpawner : MonoBehaviour
     private float baseWaitTime = 15f;
     private float waitTimeIncrement = 2f;
 
-    // Start is called before the first frame update
     void Start()
     {
+        if (spawnPoints == null || spawnPoints.Length == 0)
+        {
+            Debug.LogError("Spawn points are not assigned in EnemySpawner.");
+            return;
+        }
+
         StartCoroutine(SpawnWaves());
     }
 
@@ -30,7 +35,7 @@ public class EnemySpawner : MonoBehaviour
         {
             enemiesToSpawn = CalculateEnemiesToSpawn(currentWave);
             SpawnEnemiesForWave(currentWave);
-            yield return new WaitForSeconds(baseWaitTime + waitTimeIncrement * (currentWave - 1)); // currently linearly increasing for teting
+            yield return new WaitForSeconds(baseWaitTime + waitTimeIncrement * (currentWave - 1));
             currentWave++;
         }
     }
@@ -38,8 +43,8 @@ public class EnemySpawner : MonoBehaviour
     private int CalculateEnemiesToSpawn(int wave)
     {
         float funcValue = wave * (wave + 1) / 4.0f;
-        int enemies = (int) Math.Ceiling(funcValue);
-        return enemies; // currently triangularly increasing
+        int enemies = (int)Math.Ceiling(funcValue);
+        return enemies;
     }
 
     private void SpawnEnemiesForWave(int wave)
@@ -82,6 +87,12 @@ public class EnemySpawner : MonoBehaviour
 
     private void AddEnemies(List<GameObject> enemies, GameObject prefab, int count)
     {
+        if (prefab == null)
+        {
+            Debug.LogWarning("Attempted to add enemies with a null prefab.");
+            return;
+        }
+
         for (int i = 0; i < count; i++)
         {
             enemies.Add(prefab);
@@ -90,15 +101,28 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnAtPoints(List<GameObject> enemies)
     {
+        if (spawnPoints.Length == 0)
+        {
+            Debug.LogError("No spawn points assigned in EnemySpawner.");
+            return;
+        }
+
         foreach (GameObject enemy in enemies)
         {
-            Transform spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
-            Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
+            if (enemy != null)
+            {
+                Transform spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
+                Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
+            }
+            else
+            {
+                Debug.LogWarning("Attempted to spawn a null enemy.");
+            }
         }
 
         if (securityTurretPrefab != null)
         {
-            if(UnityEngine.Random.value > 0.5f)
+            if (UnityEngine.Random.value > 0.5f)
             {
                 Transform spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
                 Instantiate(securityTurretPrefab, spawnPoint.position, spawnPoint.rotation);

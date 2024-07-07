@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+
 public class ExplosiveRobot : MonoBehaviour, IEnemy
 {
     [SerializeField] private List<OnPowerupInteract> powerUps = new List<OnPowerupInteract>();
@@ -28,17 +29,18 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
         player = Player.Instance;
         playerCenter = GameObject.FindGameObjectWithTag(PLAYER_CENTER);
         currentHealth = MAX_HEALTH;
-        
-        if(seeker != null && playerCenter != null)
+
+        if (seeker != null && playerCenter != null)
         {
-            InvokeRepeating(UPDATE_PATH,0f,0.5f);
+            InvokeRepeating(UPDATE_PATH, 0f, 0.5f);
             seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
         }
         else
         {
             Debug.LogError("Seeker or PlayerCenter is null in ExplosiveRobot");
         }
-        if(MainMenu.mode == MainMenu.Mode.Infinity)
+
+        if (MainMenu.mode == MainMenu.Mode.Infinity)
         {
             isInfinite = true;
         }
@@ -50,16 +52,17 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
 
     void UpdatePath()
     {
-        if(seeker == null)
+        if (seeker == null)
         {
             Debug.Log("Seeker is null in ExplosiveRobot");
             return;
-        } 
-        if(seeker.IsDone())
+        }
+        if (seeker.IsDone())
         {
             seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
         }
     }
+
     private void OnPathComplete(Path p)
     {
         if (!p.error)
@@ -67,11 +70,11 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
             path = p;
             currentWayPoint = 0;
         }
-        
     }
+
     void Update()
     {
-        if(player == null || playerCenter == null || rb == null)
+        if (player == null || playerCenter == null || rb == null)
         {
             Debug.LogError("Player, PlayerCenter or Rigidbody2D is null in ExplosiveRobot");
             return;
@@ -82,34 +85,35 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
             rb.velocity = Vector2.zero;
             return;
         }
+
         Vector2 distanceVec = playerCenter.transform.position - transform.position;
         float distanceSquared = distanceVec.sqrMagnitude;
-        if(distanceSquared < (EXPLODE_DISTANCE * EXPLODE_DISTANCE))
+        if (distanceSquared < (EXPLODE_DISTANCE * EXPLODE_DISTANCE))
         {
             Instantiate(explosion, transform.position, Quaternion.identity);
             Die();
         }
     }
+
     void FixedUpdate()
     {
-        if(player == null || rb == null)
+        if (player == null || rb == null)
         {
             Debug.LogError("Player or Rigidbody2D is null in ExplosiveRobot");
             return;
         }
-        if(path == null || player.AreEnemiesFrozen()) return;
+        if (path == null || player.AreEnemiesFrozen()) return;
 
-        if(currentWayPoint >= path.vectorPath.Count)
+        if (currentWayPoint >= path.vectorPath.Count)
         {
             return;
         }
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;
-        
         rb.MovePosition(rb.position + (direction * movementSpeed * Time.fixedDeltaTime));
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWayPoint]);
-        
-        if(distance < nextWaypointDistance)
+
+        if (distance < nextWaypointDistance)
         {
             currentWayPoint++;
         }
@@ -117,9 +121,8 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
 
     public void TakeDamage(float damage)
     {
-        
         currentHealth -= damage;
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             currentHealth = 0;
             Die();
@@ -128,14 +131,19 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
 
     private void SpawnPowerUp()
     {
-
-        int index = Random.Range(0, powerUps.Count);
-        if(powerUps[index] == null)
+        if (powerUps.Count == 0)
         {
-            Debug.LogError("PowerUp is null in GunRobot");
+            Debug.LogWarning("No power-ups assigned in ExplosiveRobot.");
             return;
         }
-        if(PowerupPoolingAPI.SharedInstance != null)
+
+        int index = Random.Range(0, powerUps.Count);
+        if (powerUps[index] == null)
+        {
+            Debug.LogError("PowerUp is null in ExplosiveRobot");
+            return;
+        }
+        if (PowerupPoolingAPI.SharedInstance != null)
         {
             OnPowerupInteract powerup = PowerupPoolingAPI.SharedInstance.GetPooledPowerup(index);
             powerup.transform.position = transform.position;
@@ -143,13 +151,13 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
         }
         else
         {
-            Debug.LogError("PowerupPoolingAPI is null in GunRobot");
+            Debug.LogError("PowerupPoolingAPI is null in ExplosiveRobot");
         }
     }
 
     private void SpawnCoin()
     {
-        if(CoinPoolingAPI.SharedInstance != null)
+        if (CoinPoolingAPI.SharedInstance != null)
         {
             CoinScript coin = CoinPoolingAPI.SharedInstance.GetPooledCoin();
             coin.transform.position = transform.position;
@@ -157,35 +165,32 @@ public class ExplosiveRobot : MonoBehaviour, IEnemy
         }
         else
         {
-            Debug.LogError("CoinPoolingAPI is null in GunRobot");
+            Debug.LogError("CoinPoolingAPI is null in ExplosiveRobot");
         }
-    
     }
+
     private void Die()
     {
         Destroy(gameObject);
         int randomNumber = Random.Range(0, 6);
-        if(randomNumber == 0)
+        if (randomNumber == 0)
         {
             SpawnPowerUp();
         }
-        else if(randomNumber == 1)
+        else if (randomNumber == 1)
         {
-            if(!isInfinite)
+            if (!isInfinite)
             {
                 SpawnCoin();
             }
         }
-        if(!isInfinite && StoryManager.Instance != null)
+        if (!isInfinite && StoryManager.Instance != null)
         {
             StoryManager.Instance.DecreaseEnemyCount();
         }
-        if(isInfinite)
+        if (isInfinite && StateManagement.Instance != null)
         {
             StateManagement.Instance.SetGroundKillCount(StateManagement.Instance.GetGroundKillCount() + 1);
         }
-        
     }
-    
-
 }

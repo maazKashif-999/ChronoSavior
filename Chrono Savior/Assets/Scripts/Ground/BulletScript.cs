@@ -6,7 +6,7 @@ public class BulletScript : MonoBehaviour
     [SerializeField] private string bulletType;
     [SerializeField] private float force;
     [SerializeField] private float bulletDamage;
-    private float[] multipler = {1.0f,1.1f,1.2f,1.3f,1.4f,1.5f};
+    private float[] multipler = { 1.0f, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f };
     private int multiplerIndex = 0;
     private Vector3 mousePosition;
     private Camera mainCamera;
@@ -25,88 +25,102 @@ public class BulletScript : MonoBehaviour
     private const int SNIPER_INDEX = 2;
     private const int SMG_INDEX = 3;
     private const int SHOTGUN_INDEX = 4;
-    
+
     void Awake()
     {
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody2D>();
-        //is this fine as a null check
-       
+
+        if (mainCamera == null)
+        {
+            Debug.LogError("Main camera is not found.");
+        }
+
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody2D component is missing.");
+        }
     }
 
     void Start()
     {
-        if(StateManagement.Instance != null)
+        if (StateManagement.Instance != null)
         {
             multiplerIndex = StateManagement.Instance.GetUpgradeIndex(bulletType);
-            if(bulletType == SMG)
+            if (bulletType == SMG)
             {
                 Debug.Log(multiplerIndex);
             }
-            
         }
         else
         {
-            Debug.LogError("Player is null in BulletScript");
+            Debug.LogError("StateManagement instance is null in BulletScript");
         }
     }
+
     void OnEnable()
     {
-        if(mainCamera != null && rb != null)
+        if (mainCamera != null && rb != null)
         {
             mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             Vector3 direction = mousePosition - transform.position;
-            rb.velocity = new Vector2(direction.x,direction.y).normalized * force;
+            rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
             float rot = (Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg) + 90;
-            transform.rotation = Quaternion.Euler(0,0,rot);
+            transform.rotation = Quaternion.Euler(0, 0, rot);
         }
         else
         {
-            Debug.LogError("Camera or Rigidbody2D is null in Bulletscript");
+            Debug.LogError("Camera or Rigidbody2D is null in BulletScript");
         }
-       
     }
-   
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == PLAYER_LAYER || collision.gameObject.layer == POWERUP_LAYER || collision.gameObject.layer == TRIGGER_LAYER || collision.gameObject.layer == ENEMY_BULLET_LAYER) return;
+        if (collision.gameObject.layer == PLAYER_LAYER || collision.gameObject.layer == POWERUP_LAYER || collision.gameObject.layer == TRIGGER_LAYER || collision.gameObject.layer == ENEMY_BULLET_LAYER) return;
+
         IEnemy enemy = collision.GetComponent<IEnemy>();
-        if(enemy != null)
+        if (enemy != null)
         {
-            float currentDamage = bulletDamage * Player.Instance.GetDamageMultipler() * multipler[multiplerIndex];
-            enemy.TakeDamage(currentDamage);
+            Player playerInstance = Player.Instance;
+            if (playerInstance != null)
+            {
+                float currentDamage = bulletDamage * playerInstance.GetDamageMultipler() * multipler[multiplerIndex];
+                enemy.TakeDamage(currentDamage);
+            }
+            else
+            {
+                Debug.LogError("Player instance is null in BulletScript");
+            }
         }
-        
-        // gameObject.SetActive(false);
+
         if (!gameObject.activeInHierarchy) return;
-        if(BulletPoolingAPI.SharedInstance != null)
+
+        if (BulletPoolingAPI.SharedInstance != null)
         {
-            if(bulletType == PISTOL)
+            if (bulletType == PISTOL)
             {
-                BulletPoolingAPI.SharedInstance.ReleaseBullet(this,PISTOL_INDEX);
+                BulletPoolingAPI.SharedInstance.ReleaseBullet(this, PISTOL_INDEX);
             }
-            else if(bulletType == AR)
+            else if (bulletType == AR)
             {
-                BulletPoolingAPI.SharedInstance.ReleaseBullet(this,AR_INDEX);
+                BulletPoolingAPI.SharedInstance.ReleaseBullet(this, AR_INDEX);
             }
-            else if(bulletType == SNIPER)
+            else if (bulletType == SNIPER)
             {
-                BulletPoolingAPI.SharedInstance.ReleaseBullet(this,SNIPER_INDEX);
+                BulletPoolingAPI.SharedInstance.ReleaseBullet(this, SNIPER_INDEX);
             }
-            else if(bulletType == SMG)
+            else if (bulletType == SMG)
             {
-                BulletPoolingAPI.SharedInstance.ReleaseBullet(this,SMG_INDEX);
+                BulletPoolingAPI.SharedInstance.ReleaseBullet(this, SMG_INDEX);
             }
-            else if(bulletType == SHOTGUN)
+            else if (bulletType == SHOTGUN)
             {
-                BulletPoolingAPI.SharedInstance.ReleaseBullet(this,SHOTGUN_INDEX);
+                BulletPoolingAPI.SharedInstance.ReleaseBullet(this, SHOTGUN_INDEX);
             }
         }
         else
         {
-            Debug.LogError("BulletPool is null in BulletScript");
+            Debug.LogError("BulletPoolingAPI is null in BulletScript");
         }
-        
     }
 }
- 

@@ -37,7 +37,7 @@ public class Explosion : MonoBehaviour
         Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(transform.position, attackRadius,playerLayer);
         foreach(Collider2D player in hitPlayer)
         {
-            if(player != null) //is this even necessary? what am i even doing smh help
+            if(player != null) 
             {
                 Player playerFound = player.GetComponent<Player>();
                 if(playerFound != null)

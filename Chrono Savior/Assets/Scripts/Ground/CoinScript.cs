@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class CoinScript : MonoBehaviour
 {
-    // [SerializeField] private AudioSource audioSource;
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            // if(audioSource != null)
+            // if (audioSource != null)
             // {
             //     audioSource.Play();
             // }
@@ -17,13 +16,24 @@ public class CoinScript : MonoBehaviour
             // {
             //     Debug.LogError("AudioSource not assigned in CoinScript.");
             // }
-            Player.Instance.AddCoin();
-            if(CoinPoolingAPI.SharedInstance != null)
+
+            Player player = Player.Instance;
+            if (player != null)
+            {
+                player.AddCoin();
+            }
+            else
+            {
+                Debug.LogError("Player instance is null in CoinScript.");
+            }
+
+            if (CoinPoolingAPI.SharedInstance != null)
             {
                 CoinPoolingAPI.SharedInstance.Release(this);
             }
             else
             {
+                Debug.LogWarning("CoinPoolingAPI instance is null, destroying coin.");
                 Destroy(gameObject);
             }
         }

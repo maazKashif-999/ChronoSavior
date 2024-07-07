@@ -18,11 +18,16 @@ public class BossHealthBarController : MonoBehaviour
         {
             Debug.LogError("Health bar sprites not assigned in the inspector.");
         }
+
+        if (boss == null)
+        {
+            Debug.LogWarning("Boss not set in the Start method.");
+        }
     }
 
     void Update()
     {
-        if (boss != null && healthBarImage != null && healthBarSprites.Length > 0)
+        if (boss != null && healthBarImage != null && healthBarSprites != null && healthBarSprites.Length > 0)
         {
             UpdateHealthBar(boss.GetCurrentHealth(), boss.GetMaxHealth());
         }
@@ -30,11 +35,23 @@ public class BossHealthBarController : MonoBehaviour
 
     public void SetBoss(BossScript boss)
     {
+        if (boss == null)
+        {
+            Debug.LogError("Attempted to set null boss.");
+            return;
+        }
+
         this.boss = boss;
     }
 
     void UpdateHealthBar(float currentHealth, float maxHealth)
     {
+        if (healthBarImage == null || healthBarSprites == null || healthBarSprites.Length == 0)
+        {
+            Debug.LogError("Cannot update health bar. Ensure all references are set correctly.");
+            return;
+        }
+
         float healthPercentage = currentHealth / maxHealth;
         int healthIndex = Mathf.FloorToInt(healthPercentage * (healthBarSprites.Length - 1));
         healthIndex = Mathf.Clamp(healthIndex, 0, healthBarSprites.Length - 1);

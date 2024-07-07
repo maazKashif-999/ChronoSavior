@@ -10,13 +10,11 @@ public class GameTimer : MonoBehaviour
     private float pausedTime;
     private static float highScore = 0;
     private float lastUpdateTime = 0;
-    
 
     void Start()
     {
-        
         startTime = Time.time;
-        if(StateManagement.Instance != null)
+        if (StateManagement.Instance != null)
         {
             highScore = StateManagement.Instance.GetGroundHighestScore();
         }
@@ -30,19 +28,12 @@ public class GameTimer : MonoBehaviour
 
     void Update()
     {
-        // if (!Player.Instance.AreEnemiesFrozen())
-        // {
-            float currentTime = Time.time - startTime - pausedTime;
-            if (Mathf.FloorToInt(currentTime) != Mathf.FloorToInt(lastUpdateTime))
-            {
-                UpdateTimerText(currentTime);
-                lastUpdateTime = currentTime;
-            }
-        // }
-        // else
-        // {
-            // pausedTime += Time.unscaledDeltaTime;
-        // } //TAHA NAY KAHA COMMENT KARDO URAO MAT
+        float currentTime = Time.time - startTime - pausedTime;
+        if (Mathf.FloorToInt(currentTime) != Mathf.FloorToInt(lastUpdateTime))
+        {
+            UpdateTimerText(currentTime);
+            lastUpdateTime = currentTime;
+        }
     }
 
     public void StopTimer()
@@ -51,8 +42,8 @@ public class GameTimer : MonoBehaviour
         if (finalTime > highScore)
         {
             highScore = finalTime;
-            if(StateManagement.Instance != null)
-            {   
+            if (StateManagement.Instance != null)
+            {
                 StateManagement.Instance.SetGroundHighestScore(highScore);
             }
             else
@@ -60,7 +51,6 @@ public class GameTimer : MonoBehaviour
                 Debug.LogError("StateManagement is not assigned.");
             }
             UpdateHighScoreText();
-            
         }
     }
 

@@ -38,10 +38,7 @@ public class GunShoot : MonoBehaviour
     private const int SHOTGUN_INDEX = 4;
     [SerializeField] private AudioSource myaudio;
     [SerializeField] private AudioClip bulletSound;
-    [SerializeField] private AudioClip reloadSound; 
-
-
-
+    [SerializeField] private AudioClip reloadSound;
 
     // Update is called once per frame
     void Start()
@@ -79,52 +76,50 @@ public class GunShoot : MonoBehaviour
         if (Input.GetMouseButton(0) && canFire && currentTotalAmmo > 0)
         {
             canFire = false;
-            if(bulletTransform == null)
+            if (bulletTransform == null)
             {
                 Debug.LogError("Bullet Transform is null in GunShoot.");
                 return;
             }
 
             BulletScript bullet = null;
-            if(Player.Instance == null)
+            if (Player.Instance == null)
             {
                 Debug.Log("Player is null");
                 return;
             }
-            if(!Player.Instance.IsAlive() || PauseMenu.gameIsPaused) return;
-            
-            if(BulletPoolingAPI.SharedInstance != null)
+            if (!Player.Instance.IsAlive() || PauseMenu.gameIsPaused) return;
+
+            if (BulletPoolingAPI.SharedInstance != null)
             {
-                if(gunType == PISTOL)
+                if (gunType == PISTOL)
                 {
-                    pistolFire = true;          
-                    bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(PISTOL_INDEX); 
+                    pistolFire = true;
+                    bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(PISTOL_INDEX);
                 }
-                else if(gunType == AR)
+                else if (gunType == AR)
                 {
                     arFire = true;
-                    bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(AR_INDEX); 
+                    bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(AR_INDEX);
                 }
-                else if(gunType == SNIPER)
+                else if (gunType == SNIPER)
                 {
                     sniperFire = true;
-                    bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(SNIPER_INDEX); 
+                    bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(SNIPER_INDEX);
                 }
-                else if(gunType == SMG)
+                else if (gunType == SMG)
                 {
                     smgFire = true;
-                    bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(SMG_INDEX); 
+                    bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(SMG_INDEX);
                 }
-                else if(gunType == SHOTGUN)
+                else if (gunType == SHOTGUN)
                 {
                     shotgunFire = true;
-                    bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(SHOTGUN_INDEX); 
+                    bullet = BulletPoolingAPI.SharedInstance.GetPooledBullet(SHOTGUN_INDEX);
                 }
             }
 
-            
-
-            if (bullet != null) 
+            if (bullet != null)
             {
                 bullet.transform.position = bulletTransform.position;
                 bullet.transform.rotation = Quaternion.identity;
@@ -135,7 +130,7 @@ public class GunShoot : MonoBehaviour
                 Debug.LogError("Bullet Pool not found in GunShoot.");
             }
 
-            if(bullet!=null && myaudio!=null && bulletSound!=null)
+            if (bullet != null && myaudio != null && bulletSound != null)
             {
                 myaudio.PlayOneShot(bulletSound);
             }
@@ -150,7 +145,6 @@ public class GunShoot : MonoBehaviour
 
     IEnumerator Reload()
     {
-
         if (myaudio != null && reloadSound != null)
         {
             myaudio.PlayOneShot(reloadSound);

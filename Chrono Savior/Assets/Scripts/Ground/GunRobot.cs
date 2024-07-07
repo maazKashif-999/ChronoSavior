@@ -29,44 +29,45 @@ public class GunRobot : MonoBehaviour, IEnemy
     private const string PLAYER_CENTER = "PlayerCenter";
     private const string IS_SHOOTING = "IsShooting";
 
-
-    
     void Start()
     {
         currentHealth = MAX_HEALTH;
         player = Player.Instance;
         playerCenter = GameObject.FindGameObjectWithTag(PLAYER_CENTER);
-        if(seeker != null && playerCenter != null)
+
+        if (seeker == null)
         {
-            InvokeRepeating(UPDATE_PATH,0f,0.5f);
+            Debug.LogError("Seeker component is not assigned in GunRobot.");
+        }
+        if (playerCenter == null)
+        {
+            Debug.LogError("PlayerCenter GameObject is not found.");
+        }
+        if (seeker != null && playerCenter != null)
+        {
+            InvokeRepeating(UPDATE_PATH, 0f, 0.5f);
             seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
         }
-        else
-        {
-            Debug.LogError("Seeker or PlayerCenter is null in GunRobot");
-        }
-        if(MainMenu.mode == MainMenu.Mode.Infinity)
+
+        if (MainMenu.mode == MainMenu.Mode.Infinity)
         {
             isInfinite = true;
-        }
-        else
-        {
-            isInfinite = false;
         }
     }
 
     void UpdatePath()
     {
-        if(seeker == null)
+        if (seeker == null)
         {
-            Debug.Log("Seeker is null in GunRobot");
+            Debug.LogError("Seeker component is null in GunRobot.");
             return;
         }
-        if(seeker.IsDone())
+        if (seeker.IsDone() && playerCenter != null)
         {
             seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
         }
     }
+
     private void OnPathComplete(Path p)
     {
         if (!p.error)
@@ -74,37 +75,31 @@ public class GunRobot : MonoBehaviour, IEnemy
             path = p;
             currentWayPoint = 0;
         }
-        
     }
+
     void Update()
     {
-        if(player == null || playerCenter == null || rb == null)
+        if (player == null || playerCenter == null || rb == null)
         {
-            Debug.LogError("Player, PlayerCenter or Rigidbody2D is null in GunRobot");
+            Debug.LogError("Player, PlayerCenter or Rigidbody2D is null in GunRobot.");
             return;
-        } 
+        }
 
         if (player.AreEnemiesFrozen())
         {
             rb.velocity = Vector2.zero;
             return;
         }
+
         Vector2 distanceVec = playerCenter.transform.position - transform.position;
         float distanceSquared = distanceVec.sqrMagnitude;
-        if(distanceSquared <= (SHOOT_DISTANCE * SHOOT_DISTANCE))
+        if (distanceSquared <= (SHOOT_DISTANCE * SHOOT_DISTANCE))
         {
-            if(distanceSquared <= (AWAY_DISTANCE * AWAY_DISTANCE)) 
-            {
-                inRange = true;
-            }
-            else
-            {
-                inRange = false;
-            }
-            
-            rb.velocity = new Vector3(0,0,0);
+            inRange = distanceSquared <= (AWAY_DISTANCE * AWAY_DISTANCE);
+
+            rb.velocity = Vector3.zero;
             timer += Time.deltaTime;
-            if(timer > TIME_BETWEEN_SHOTS)
+            if (timer > TIME_BETWEEN_SHOTS)
             {
                 Shoot();
                 timer = 0;
@@ -114,36 +109,28 @@ public class GunRobot : MonoBehaviour, IEnemy
         {
             inRange = false;
         }
-        
-
     }
+
     void FixedUpdate()
     {
-        if(player == null || rb == null)
+        if (player == null || rb == null)
         {
-            Debug.LogError("Player or Rigidbody2D is null in GunRobot");
+            Debug.LogError("Player or Rigidbody2D is null in GunRobot.");
             return;
         }
-        if(path == null || inRange || player.AreEnemiesFrozen()) return;
-        
-        if(currentWayPoint >= path.vectorPath.Count)
+        if (path == null || inRange || player.AreEnemiesFrozen()) return;
+
+        if (currentWayPoint >= path.vectorPath.Count)
         {
             return;
         }
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;
-        if(direction.x >= 0.01f)
-        {
-            transform.localScale = new Vector3(1f,1f,1f);
-        }
-        else if(direction.x <= -0.01f)
-        {
-            transform.localScale = new Vector3(-1f,1f,1f);
-        }
+        transform.localScale = new Vector3(direction.x >= 0.01f ? 1f : -1f, 1f, 1f);
         rb.MovePosition(rb.position + (direction * movementSpeed * Time.fixedDeltaTime));
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWayPoint]);
 
-        if(distance < nextWaypointDistance)
+        if (distance < nextWaypointDistance)
         {
             currentWayPoint++;
         }
@@ -151,10 +138,8 @@ public class GunRobot : MonoBehaviour, IEnemy
 
     public void TakeDamage(float damage)
     {
-
         currentHealth -= damage;
-        
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             currentHealth = 0;
             Die();
@@ -164,24 +149,32 @@ public class GunRobot : MonoBehaviour, IEnemy
     private void Shoot()
     {
         Instantiate(bullet, bulletPosition.position, Quaternion.identity);
-        if(animator == null)
+        if (animator != null)
         {
-            Debug.LogError("Animator is null in GunRobot");
-            return;
+            animator.SetTrigger(IS_SHOOTING);
         }
-        animator.SetTrigger(IS_SHOOTING);
-        
+        else
+        {
+            Debug.LogError("Animator component is null in GunRobot.");
+        }
     }
 
     private void SpawnPowerUp()
     {
-        int index = Random.Range(0, powerUps.Count);
-        if(powerUps[index] == null)
+        if (powerUps.Count == 0)
         {
-            Debug.LogError("PowerUp is null in GunRobot");
+            Debug.LogWarning("No power-ups assigned in GunRobot.");
             return;
         }
-        if(PowerupPoolingAPI.SharedInstance != null)
+
+        int index = Random.Range(0, powerUps.Count);
+        if (powerUps[index] == null)
+        {
+            Debug.LogError("PowerUp at index " + index + " is null in GunRobot.");
+            return;
+        }
+
+        if (PowerupPoolingAPI.SharedInstance != null)
         {
             OnPowerupInteract powerup = PowerupPoolingAPI.SharedInstance.GetPooledPowerup(index);
             powerup.transform.position = transform.position;
@@ -189,14 +182,13 @@ public class GunRobot : MonoBehaviour, IEnemy
         }
         else
         {
-            Debug.LogError("PowerupPoolingAPI is null in GunRobot");
+            Debug.LogError("PowerupPoolingAPI is null in GunRobot.");
         }
-        
     }
 
     private void SpawnCoin()
     {
-        if(CoinPoolingAPI.SharedInstance != null)
+        if (CoinPoolingAPI.SharedInstance != null)
         {
             CoinScript coin = CoinPoolingAPI.SharedInstance.GetPooledCoin();
             coin.transform.position = transform.position;
@@ -204,33 +196,31 @@ public class GunRobot : MonoBehaviour, IEnemy
         }
         else
         {
-            Debug.LogError("CoinPoolingAPI is null in GunRobot");
+            Debug.LogError("CoinPoolingAPI is null in GunRobot.");
         }
-    
     }
+
     private void Die()
     {
         Destroy(gameObject);
+
         int randomNumber = Random.Range(0, 5);
-        if(randomNumber == 0)
+        if (randomNumber == 0)
         {
             SpawnPowerUp();
         }
-        else if(randomNumber == 1)
+        else if (randomNumber == 1 && !isInfinite)
         {
-            if(!isInfinite)
-            {
-                SpawnCoin();
-            }
+            SpawnCoin();
         }
-        if(!isInfinite && StoryManager.Instance != null)
+
+        if (!isInfinite && StoryManager.Instance != null)
         {
             StoryManager.Instance.DecreaseEnemyCount();
         }
-        if(isInfinite)
+        else if (isInfinite && StateManagement.Instance != null)
         {
             StateManagement.Instance.SetGroundKillCount(StateManagement.Instance.GetGroundKillCount() + 1);
         }
     }
-
 }

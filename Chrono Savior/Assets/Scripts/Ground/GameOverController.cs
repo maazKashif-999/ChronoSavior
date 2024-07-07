@@ -5,12 +5,11 @@ public class GameOverController : MonoBehaviour
 {
     [SerializeField] private GameObject gameOverCanvas;
 
-    // Start is called before the first frame update
     void Start()
     {
         if (gameOverCanvas == null)
         {
-            Debug.LogError("GameOverCanvas null.");
+            Debug.LogError("GameOverCanvas is null.");
         }
         else
         {
@@ -20,28 +19,25 @@ public class GameOverController : MonoBehaviour
 
     public void ShowGameOverScreen()
     {
-        if(gameOverCanvas == null)
+        if (gameOverCanvas == null)
         {
-            Debug.LogError("GameOverCanvas null.");
+            Debug.LogError("GameOverCanvas is null.");
             return;
         }
-        // Debug.Log("Game Over Screen called"); 
-        gameOverCanvas.SetActive(true); 
-        Time.timeScale = 0f; 
+
+        gameOverCanvas.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     public void PlayAgain()
     {
-        // Debug.Log("Play Again called");
-        Time.timeScale = 1f; 
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void MainMenu()
     {
-        Time.timeScale = 1f; 
+        Time.timeScale = 1f;
         SceneManager.LoadSceneAsync(0);
     }
-    
 }
-

@@ -3,12 +3,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Achievement", menuName = "Achievements/Achievement")]
 public class Achievement : ScriptableObject
 {
-    [SerializeField] private string name;
+    [SerializeField] private string achievementName;
     [SerializeField] private string description;
     [SerializeField] private bool isUnlocked;
     public string Name
     {
-        get { return name; }
+        get { return achievementName; }
     }
     public string Description
     {

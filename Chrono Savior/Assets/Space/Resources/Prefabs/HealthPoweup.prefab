@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 70178753773237683}
   - component: {fileID: 3990529337950680911}
   - component: {fileID: 1229203796778487050}
-  - component: {fileID: 5362259929270599662}
+  - component: {fileID: -5087123488584689360}
   m_Layer: 12
   m_Name: HealthPoweup
   m_TagString: Health
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aec71ca6c260dd9469862afcb75169f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerUpSound: {fileID: 8300000, guid: 5fd818e0a3c0c43ababb98194346acda, type: 3}
   powerUpEffect: {fileID: 11400000, guid: b0e25851f9c4292489232dbf5ab8c70b, type: 2}
 --- !u!50 &3990529337950680911
 Rigidbody2D:
@@ -173,7 +174,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.4}
   m_EdgeRadius: 0
---- !u!82 &5362259929270599662
+--- !u!82 &-5087123488584689360
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,15 +184,15 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e8abea87c78334f8eab4be29d562b9e8, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 126
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

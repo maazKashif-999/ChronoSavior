@@ -196,24 +196,37 @@ public class SpaceGameManager : MonoBehaviour
                 // Implement what happens when the game is won
                 if(player != null)
                 {
+                    Debug.Log("In game won");
+
                     PlayerControls playerControls = player.GetComponent<PlayerControls>();
                     if(playerControls != null)
                     {
                         int coins_gained = playerControls.GetCoins();
                         int tokens_gained = playerControls.GetTokens();
-
-                        if(StateManagement.Instance != null)
+                        if (StateManagement.Instance != null)
                         {
                             int current_coins = StateManagement.Instance.GetCoins();
                             current_coins += coins_gained;
                             StateManagement.Instance.SetCoins(current_coins);
                             StateManagement.Instance.SetTokens(tokens_gained);
                             StateManagement.Instance.SetSessionLoad(true);
+                            
                         }
                         else
                         {
                             Debug.LogError("StateManagement is not assigned.");
                         }
+                    }
+
+                    if (gameCompletePanel != null)
+                    {
+                        gameCompletePanel.SetActive(true);
+                    }
+
+                    else
+                    {
+                        Debug.LogWarning("GameCompletePanel GameObject not assigned in SpaceGameManager.");
+
                     }
                 }
                 break;
@@ -336,6 +349,7 @@ public class SpaceGameManager : MonoBehaviour
 
     public void WinGame()
     {
+        Debug.Log("in main gamewon");
         SetGMState(GameManagerState.gamewon);
     }
 }

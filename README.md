@@ -8,7 +8,6 @@
 - [Usage](#usage)
 - [Controls](#controls)
 - [Menu Flowchart](#menu-flowchart)
-- [Prototype 2 Details](#Prototype-2)
 - [Contact](#contact)
 
 ## Installation
@@ -72,31 +71,6 @@ To play the game or test its features:
 - Resume
 - Options
 - Main Menu
-
-## Prototype 2
-### Fixes 
-- UI showing bullet count #/inf changed to show #/MAX
-- The sprite slips when the gun is facing left, making gun rotation feel natural
-- Null checks/Defensive coding implemented
-- Mathf.Clamp used to clean up if/else blocks
-- Spacecraft bounds fixed
-- Used SerializeField everywhere instead of layer int
-- Object pooling on bullets 
-- sqrMagnitude used instead of square root
-- Code made consistent throughout
-
-### Additions
-- Added proper main menu
-- Added pause menu and resume functionality
-- Added sounds
-- Added volume slider in options
-- Added UI for space mode
-- Added power-ups for space shooter mode
-- Art updated 
-- Added more guns
-- Added basic state mangement (highest score, tokens and coins collected etc)
-- Campaign mode progress started - space shooter section done
-
 
 ## Contact
 For any questions, reach out to Team 1:

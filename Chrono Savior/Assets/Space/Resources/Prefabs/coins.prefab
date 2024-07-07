@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -5420772994857326786}
   - component: {fileID: 8705225340826362744}
   - component: {fileID: 865606243854668294}
-  - component: {fileID: -5438956813392706276}
+  - component: {fileID: 4054232387679563413}
   m_Layer: 12
   m_Name: coins
   m_TagString: coins
@@ -184,8 +184,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aec71ca6c260dd9469862afcb75169f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerUpSound: {fileID: 8300000, guid: f9782fc70bfda4885be392a599a54df0, type: 3}
   powerUpEffect: {fileID: 11400000, guid: c9b67049044a09e42a18c7d7bbdc081b, type: 2}
---- !u!82 &-5438956813392706276
+--- !u!82 &4054232387679563413
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,7 +196,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e8abea87c78334f8eab4be29d562b9e8, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

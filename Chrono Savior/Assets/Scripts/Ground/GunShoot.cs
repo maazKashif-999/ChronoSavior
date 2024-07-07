@@ -32,8 +32,10 @@ public class GunShoot : MonoBehaviour
     private const int SHOTGUN_INDEX = 4;
     [SerializeField] private AudioSource myaudio;
     [SerializeField] private AudioClip bulletSound;
+    [SerializeField] private AudioClip reloadSound; 
 
-    
+
+
 
     // Update is called once per frame
     void Start()
@@ -137,6 +139,12 @@ public class GunShoot : MonoBehaviour
 
     IEnumerator Reload()
     {
+
+        if (myaudio != null && reloadSound != null)
+        {
+            myaudio.PlayOneShot(reloadSound);
+        }
+
         yield return new WaitForSeconds(reloadTime);
         if (currentTotalAmmo >= maxCapacity)
         {

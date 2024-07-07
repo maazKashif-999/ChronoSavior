@@ -5,8 +5,6 @@ using Pathfinding;
 
 public class BossScript : MonoBehaviour, IEnemy
 {
-    // public delegate void SpawnEnemies();
-    // public event SpawnEnemies OnSpawnEnemies;
     [SerializeField] private float MAX_HEALTH = 750f;
     [SerializeField] private Animator animator;
     [SerializeField] private float movementSpeed;
@@ -19,6 +17,8 @@ public class BossScript : MonoBehaviour, IEnemy
     [SerializeField] private SpriteRenderer invincibleSkin;
     [SerializeField] private SpriteRenderer defaultSkin;
     [SerializeField] private GameObject explosion;
+    [SerializeField] private BossHealthBarController healthBarController;
+
     private float currentHealth;
     private GameObject playerCenter;
     private bool alreadySpawned = false;
@@ -38,6 +38,7 @@ public class BossScript : MonoBehaviour, IEnemy
     private const string PLAYER_CENTER = "PlayerCenter";
     private const string IS_WALKING = "IsWalking";
     private const string DEATH = "Death";
+
     private bool firingBullets = true;
 
     void Start()
@@ -45,17 +46,17 @@ public class BossScript : MonoBehaviour, IEnemy
         currentHealth = MAX_HEALTH;
         player = Player.Instance;
         playerCenter = GameObject.FindGameObjectWithTag(PLAYER_CENTER);
-        if(invincibleSkin != null)
+        if (invincibleSkin != null)
         {
             invincibleSkin.gameObject.SetActive(false);
         }
-        if(defaultSkin != null)
+        if (defaultSkin != null)
         {
             defaultSkin.gameObject.SetActive(true);
         }
-        if(seeker != null && playerCenter != null)
+        if (seeker != null && playerCenter != null)
         {
-            InvokeRepeating(UPDATE_PATH,0f,0.5f);
+            InvokeRepeating(UPDATE_PATH, 0f, 0.5f);
             seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
         }
         else
@@ -63,20 +64,29 @@ public class BossScript : MonoBehaviour, IEnemy
             Debug.LogError("Seeker or PlayerCenter is null in BossScript");
         }
 
+        if (healthBarController != null)
+        {
+            healthBarController.SetBoss(this);
+        }
+        else
+        {
+            Debug.LogError("HealthBarController is not assigned in the inspector.");
+        }
     }
 
     void UpdatePath()
     {
-        if(seeker == null)
+        if (seeker == null)
         {
             Debug.Log("Seeker is null in BossScript");
             return;
         }
-        if(seeker.IsDone())
+        if (seeker.IsDone())
         {
             seeker.StartPath(rb.position, playerCenter.transform.position, OnPathComplete);
         }
     }
+
     private void OnPathComplete(Path p)
     {
         if (!p.error)
@@ -84,47 +94,47 @@ public class BossScript : MonoBehaviour, IEnemy
             path = p;
             currentWayPoint = 0;
         }
-        
     }
+
     void Update()
     {
-        if(player == null || playerCenter == null || rb == null)
+        if (player == null || playerCenter == null || rb == null)
         {
             Debug.LogError("Player, PlayerCenter or Rigidbody2D is null in BossScript");
             return;
-        } 
-        if(!player.IsAlive()) return;
-        if(!canTakeDamage) return;
+        }
+        if (!player.IsAlive()) return;
+        if (!canTakeDamage) return;
         Vector2 distanceVec = playerCenter.transform.position - transform.position;
         float distanceSquared = distanceVec.sqrMagnitude;
-        if(distanceSquared <= (SHOOT_DISTANCE * SHOOT_DISTANCE))
+        if (distanceSquared <= (SHOOT_DISTANCE * SHOOT_DISTANCE))
         {
-            if(distanceSquared <= (AWAY_DISTANCE * AWAY_DISTANCE)) 
+            if (distanceSquared <= (AWAY_DISTANCE * AWAY_DISTANCE))
             {
                 inRange = true;
-                if(animator == null)
+                if (animator == null)
                 {
                     Debug.LogError("Animator is null in BossScript");
                     return;
                 }
-                animator.SetBool(IS_WALKING,false);
+                animator.SetBool(IS_WALKING, false);
             }
             else
             {
                 inRange = false;
-                if(animator == null)
+                if (animator == null)
                 {
                     Debug.LogError("Animator is null in BossScript");
                     return;
                 }
-                animator.SetBool(IS_WALKING,true);
+                animator.SetBool(IS_WALKING, true);
             }
-            
-            rb.velocity = new Vector3(0,0,0);
+
+            rb.velocity = new Vector3(0, 0, 0);
             timer += Time.deltaTime;
-            if(!firingBullets)
+            if (!firingBullets)
             {
-                if(timer > TIME_BETWEEN_MISSILES)
+                if (timer > TIME_BETWEEN_MISSILES)
                 {
                     Shoot();
                     timer = 0;
@@ -132,7 +142,7 @@ public class BossScript : MonoBehaviour, IEnemy
             }
             else
             {
-                if(timer > TIME_BETWEEN_SHOTS)
+                if (timer > TIME_BETWEEN_SHOTS)
                 {
                     Shoot();
                     timer = 0;
@@ -142,45 +152,44 @@ public class BossScript : MonoBehaviour, IEnemy
         else
         {
             inRange = false;
-            if(animator == null)
+            if (animator == null)
             {
                 Debug.LogError("Animator is null in BossScript");
                 return;
             }
-            animator.SetBool(IS_WALKING,true);
+            animator.SetBool(IS_WALKING, true);
         }
-        
-
     }
+
     void FixedUpdate()
     {
-        if(player == null || rb == null)
+        if (player == null || rb == null)
         {
             Debug.LogError("Player or Rigidbody2D is null in BossScript");
             return;
         }
-        if(path == null || inRange || !player.IsAlive()) return;
-        
-        if(currentWayPoint >= path.vectorPath.Count)
+        if (path == null || inRange || !player.IsAlive()) return;
+
+        if (currentWayPoint >= path.vectorPath.Count)
         {
             return;
         }
-        
-        if(!canTakeDamage) return;
+
+        if (!canTakeDamage) return;
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;
-        if(direction.x >= 0.01f)
+        if (direction.x >= 0.01f)
         {
-            transform.localScale = new Vector3(1f,1f,1f);
+            transform.localScale = new Vector3(1f, 1f, 1f);
         }
-        else if(direction.x <= -0.01f)
+        else if (direction.x <= -0.01f)
         {
-            transform.localScale = new Vector3(-1f,1f,1f);
+            transform.localScale = new Vector3(-1f, 1f, 1f);
         }
         rb.MovePosition(rb.position + (direction * movementSpeed * Time.fixedDeltaTime));
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWayPoint]);
 
-        if(distance < nextWaypointDistance)
+        if (distance < nextWaypointDistance)
         {
             currentWayPoint++;
         }
@@ -188,7 +197,7 @@ public class BossScript : MonoBehaviour, IEnemy
 
     private void Shoot()
     {
-        if(firingBullets)
+        if (firingBullets)
         {
             Instantiate(bullet, bulletPosition1.position, Quaternion.identity);
             Instantiate(bullet, bulletPosition2.position, Quaternion.identity);
@@ -197,68 +206,63 @@ public class BossScript : MonoBehaviour, IEnemy
         {
             Instantiate(missile, bulletPosition1.position, Quaternion.identity);
         }
-        
     }
 
     public void TakeDamage(float damage)
     {
-        if(!canTakeDamage) return;
+        if (!canTakeDamage) return;
         float filteredDamage = damage;
-        if(player != null)
+        if (player != null)
         {
             float damageMultiplier = player.GetDamageMultipler();
-            if(damageMultiplier == 100f)
+            if (damageMultiplier == 100f)
             {
                 filteredDamage /= damageMultiplier;
             }
         }
         currentHealth -= filteredDamage;
-        
-        if(currentHealth <= (MAX_HEALTH/2) && !alreadySpawned)
+
+        if (currentHealth <= (MAX_HEALTH / 2) && !alreadySpawned)
         {
             StartCoroutine(InvinciblePhase());
         }
-        if(currentHealth <= (MAX_HEALTH/4))
+        if (currentHealth <= (MAX_HEALTH / 4))
         {
             firingBullets = true;
         }
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             currentHealth = 0;
             Die();
         }
     }
 
-    
-
     private void DropCoins()
     {
-
-        if(CoinPoolingAPI.SharedInstance != null)
+        if (CoinPoolingAPI.SharedInstance != null)
         {
-            for(int i = 0; i < coinsDropped; i++)
+            for (int i = 0; i < coinsDropped; i++)
             {
-                Vector3 randomJitter = new Vector3(Random.Range(-1f,1f),Random.Range(-1f,1f),0);
+                Vector3 randomJitter = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
                 CoinScript coin = CoinPoolingAPI.SharedInstance.GetPooledCoin();
                 coin.transform.position = transform.position + randomJitter;
                 coin.gameObject.SetActive(true);
             }
-            
         }
         else
         {
             Debug.LogError("CoinPoolingAPI is null in BossScript");
         }
-    
     }
+
     private void Die()
     {
         DropCoins();
-        if(StoryManager.Instance != null)
+        if (StoryManager.Instance != null)
         {
             StoryManager.Instance.DecreaseEnemyCount();
         }
-        if(animator != null)
+        if (animator != null)
         {
             animator.SetTrigger(DEATH);
         }
@@ -266,7 +270,7 @@ public class BossScript : MonoBehaviour, IEnemy
         {
             Debug.LogError("Animator is null in BossScript");
         }
-        if(explosion != null)
+        if (explosion != null)
         {
             Instantiate(explosion, transform.position, Quaternion.identity);
         }
@@ -275,7 +279,7 @@ public class BossScript : MonoBehaviour, IEnemy
             Debug.LogError("Explosion is null in BossScript");
         }
         float timer = 0;
-        while(timer < 1.5f)
+        while (timer < 1.5f)
         {
             timer += Time.deltaTime;
         }
@@ -286,31 +290,20 @@ public class BossScript : MonoBehaviour, IEnemy
     {
         alreadySpawned = true;
         canTakeDamage = false;
-        if(rb != null)
+        if (rb != null)
         {
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
         }
-        
-        if(invincibleSkin != null && defaultSkin != null)
+
+        if (invincibleSkin != null && defaultSkin != null)
         {
             invincibleSkin.gameObject.SetActive(true);
             defaultSkin.gameObject.SetActive(false);
         }
 
-       
-        // if(OnSpawnEnemies != null)
-        // {
-        //     OnSpawnEnemies?.Invoke();
-        // }
-        // else
-        // {
-        //     Debug.LogError("OnSpawnEnemies is null in BossScript");
-        // }
-
-        if(StoryManager.Instance != null)
+        if (StoryManager.Instance != null)
         {
             StoryManager.Instance.SpawnMinions();
-            
         }
         else
         {
@@ -318,17 +311,17 @@ public class BossScript : MonoBehaviour, IEnemy
         }
 
         float targetHealth = currentHealth + 100f;
-        while(currentHealth < targetHealth)
+        while (currentHealth < targetHealth)
         {
             yield return new WaitForSeconds(2f);
             currentHealth += 10f;
         }
-        if(invincibleSkin != null && defaultSkin != null)
+        if (invincibleSkin != null && defaultSkin != null)
         {
             invincibleSkin.gameObject.SetActive(false);
             defaultSkin.gameObject.SetActive(true);
         }
-        if(rb != null)
+        if (rb != null)
         {
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
@@ -337,6 +330,13 @@ public class BossScript : MonoBehaviour, IEnemy
         firingBullets = false;
     }
 
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
+    }
 
-    
+    public float GetMaxHealth()
+    {
+        return MAX_HEALTH;
+    }
 }

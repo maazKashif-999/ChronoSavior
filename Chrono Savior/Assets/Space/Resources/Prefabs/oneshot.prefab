@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8117522541446345002}
   - component: {fileID: -8536821198640018823}
   - component: {fileID: -306316330834329967}
-  - component: {fileID: -5622762553596997740}
+  - component: {fileID: 4202819959798228780}
   m_Layer: 12
   m_Name: oneshot
   m_TagString: OneShot
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aec71ca6c260dd9469862afcb75169f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerUpSound: {fileID: 8300000, guid: a44dd154b94b1405ea15347190bcfb65, type: 3}
   powerUpEffect: {fileID: 11400000, guid: 5f7f0ce0b94ebbe40ab470bf8ef924f3, type: 2}
 --- !u!50 &-8536821198640018823
 Rigidbody2D:
@@ -173,7 +174,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.4}
   m_EdgeRadius: 0
---- !u!82 &-5622762553596997740
+--- !u!82 &4202819959798228780
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,7 +184,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e8abea87c78334f8eab4be29d562b9e8, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

@@ -18,6 +18,11 @@ public class BossScript : MonoBehaviour, IEnemy
     [SerializeField] private SpriteRenderer defaultSkin;
     [SerializeField] private GameObject explosion;
     [SerializeField] private BossHealthBarController healthBarController;
+    private AudioSource myaudio;
+    [SerializeField] private AudioClip missileSound;
+    [SerializeField] private AudioClip bulletSound;
+
+
 
     private float currentHealth;
     private GameObject playerCenter;
@@ -201,9 +206,28 @@ public class BossScript : MonoBehaviour, IEnemy
         {
             Instantiate(bullet, bulletPosition1.position, Quaternion.identity);
             Instantiate(bullet, bulletPosition2.position, Quaternion.identity);
+
+            if (bulletSound != null && myaudio != null)
+            {
+                myaudio.PlayOneShot(bulletSound);
+            }
+
+            else
+            {
+                Debug.Log("bullet sound from boss not found");
+            }
+
         }
         else
         {
+            if(missileSound!=null && myaudio!= null)
+            {
+                myaudio.PlayOneShot(missileSound); 
+            }
+            else
+            {
+                Debug.Log("Missile sound from boss not found");
+            }
             Instantiate(missile, bulletPosition1.position, Quaternion.identity);
         }
     }

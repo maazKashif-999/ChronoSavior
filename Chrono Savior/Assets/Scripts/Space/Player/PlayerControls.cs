@@ -27,7 +27,8 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] private AudioClip bulletSound; //bullet picking up sound clip
     [SerializeField] private AudioClip tokenPickupSound; //token picking up sound clip
     [SerializeField] private AudioClip coinPickupSound;
-    [SerializeField] private AudioClip powerupSound; 
+    [SerializeField] private AudioClip powerupSound;
+    [SerializeField] private AudioClip explosionSound;
 
     private AudioSource audioSource; // AudioSource component
 
@@ -372,12 +373,26 @@ public class PlayerControls : MonoBehaviour
         if (audioSource != null && powerupSound != null)
         {
             audioSource.PlayOneShot(powerupSound);
-            Debug.Log("powerup sound found");
+            //Debug.Log("powerup sound found");
 
         }
         else
         {
             Debug.Log("powerup sound not found");
+        }
+    }
+
+    public void PlayExplosionSound()
+    {
+        if (audioSource != null && explosionSound != null)
+        {
+            audioSource.PlayOneShot(explosionSound);
+        }
+
+        else
+        {
+            Debug.Log("Spacemine explosion sound not found");
+
         }
     }
 }
